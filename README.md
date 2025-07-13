@@ -41,18 +41,20 @@ DOMP enables secure, decentralized marketplaces without intermediaries by combin
 
 ### 🖥️ Web Interface
 Modern, responsive marketplace with real-time updates:
-```bash
-cd implementations/reference/python
-python3 web_api.py
+
+-cd [root folder]/fromperdomp-poc/implementations/reference/python
+-source domp-env/bin/activate
+-python3 web_api.py
+
 # Visit http://localhost:8080
-```
+
 
 ### 💻 CLI Client
 Full-featured command-line marketplace client:
-```bash
-cd implementations/reference/python  
-python3 domp_marketplace_cli.py
-```
+
+-cd [root folder]/fromperdomp-poc/implementations/reference/python
+-source domp-env/bin/activate
+-source domp-env/bin/activate && python3 domp_marketplace_cli.py
 
 ## Project Structure
 
