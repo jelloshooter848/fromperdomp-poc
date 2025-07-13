@@ -20,7 +20,7 @@ sys.path.insert(0, '/home/lando/projects/fromperdomp-poc/implementations/referen
 
 from domp.crypto import KeyPair, generate_pow_nonce
 from domp.events import ProductListing, BidSubmission, BidAcceptance, PaymentConfirmation, ReceiptConfirmation
-from domp.lightning import LightningEscrowManager, MockLightningNode, EscrowState
+from domp.lightning import LightningEscrowManager, MockLightningNode, LightningClientFactory, EscrowState
 from domp.reputation import ReputationSystem, create_reputation_from_receipt_confirmation
 from domp.validation import validate_event
 
@@ -56,7 +56,7 @@ class DOMPWebState:
     def __init__(self):
         # User identity
         self.keypair: Optional[KeyPair] = None
-        self.lightning_node: Optional[MockLightningNode] = None
+        self.lightning_client = None
         
         # Core DOMP components
         self.escrow_manager = LightningEscrowManager()
@@ -73,6 +73,9 @@ class DOMPWebState:
         
         # Initialize sample data
         self.load_sample_data()
+        
+        # Initialize Lightning client
+        self.initialize_lightning_client()
     
     def load_identity(self):
         """Load or create user identity."""
@@ -96,10 +99,16 @@ class DOMPWebState:
         except Exception:
             pass
         
-        # Initialize Lightning node
-        self.lightning_node = MockLightningNode(f"web_user_{self.keypair.public_key_hex[:8]}")
-        
         return False
+    
+    def initialize_lightning_client(self):
+        """Initialize Lightning client (separate from identity loading)."""
+        try:
+            self.lightning_client = LightningClientFactory.create_client(use_real=True)
+            print("✅ Using real Lightning client (LND)")
+        except Exception as e:
+            print(f"⚠️  Real Lightning client failed, using mock: {e}")
+            self.lightning_client = LightningClientFactory.create_client(use_real=False)
     
     def load_sample_data(self):
         """Load sample marketplace data."""
@@ -249,23 +258,108 @@ async def get_identity():
     if not app_state.keypair:
         app_state.load_identity()
     
-    return {
-        "pubkey": app_state.keypair.public_key_hex,
-        "pubkey_short": app_state.keypair.public_key_hex[:16] + "...",
-        "lightning_balance": app_state.lightning_node.get_balance() if app_state.lightning_node else 0
-    }
+    try:
+        lightning_balance = await get_lightning_balance_safe()
+        print(f"Lightning balance result: {lightning_balance} (type: {type(lightning_balance)})")
+        
+        result = {
+            "pubkey": app_state.keypair.public_key_hex,
+            "pubkey_short": app_state.keypair.public_key_hex[:16] + "...",
+            "lightning_balance": lightning_balance
+        }
+        print(f"Identity result: {result}")
+        return result
+    except Exception as e:
+        print(f"Error in get_identity: {e}")
+        return {
+            "pubkey": app_state.keypair.public_key_hex if app_state.keypair else "unknown",
+            "pubkey_short": "unknown",
+            "lightning_balance": 0
+        }
+
+
+async def get_lightning_balance_safe():
+    """Get Lightning balance with proper error handling."""
+    if not app_state.lightning_client:
+        return 0
+    
+    try:
+        # Check if it's a mock client (MockLightningNode)
+        if hasattr(app_state.lightning_client, 'node_id'):
+            # Mock client (synchronous)
+            balance = app_state.lightning_client.get_balance()
+            return int(balance) if balance is not None else 0
+        else:
+            # Real client (asynchronous) - try to connect first
+            try:
+                if not hasattr(app_state.lightning_client, '_channel') or not app_state.lightning_client._channel:
+                    await app_state.lightning_client.connect()
+                balance = await app_state.lightning_client.get_balance()
+                return int(balance) if balance is not None else 0
+            except Exception as real_error:
+                print(f"Real Lightning client failed: {real_error}")
+                return 0
+    except Exception as e:
+        print(f"Failed to get Lightning balance: {e}")
+        return 0
 
 
 @app.get("/api/wallet/balance")
 async def get_wallet_balance():
     """Get Lightning wallet balance."""
-    if not app_state.lightning_node:
-        raise HTTPException(status_code=400, detail="Lightning node not initialized")
+    if not app_state.lightning_client:
+        raise HTTPException(status_code=400, detail="Lightning client not initialized")
     
+    balance_sats = await get_lightning_balance_safe()
     return {
-        "balance_sats": app_state.lightning_node.get_balance(),
-        "balance_btc": app_state.lightning_node.get_balance() / 100_000_000
+        "balance_sats": balance_sats,
+        "balance_btc": balance_sats / 100_000_000
     }
+
+
+@app.post("/api/invoices")
+async def create_lightning_invoice(request: CreateInvoiceRequest):
+    """Create a Lightning invoice for DOMP transactions."""
+    if not app_state.lightning_client:
+        raise HTTPException(status_code=400, detail="Lightning client not initialized")
+    
+    try:
+        # Handle both real and mock clients
+        if hasattr(app_state.lightning_client, 'node_id'):
+            # Mock client (synchronous)
+            invoice_id = app_state.lightning_client.create_invoice(
+                amount_sats=request.amount_sats,
+                description=request.description or "DOMP transaction"
+            )
+            result = {
+                "payment_request": invoice_id,
+                "amount_sats": request.amount_sats,
+                "description": request.description or "DOMP transaction",
+                "client_type": "mock"
+            }
+            return result
+        else:
+            # Real client (asynchronous)
+            if not hasattr(app_state.lightning_client, '_channel') or not app_state.lightning_client._channel:
+                await app_state.lightning_client.connect()
+            
+            invoice_data = await app_state.lightning_client.create_invoice(
+                amount_sats=request.amount_sats,
+                description=request.description or "DOMP transaction",
+                expiry_seconds=3600  # 1 hour expiry
+            )
+            
+            result = {
+                "payment_request": invoice_data["payment_request"],
+                "payment_hash": invoice_data["payment_hash"],
+                "amount_sats": invoice_data["amount_sats"],
+                "description": invoice_data["description"],
+                "client_type": "real_lnd"
+            }
+            return result
+    except Exception as e:
+        print(f"Failed to create Lightning invoice: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create invoice: {str(e)}")
 
 
 # Marketplace endpoints
