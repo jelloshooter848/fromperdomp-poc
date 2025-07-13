@@ -659,24 +659,35 @@ class RealLightningClient:
         Returns:
             Payment result dictionary
         """
-        if not self._channel:
+        if not self._channel or not self._stub:
             raise RuntimeError("Not connected to Lightning node")
         
-        # Placeholder implementation
-        # In real implementation:
-        # request = ln.SendRequest(payment_request=payment_request)
-        # response = await self._stub.SendPaymentSync(request)
-        
-        return {
-            "payment_preimage": secrets.token_hex(32),
-            "payment_hash": secrets.token_hex(32),
-            "payment_route": [],
-            "fee_sat": 1,
-            "fee_msat": 1000,
-            "value_sat": 1000,
-            "value_msat": 1000000,
-            "status": "SUCCEEDED"
-        }
+        try:
+            request = ln.SendRequest(payment_request=payment_request)
+            response = await self._stub.SendPaymentSync(request, metadata=self._get_metadata())
+            
+            return {
+                "payment_preimage": response.payment_preimage.hex(),
+                "payment_hash": response.payment_hash.hex(),
+                "payment_route": [
+                    {
+                        "total_time_lock": hop.total_time_lock,
+                        "total_fees": hop.total_fees,
+                        "total_amt": hop.total_amt,
+                        "total_fees_msat": hop.total_fees_msat,
+                        "total_amt_msat": hop.total_amt_msat
+                    } for hop in response.payment_route.hops
+                ] if response.payment_route else [],
+                "fee_sat": response.payment_route.total_fees if response.payment_route else 0,
+                "fee_msat": response.payment_route.total_fees_msat if response.payment_route else 0,
+                "value_sat": response.payment_route.total_amt if response.payment_route else 0,
+                "value_msat": response.payment_route.total_amt_msat if response.payment_route else 0,
+                "status": "SUCCEEDED" if response.payment_error == "" else "FAILED",
+                "payment_error": response.payment_error
+            }
+        except Exception as e:
+            print(f"Failed to pay Lightning invoice: {e}")
+            raise
     
     async def get_payment_status(self, payment_hash: str) -> Dict[str, Any]:
         """

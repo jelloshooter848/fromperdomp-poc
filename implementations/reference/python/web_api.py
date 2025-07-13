@@ -13,6 +13,7 @@ import asyncio
 import time
 import sys
 import os
+import secrets
 from typing import List, Dict, Optional, Any
 from dataclasses import asdict
 
@@ -362,6 +363,59 @@ async def create_lightning_invoice(request: CreateInvoiceRequest):
         raise HTTPException(status_code=500, detail=f"Failed to create invoice: {str(e)}")
 
 
+@app.post("/api/payments")
+async def pay_lightning_invoice(request: PayInvoiceRequest):
+    """Pay a Lightning invoice."""
+    if not app_state.lightning_client:
+        raise HTTPException(status_code=400, detail="Lightning client not initialized")
+    
+    try:
+        # Handle both real and mock clients
+        if hasattr(app_state.lightning_client, 'node_id'):
+            # Mock client (synchronous) - need to parse invoice for amount
+            # For mock, we'll simulate payment
+            payment_hash = secrets.token_hex(32)
+            
+            result = {
+                "payment_preimage": secrets.token_hex(32),
+                "payment_hash": payment_hash,
+                "payment_route": [],
+                "fee_sat": 1,
+                "fee_msat": 1000,
+                "value_sat": 1000,  # Would parse from invoice in real implementation
+                "value_msat": 1000000,
+                "status": "SUCCEEDED",
+                "client_type": "mock"
+            }
+            return result
+        else:
+            # Real client (asynchronous)
+            if not hasattr(app_state.lightning_client, '_channel') or not app_state.lightning_client._channel:
+                await app_state.lightning_client.connect()
+            
+            payment_result = await app_state.lightning_client.pay_invoice(
+                payment_request=request.invoice,
+                timeout_seconds=60
+            )
+            
+            result = {
+                "payment_preimage": payment_result["payment_preimage"],
+                "payment_hash": payment_result["payment_hash"],
+                "payment_route": payment_result["payment_route"],
+                "fee_sat": payment_result["fee_sat"],
+                "fee_msat": payment_result["fee_msat"],
+                "value_sat": payment_result["value_sat"],
+                "value_msat": payment_result["value_msat"],
+                "status": payment_result["status"],
+                "payment_error": payment_result.get("payment_error", ""),
+                "client_type": "real_lnd"
+            }
+            return result
+    except Exception as e:
+        print(f"Failed to pay Lightning invoice: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to pay invoice: {str(e)}")
+
+
 # Marketplace endpoints
 @app.get("/api/listings")
 async def get_listings():
@@ -517,6 +571,85 @@ async def place_bid(request: PlaceBidRequest):
     }
 
 
+async def create_transaction_invoices(escrow, listing_content):
+    """Create Lightning invoices for a DOMP transaction."""
+    invoices = {}
+    
+    try:
+        if not app_state.lightning_client:
+            return {"error": "Lightning client not available"}
+        
+        # Create invoice for purchase amount (main payment)
+        purchase_description = f"DOMP: {listing_content['product_name']} - Purchase"
+        
+        if hasattr(app_state.lightning_client, 'node_id'):
+            # Mock client
+            invoice_id = app_state.lightning_client.create_invoice(
+                amount_sats=escrow.purchase_amount_sats,
+                description=purchase_description
+            )
+            invoices["purchase"] = {
+                "payment_request": invoice_id,
+                "amount_sats": escrow.purchase_amount_sats,
+                "description": purchase_description,
+                "client_type": "mock"
+            }
+        else:
+            # Real Lightning client
+            if not hasattr(app_state.lightning_client, '_channel') or not app_state.lightning_client._channel:
+                await app_state.lightning_client.connect()
+            
+            invoice_data = await app_state.lightning_client.create_invoice(
+                amount_sats=escrow.purchase_amount_sats,
+                description=purchase_description,
+                expiry_seconds=3600  # 1 hour to pay
+            )
+            invoices["purchase"] = {
+                "payment_request": invoice_data["payment_request"],
+                "payment_hash": invoice_data["payment_hash"],
+                "amount_sats": invoice_data["amount_sats"],
+                "description": invoice_data["description"],
+                "client_type": "real_lnd"
+            }
+        
+        # Create collateral invoices if needed
+        if escrow.buyer_collateral_sats > 0:
+            collateral_description = f"DOMP: {listing_content['product_name']} - Buyer Collateral"
+            
+            if hasattr(app_state.lightning_client, 'node_id'):
+                # Mock client
+                collateral_invoice = app_state.lightning_client.create_invoice(
+                    amount_sats=escrow.buyer_collateral_sats,
+                    description=collateral_description
+                )
+                invoices["buyer_collateral"] = {
+                    "payment_request": collateral_invoice,
+                    "amount_sats": escrow.buyer_collateral_sats,
+                    "description": collateral_description,
+                    "client_type": "mock"
+                }
+            else:
+                # Real Lightning client
+                collateral_data = await app_state.lightning_client.create_invoice(
+                    amount_sats=escrow.buyer_collateral_sats,
+                    description=collateral_description,
+                    expiry_seconds=3600
+                )
+                invoices["buyer_collateral"] = {
+                    "payment_request": collateral_data["payment_request"],
+                    "payment_hash": collateral_data["payment_hash"],
+                    "amount_sats": collateral_data["amount_sats"],
+                    "description": collateral_data["description"],
+                    "client_type": "real_lnd"
+                }
+        
+        return invoices
+        
+    except Exception as e:
+        print(f"Failed to create transaction invoices: {e}")
+        return {"error": str(e)}
+
+
 async def simulate_bid_acceptance(bid_id: str, listing_id: str):
     """Simulate seller accepting the bid."""
     try:
@@ -539,23 +672,39 @@ async def simulate_bid_acceptance(bid_id: str, listing_id: str):
             seller_collateral_sats=listing_content.get("seller_collateral_satoshis", 0)
         )
         
-        # Store transaction
+        # Create real Lightning invoices for this transaction
+        lightning_invoices = await create_transaction_invoices(escrow, listing_content)
+        
+        # Store transaction with Lightning invoice details
         app_state.transactions[escrow.transaction_id] = {
-            "status": "escrow_created",
+            "status": "awaiting_payment",
             "escrow": escrow,
             "bid": bid_data,
             "listing": listing_data,
+            "lightning_invoices": lightning_invoices,
             "created_at": int(time.time())
         }
         
         app_state.my_transactions.append(escrow.transaction_id)
         
-        # Broadcast update
-        await app_state.broadcast_update({
+        # Broadcast update with Lightning invoice information
+        update_message = {
             "type": "bid_accepted",
             "transaction_id": escrow.transaction_id,
-            "product_name": listing_content["product_name"]
-        })
+            "product_name": listing_content["product_name"],
+            "lightning_invoices": lightning_invoices,
+            "status": "awaiting_payment"
+        }
+        
+        if "purchase" in lightning_invoices and "error" not in lightning_invoices:
+            purchase_invoice = lightning_invoices["purchase"]
+            update_message["payment_required"] = {
+                "amount_sats": purchase_invoice["amount_sats"],
+                "payment_request": purchase_invoice["payment_request"],
+                "description": purchase_invoice["description"]
+            }
+        
+        await app_state.broadcast_update(update_message)
         
         return True
         
@@ -574,7 +723,7 @@ async def get_transactions():
             tx_data = app_state.transactions[tx_id]
             listing_content = json.loads(tx_data["listing"]["event"]["content"])
             
-            transactions.append({
+            transaction_info = {
                 "id": tx_id,
                 "status": tx_data["status"],
                 "product_name": listing_content["product_name"],
@@ -582,7 +731,23 @@ async def get_transactions():
                 "amount_btc": tx_data["escrow"].purchase_amount_sats / 100_000_000,
                 "created_at": tx_data["created_at"],
                 "escrow_state": tx_data["escrow"].state.value
-            })
+            }
+            
+            # Add Lightning invoice information if available
+            if "lightning_invoices" in tx_data:
+                transaction_info["lightning_invoices"] = tx_data["lightning_invoices"]
+                
+                # Add payment instructions for easier frontend consumption
+                if "purchase" in tx_data["lightning_invoices"]:
+                    purchase_invoice = tx_data["lightning_invoices"]["purchase"]
+                    transaction_info["payment_required"] = {
+                        "amount_sats": purchase_invoice["amount_sats"],
+                        "payment_request": purchase_invoice["payment_request"],
+                        "description": purchase_invoice["description"],
+                        "client_type": purchase_invoice.get("client_type", "unknown")
+                    }
+            
+            transactions.append(transaction_info)
     
     return {"transactions": transactions}
 
