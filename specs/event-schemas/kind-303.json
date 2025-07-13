@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DOMP Kind 303 - Bid Acceptance",
+  "description": "Schema for bid acceptance events in DOMP protocol",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex event ID"
+    },
+    "pubkey": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex public key of seller"
+    },
+    "created_at": {
+      "type": "integer", 
+      "minimum": 1640995200,
+      "description": "Unix timestamp"
+    },
+    "kind": {
+      "type": "integer",
+      "const": 303
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "contains": {
+        "type": "array",
+        "items": [
+          {"const": "anti_spam_proof"},
+          {"type": "string"}
+        ],
+        "minItems": 2
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "JSON string containing acceptance details"
+    },
+    "sig": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}$",
+      "description": "64-byte hex signature"
+    }
+  },
+  "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "bid_ref": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Event ID of accepted bid (kind-301)"
+      },
+      "ln_invoice": {
+        "type": "string",
+        "pattern": "^(lnbc|lntb|lnbcrt)[0-9a-z]+$",
+        "description": "Lightning invoice for purchase amount"
+      },
+      "collateral_invoice": {
+        "type": "string", 
+        "pattern": "^(lnbc|lntb|lnbcrt)[0-9a-z]+$",
+        "description": "Lightning invoice for buyer collateral"
+      },
+      "estimated_shipping_time": {
+        "type": "string",
+        "maxLength": 100,
+        "description": "Human-readable shipping estimate"
+      },
+      "shipping_time_days": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 90,
+        "description": "Estimated shipping time in days"
+      },
+      "terms": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "Additional terms and conditions"
+      },
+      "invoice_expiry_seconds": {
+        "type": "integer",
+        "minimum": 300,
+        "maximum": 86400,
+        "default": 3600,
+        "description": "Invoice expiry time in seconds"
+      },
+      "htlc_timeout_blocks": {
+        "type": "integer",
+        "minimum": 144,
+        "maximum": 2016,
+        "default": 144,
+        "description": "HTLC timeout in blocks"
+      }
+    },
+    "required": ["bid_ref", "ln_invoice"],
+    "additionalProperties": false
+  }
+}

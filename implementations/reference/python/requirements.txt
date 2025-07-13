@@ -1,0 +1,19 @@
+# Core dependencies
+secp256k1>=0.14.0
+websockets>=10.0
+aiohttp>=3.8.0
+cryptography>=3.4.0
+jsonschema>=4.0.0
+click>=8.0.0
+pydantic>=1.10.0
+
+# Lightning integration (optional)
+# lnd-grpc-client>=0.3.0
+# grpcio>=1.50.0
+
+# Development dependencies
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+black>=22.0.0
+mypy>=1.0.0
+flake8>=5.0.0

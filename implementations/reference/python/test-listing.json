@@ -1,0 +1,20 @@
+{
+  "id": "001e3907d9485293bd6d5a2c550f2a383d20a0851be5e2d38584bc974359d531",
+  "pubkey": "c49a5019d72292cea13b599c16f70a9b1f96c8650058d19549e3c65c0896850c",
+  "created_at": 1752418185,
+  "kind": 300,
+  "tags": [
+    [
+      "d",
+      "listing-1752418185"
+    ],
+    [
+      "anti_spam_proof",
+      "pow",
+      "164",
+      "8"
+    ]
+  ],
+  "content": "{\"product_name\":\"Test Item\",\"description\":\"Simple test\",\"price_satoshis\":1000000}",
+  "sig": "6d6a6a74ef459a8521d889b09eaf0fee1cb011e21cf6d6bf691d1e7c7137012b32819c8c0fc1c5ca1c4209551ba17d780e79ee6f3eaeb932054842afd5f62d46"
+}

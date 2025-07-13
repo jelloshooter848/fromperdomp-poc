@@ -1,0 +1,20 @@
+{
+  "pubkey": "c49a5019d72292cea13b599c16f70a9b1f96c8650058d19549e3c65c0896850c",
+  "created_at": 1752418894,
+  "kind": 300,
+  "tags": [
+    [
+      "d",
+      "listing-1752418894"
+    ],
+    [
+      "anti_spam_proof",
+      "pow",
+      "185",
+      "8"
+    ]
+  ],
+  "content": "{\"product_name\":\"Test Item 4\",\"description\":\"Final fix test\",\"price_satoshis\":4000000}",
+  "id": "0096eb2cc75292016e7a9f967a9d9e2bf3db0459109387d19700be07cb9fe5a7",
+  "sig": "78113eddc8d704e2fea89579577cf9275d0b6b031a3a7aa6ef57bd1730a82cae9f8136e3876ae823961f8292cc29a67b7eb6b1544d2870a5cc5cad20d2cd6a99"
+}

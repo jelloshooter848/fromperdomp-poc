@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DOMP Kind 313 - Receipt Confirmation",
+  "description": "Schema for receipt confirmation events in DOMP protocol", 
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex event ID"
+    },
+    "pubkey": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex public key of buyer"
+    },
+    "created_at": {
+      "type": "integer",
+      "minimum": 1640995200,
+      "description": "Unix timestamp"
+    },
+    "kind": {
+      "type": "integer",
+      "const": 313
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "contains": {
+        "type": "array",
+        "items": [
+          {"const": "anti_spam_proof"},
+          {"type": "string"}
+        ],
+        "minItems": 2
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "JSON string containing receipt confirmation"
+    },
+    "sig": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}$", 
+      "description": "64-byte hex signature"
+    }
+  },
+  "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "payment_ref": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Event ID of payment confirmation (kind-311)"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["received", "partially_received", "not_received", "damaged"],
+        "description": "Receipt status"
+      },
+      "rating": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Seller rating (1-5 stars)"
+      },
+      "feedback": {
+        "type": "string",
+        "maxLength": 1000,
+        "description": "Written feedback about transaction"
+      },
+      "delivery_confirmation_time": {
+        "type": "integer",
+        "description": "Unix timestamp when item was actually received"
+      },
+      "item_condition": {
+        "type": "string",
+        "enum": ["as_described", "better_than_described", "minor_issues", "major_issues", "defective"],
+        "description": "Condition assessment"
+      },
+      "shipping_rating": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Shipping/packaging rating (1-5 stars)"
+      },
+      "communication_rating": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 5,
+        "description": "Seller communication rating (1-5 stars)" 
+      },
+      "would_buy_again": {
+        "type": "boolean",
+        "description": "Whether buyer would purchase from seller again"
+      },
+      "dispute_reason": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Reason for dispute if status is not 'received'"
+      }
+    },
+    "required": ["payment_ref", "status"],
+    "additionalProperties": false,
+    "if": {
+      "properties": {
+        "status": {"const": "received"}
+      }
+    },
+    "then": {
+      "not": {
+        "required": ["dispute_reason"]
+      }
+    },
+    "else": {
+      "required": ["dispute_reason"]
+    }
+  }
+}

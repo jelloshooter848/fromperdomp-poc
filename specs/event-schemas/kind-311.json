@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DOMP Kind 311 - Payment Confirmation", 
+  "description": "Schema for payment confirmation events in DOMP protocol",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex event ID"
+    },
+    "pubkey": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex public key of buyer"
+    },
+    "created_at": {
+      "type": "integer",
+      "minimum": 1640995200,
+      "description": "Unix timestamp"
+    },
+    "kind": {
+      "type": "integer",
+      "const": 311
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "contains": {
+        "type": "array",
+        "items": [
+          {"const": "anti_spam_proof"},
+          {"type": "string"}
+        ],
+        "minItems": 2
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "JSON string containing payment details"
+    },
+    "sig": {
+      "type": "string", 
+      "pattern": "^[0-9a-f]{128}$",
+      "description": "64-byte hex signature"
+    }
+  },
+  "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "bid_ref": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Event ID of bid acceptance (kind-303)"
+      },
+      "payment_proof": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Lightning payment hash or preimage"
+      },
+      "collateral_proof": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Collateral payment hash or preimage"
+      },
+      "payment_method": {
+        "type": "string",
+        "enum": ["lightning_htlc", "lightning_keysend", "onchain"],
+        "default": "lightning_htlc",
+        "description": "Payment method used"
+      },
+      "escrow_timeout_blocks": {
+        "type": "integer",
+        "minimum": 144,
+        "maximum": 2016,
+        "default": 144,
+        "description": "Blocks until escrow timeout"
+      },
+      "encrypted_shipping_address": {
+        "type": "string",
+        "description": "Shipping address encrypted with seller's pubkey"
+      },
+      "shipping_instructions": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Special shipping instructions"
+      },
+      "payment_timestamp": {
+        "type": "integer",
+        "description": "Unix timestamp when payment was made"
+      }
+    },
+    "required": ["bid_ref", "payment_proof", "payment_method"],
+    "additionalProperties": false
+  }
+}

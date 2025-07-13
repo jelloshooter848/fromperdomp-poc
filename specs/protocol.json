@@ -1,0 +1,57 @@
+{
+  "name": "DOMP",
+  "version": "0.1.0-poc",
+  "description": "Decentralized Online Marketplace Protocol",
+  "status": "proof-of-concept",
+  "authors": ["DOMP Protocol Contributors"],
+  "dependencies": {
+    "bitcoin": "^1.0.0",
+    "lightning-network": "^1.0.0", 
+    "nostr": "^1.0.0"
+  },
+  "event_kinds": {
+    "300": {
+      "name": "product_listing",
+      "description": "Seller lists a product for sale",
+      "required_fields": ["product_name", "description", "price_satoshis"],
+      "optional_fields": ["storage_link", "category", "shipping_info"]
+    },
+    "301": {
+      "name": "bid_submission", 
+      "description": "Buyer submits a bid on a product",
+      "required_fields": ["product_ref", "bid_amount_satoshis", "collateral_amount_satoshis"],
+      "optional_fields": ["message", "shipping_address"]
+    },
+    "303": {
+      "name": "bid_acceptance",
+      "description": "Seller accepts a bid unconditionally", 
+      "required_fields": ["bid_ref", "ln_invoice"],
+      "optional_fields": ["estimated_shipping_time"]
+    },
+    "311": {
+      "name": "payment_confirmation",
+      "description": "Buyer confirms payment and deposits collateral",
+      "required_fields": ["bid_ref", "payment_proof", "collateral_proof"],
+      "optional_fields": ["notes"]
+    },
+    "313": {
+      "name": "receipt_confirmation", 
+      "description": "Buyer confirms receipt of item",
+      "required_fields": ["payment_ref"],
+      "optional_fields": ["rating", "feedback"]
+    }
+  },
+  "anti_spam": {
+    "methods": ["proof_of_work", "lightning_payment"],
+    "pow_difficulty_default": 20,
+    "payment_amount_default_msat": 1000
+  },
+  "escrow": {
+    "method": "lightning_htlc",
+    "timeout_blocks": 144,
+    "collateral_requirements": {
+      "seller_minimum_percent": 5,
+      "buyer_minimum_percent": 100
+    }
+  }
+}

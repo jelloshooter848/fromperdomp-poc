@@ -1,0 +1,20 @@
+{
+  "id": "780d0db97bb342cf60582344bb698e22b17cc446d1fe5eea94a6444893960116",
+  "pubkey": "c49a5019d72292cea13b599c16f70a9b1f96c8650058d19549e3c65c0896850c",
+  "created_at": 1752417856,
+  "kind": 300,
+  "tags": [
+    [
+      "d",
+      "listing-1752417856"
+    ],
+    [
+      "anti_spam_proof",
+      "pow",
+      "18010",
+      "16"
+    ]
+  ],
+  "content": "{\"product_name\":\"Digital Camera\",\"description\":\"High-quality DSLR camera with 50mm lens\",\"price_satoshis\":80000000,\"category\":\"electronics\"}",
+  "sig": "86d26af6a161225a8d46f4c3456a23854b7456c8d6a8ed1f768ead95e54a254dbfe9502a87109bb0cd10d8de683f644837d55567c904d225b43127e4da53ad90"
+}

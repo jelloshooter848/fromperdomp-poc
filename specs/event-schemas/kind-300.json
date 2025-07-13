@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DOMP Kind 300 - Product Listing",
+  "description": "Schema for product listing events in DOMP protocol",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex event ID"
+    },
+    "pubkey": {
+      "type": "string", 
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex public key of seller"
+    },
+    "created_at": {
+      "type": "integer",
+      "minimum": 1640995200,
+      "description": "Unix timestamp"
+    },
+    "kind": {
+      "type": "integer",
+      "const": 300
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {"type": "string"}
+      },
+      "contains": {
+        "type": "array",
+        "items": [
+          {"const": "anti_spam_proof"},
+          {"type": "string"}
+        ],
+        "minItems": 2
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "JSON string containing product details"
+    },
+    "sig": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}$",
+      "description": "64-byte hex signature"
+    }
+  },
+  "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "product_name": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "Product name"
+      },
+      "description": {
+        "type": "string", 
+        "maxLength": 2000,
+        "description": "Product description"
+      },
+      "price_satoshis": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Price in satoshis"
+      },
+      "category": {
+        "type": "string",
+        "maxLength": 50,
+        "description": "Product category"
+      },
+      "storage_link": {
+        "type": "string",
+        "format": "uri",
+        "description": "IPFS or web link to product images/details"
+      },
+      "shipping_info": {
+        "type": "object",
+        "properties": {
+          "domestic_cost_satoshis": {"type": "integer", "minimum": 0},
+          "international_cost_satoshis": {"type": "integer", "minimum": 0},
+          "estimated_days": {"type": "integer", "minimum": 1}
+        }
+      },
+      "seller_collateral_satoshis": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Seller's collateral amount"
+      }
+    },
+    "required": ["product_name", "description", "price_satoshis"],
+    "additionalProperties": false
+  }
+}

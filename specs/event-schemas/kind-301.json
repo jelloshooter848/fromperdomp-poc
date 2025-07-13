@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DOMP Kind 301 - Bid Submission",
+  "description": "Schema for bid submission events in DOMP protocol",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "32-byte hex event ID"
+    },
+    "pubkey": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$", 
+      "description": "32-byte hex public key of buyer"
+    },
+    "created_at": {
+      "type": "integer",
+      "minimum": 1640995200,
+      "description": "Unix timestamp"
+    },
+    "kind": {
+      "type": "integer",
+      "const": 301
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "array", 
+        "items": {"type": "string"}
+      },
+      "contains": {
+        "type": "array",
+        "items": [
+          {"const": "anti_spam_proof"},
+          {"type": "string"}
+        ],
+        "minItems": 2
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "JSON string containing bid details"
+    },
+    "sig": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{128}$",
+      "description": "64-byte hex signature"
+    }
+  },
+  "required": ["id", "pubkey", "created_at", "kind", "tags", "content", "sig"],
+  "content_schema": {
+    "type": "object",
+    "properties": {
+      "product_ref": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "Event ID of referenced product listing (kind-300)"
+      },
+      "bid_amount_satoshis": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Bid amount in satoshis"
+      },
+      "buyer_collateral_satoshis": {
+        "type": "integer", 
+        "minimum": 0,
+        "description": "Buyer's collateral amount in satoshis"
+      },
+      "message": {
+        "type": "string",
+        "maxLength": 500,
+        "description": "Optional message to seller"
+      },
+      "shipping_address_hash": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$",
+        "description": "SHA256 hash of encrypted shipping address"
+      },
+      "payment_timeout_hours": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 168,
+        "default": 24,
+        "description": "Hours until bid expires"
+      }
+    },
+    "required": ["product_ref", "bid_amount_satoshis", "buyer_collateral_satoshis"],
+    "additionalProperties": false
+  }
+}

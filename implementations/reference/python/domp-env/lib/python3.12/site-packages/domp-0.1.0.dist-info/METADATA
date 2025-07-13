@@ -1,0 +1,346 @@
+Metadata-Version: 2.4
+Name: domp
+Version: 0.1.0
+Summary: Reference implementation of the Decentralized Online Marketplace Protocol
+Home-page: https://github.com/domp-protocol/domp
+Author: DOMP Protocol Contributors
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: secp256k1>=0.14.0
+Requires-Dist: websockets>=10.0
+Requires-Dist: aiohttp>=3.8.0
+Requires-Dist: cryptography>=3.4.0
+Requires-Dist: jsonschema>=4.0.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: pydantic>=1.10.0
+Provides-Extra: lightning
+Requires-Dist: lnd-grpc-client>=0.3.0; extra == "lightning"
+Requires-Dist: grpcio>=1.50.0; extra == "lightning"
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: flake8>=5.0.0; extra == "dev"
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# DOMP Python Reference Implementation
+
+A reference implementation of the Decentralized Online Marketplace Protocol (DOMP) in Python.
+
+## Features
+
+- Complete DOMP event creation and validation
+- Nostr relay integration for event publishing
+- Cryptographic event signing and verification  
+- Proof-of-Work anti-spam generation
+- Transaction state management
+- Command-line interface for testing
+
+## Installation
+
+### From Source
+
+```bash
+git clone https://github.com/domp-protocol/domp
+cd domp/implementations/reference/python
+pip install -e .
+```
+
+### Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Quick Start
+
+### 1. Generate Keys
+
+```bash
+# Generate a new keypair
+domp keys generate --output my-key.txt
+
+# Show public key from private key file
+domp keys show my-key.txt
+```
+
+### 2. Create a Product Listing
+
+```bash
+# Create a product listing with proof-of-work
+domp event create-listing \
+  --key-file my-key.txt \
+  --product-name \"Digital Camera\" \
+  --description \"High-quality DSLR camera\" \
+  --price 80000000 \
+  --category electronics \
+  --output listing.json
+```
+
+### 3. Validate Events
+
+```bash
+# Validate a single event
+domp event validate listing.json
+
+# Validate a transaction chain
+domp event validate-chain transaction.json
+```
+
+### 4. Publish to Relays
+
+```bash
+# Publish event to default relays
+domp client publish --key-file my-key.txt listing.json
+
+# Publish to specific relays
+domp client publish \
+  --key-file my-key.txt \
+  --relays wss://relay.damus.io \
+  --relays wss://nos.lol \
+  listing.json
+```
+
+### 5. Browse Marketplace
+
+```bash
+# List recent product listings
+domp client list-products --key-file my-key.txt --limit 20
+
+# Track a specific transaction
+domp client track-transaction --key-file my-key.txt <product-id>
+```
+
+## Python API
+
+### Basic Event Creation
+
+```python
+from domp import KeyPair, ProductListing, validate_event
+
+# Generate keypair
+keypair = KeyPair()
+
+# Create product listing
+listing = ProductListing(
+    product_name=\"Digital Camera\",
+    description=\"High-quality DSLR camera\",
+    price_satoshis=80000000,
+    category=\"electronics\"
+)
+
+# Add proof-of-work anti-spam
+from domp.crypto import generate_pow_nonce
+event_data = listing.to_dict()
+event_id, nonce = generate_pow_nonce(event_data, difficulty=20)
+listing.tags.append([\"anti_spam_proof\", \"pow\", nonce, \"20\"])
+
+# Sign the event
+listing.sign(keypair)
+
+# Validate
+validate_event(listing.to_dict())
+```
+
+### Client Usage
+
+```python
+import asyncio
+from domp import DOMPClient, KeyPair
+
+async def main():
+    # Create client
+    keypair = KeyPair()
+    client = DOMPClient(keypair)
+    
+    # Connect to relays
+    await client.connect()
+    
+    # Get recent listings
+    listings = await client.get_product_listings(limit=10)
+    for listing in listings:
+        print(f\"Product: {listing.content}\")
+    
+    # Publish event
+    await client.publish_event(listing)
+    
+    # Disconnect
+    await client.disconnect()
+
+asyncio.run(main())
+```
+
+### Transaction Management
+
+```python
+from domp import TransactionManager
+
+# Create transaction manager
+manager = TransactionManager(client)
+
+# Track transaction state
+state = manager.get_transaction_state(product_id)
+print(f\"Transaction state: {state}\")
+
+# Get user transactions
+transactions = manager.get_user_transactions(user_pubkey, role=\"seller\")
+```
+
+## Event Types
+
+The implementation supports all DOMP core event types:
+
+- **kind-300**: Product Listing - Seller lists item for sale
+- **kind-301**: Bid Submission - Buyer places bid on item  
+- **kind-303**: Bid Acceptance - Seller accepts bid terms
+- **kind-311**: Payment Confirmation - Buyer confirms payment made
+- **kind-313**: Receipt Confirmation - Buyer confirms item received
+
+## Anti-Spam Support
+
+### Proof-of-Work
+
+```bash
+# Generate PoW for existing event
+domp pow generate event.json --difficulty 20 --output event-with-pow.json
+```
+
+```python
+from domp.crypto import generate_pow_nonce
+
+event_id, nonce = generate_pow_nonce(event_data, difficulty=20)
+```
+
+### Lightning Payments
+
+```python
+# Add Lightning payment proof
+event.tags.append([\"anti_spam_proof\", \"ln\", payment_hash, \"1000\"])
+```
+
+## Validation
+
+The implementation includes comprehensive validation:
+
+- JSON schema validation for all event types
+- Cryptographic signature verification
+- Anti-spam proof validation
+- Transaction chain validation
+- Timestamp validation
+
+## Configuration
+
+### Relay Configuration
+
+Default relays can be overridden:
+
+```python
+client = DOMPClient(keypair, relays=[
+    \"wss://relay.damus.io\",
+    \"wss://nos.lol\",
+    \"wss://relay.snort.social\"
+])
+```
+
+### Key Storage
+
+Private keys should be stored securely:
+
+```python
+# Load from file
+keypair = KeyPair.from_hex(open('private-key.txt').read().strip())
+
+# Generate new key
+keypair = KeyPair()
+with open('new-key.txt', 'w') as f:
+    f.write(keypair.private_key_hex)
+```
+
+## Testing
+
+```bash
+# Run tests
+pytest
+
+# Run with coverage
+pytest --cov=domp
+
+# Run specific test
+pytest tests/test_events.py::test_product_listing
+```
+
+## Development
+
+### Code Style
+
+```bash
+# Format code
+black domp/
+
+# Type checking  
+mypy domp/
+
+# Linting
+flake8 domp/
+```
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new functionality
+4. Ensure all tests pass
+5. Submit a pull request
+
+## Security Considerations
+
+- Private keys are never transmitted over the network
+- All events are cryptographically signed
+- Event validation prevents malformed data
+- Anti-spam mechanisms prevent network abuse
+
+## Lightning Integration
+
+For full Lightning Network integration:
+
+```bash
+pip install domp[lightning]
+```
+
+This adds support for:
+- LND gRPC client integration
+- Lightning invoice generation
+- HTLC escrow management
+- Payment verification
+
+## Examples
+
+See the `examples/` directory for complete usage examples:
+
+- `simple_marketplace.py` - Basic marketplace implementation
+- `transaction_flow.py` - Complete transaction example  
+- `batch_operations.py` - Bulk event processing
+- `relay_monitoring.py` - Real-time event monitoring
+
+## License
+
+MIT License - see LICENSE file for details.

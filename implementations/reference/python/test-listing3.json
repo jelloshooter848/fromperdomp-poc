@@ -1,0 +1,20 @@
+{
+  "id": "001baf93bde263ed00f74adce027e974582174b11c110f879fe87892cd99c21d",
+  "pubkey": "c49a5019d72292cea13b599c16f70a9b1f96c8650058d19549e3c65c0896850c",
+  "created_at": 1752418668,
+  "kind": 300,
+  "tags": [
+    [
+      "d",
+      "listing-1752418668"
+    ],
+    [
+      "anti_spam_proof",
+      "pow",
+      "0",
+      "8"
+    ]
+  ],
+  "content": "{\"product_name\":\"Test Item 3\",\"description\":\"Fixed version test\",\"price_satoshis\":3000000}",
+  "sig": "fde069a0b9c3c8677a37fe3fd5374e624e62c7ad6019007592b8c21649328570bdd4d3a15464b2139e300e959a8e9b07fd5de390e4006185b45435ac6b073a22"
+}

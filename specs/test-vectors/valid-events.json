@@ -1,0 +1,111 @@
+{
+  "description": "Valid DOMP event test vectors for protocol compliance testing",
+  "version": "0.1.0",
+  "test_cases": [
+    {
+      "name": "Basic Product Listing",
+      "event": {
+        "id": "a1b2c3d4e5f6789012345678901234567890123456789012345678901234567890",
+        "pubkey": "1234567890123456789012345678901234567890123456789012345678901234",
+        "created_at": 1672531200,
+        "kind": 300,
+        "tags": [
+          ["d", "camera-listing-001"],
+          ["anti_spam_proof", "pow", "98765", "20"]
+        ],
+        "content": "{\"product_name\":\"Digital Camera\",\"description\":\"High-quality DSLR camera with 50mm lens\",\"price_satoshis\":80000000,\"category\":\"electronics\",\"seller_collateral_satoshis\":8000000}",
+        "sig": "abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+      },
+      "valid": true,
+      "description": "Complete product listing with all required fields"
+    },
+    {
+      "name": "Bid Submission",
+      "event": {
+        "id": "b2c3d4e5f6789012345678901234567890123456789012345678901234567890ab",
+        "pubkey": "2345678901234567890123456789012345678901234567890123456789012345",
+        "created_at": 1672531260,
+        "kind": 301,
+        "tags": [
+          ["anti_spam_proof", "ln", "fedcba0987654321fedcba0987654321"],
+          ["ref", "a1b2c3d4e5f6789012345678901234567890123456789012345678901234567890", "wss://relay.example.com", "root"]
+        ],
+        "content": "{\"product_ref\":\"a1b2c3d4e5f6789012345678901234567890123456789012345678901234567890\",\"bid_amount_satoshis\":80000000,\"buyer_collateral_satoshis\":80000000,\"message\":\"I'll take it at asking price\"}",
+        "sig": "bcdef01234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901"
+      },
+      "valid": true,
+      "description": "Valid bid with Lightning anti-spam proof"
+    },
+    {
+      "name": "Bid Acceptance",
+      "event": {
+        "id": "c3d4e5f6789012345678901234567890123456789012345678901234567890abcd",
+        "pubkey": "1234567890123456789012345678901234567890123456789012345678901234",
+        "created_at": 1672531320,
+        "kind": 303,
+        "tags": [
+          ["anti_spam_proof", "ln", "123456789abcdef0123456789abcdef0"],
+          ["ref", "b2c3d4e5f6789012345678901234567890123456789012345678901234567890ab", "wss://relay.example.com", "reply"]
+        ],
+        "content": "{\"bid_ref\":\"b2c3d4e5f6789012345678901234567890123456789012345678901234567890ab\",\"ln_invoice\":\"lnbc800m1pwjqwqpp5abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567890\",\"estimated_shipping_time\":\"3-5 business days\"}",
+        "sig": "cdef01234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef123456789012"
+      },
+      "valid": true,
+      "description": "Seller accepts bid with Lightning invoice"
+    },
+    {
+      "name": "Payment Confirmation",
+      "event": {
+        "id": "d4e5f6789012345678901234567890123456789012345678901234567890abcdef",
+        "pubkey": "2345678901234567890123456789012345678901234567890123456789012345",
+        "created_at": 1672531380,
+        "kind": 311,
+        "tags": [
+          ["anti_spam_proof", "ln", "abcdef0123456789abcdef0123456789"],
+          ["ref", "c3d4e5f6789012345678901234567890123456789012345678901234567890abcd", "wss://relay.example.com", "reply"]
+        ],
+        "content": "{\"bid_ref\":\"c3d4e5f6789012345678901234567890123456789012345678901234567890abcd\",\"payment_proof\":\"fedcba9876543210fedcba9876543210fedcba9876543210fedcba9876543210\",\"collateral_proof\":\"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\",\"payment_method\":\"lightning_htlc\"}",
+        "sig": "def01234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890123"
+      },
+      "valid": true,
+      "description": "Buyer confirms payment with proof hashes"
+    },
+    {
+      "name": "Receipt Confirmation",
+      "event": {
+        "id": "e5f6789012345678901234567890123456789012345678901234567890abcdef12",
+        "pubkey": "2345678901234567890123456789012345678901234567890123456789012345",
+        "created_at": 1672704000,
+        "kind": 313,
+        "tags": [
+          ["anti_spam_proof", "pow", "54321", "18"],
+          ["ref", "d4e5f6789012345678901234567890123456789012345678901234567890abcdef", "wss://relay.example.com", "reply"]
+        ],
+        "content": "{\"payment_ref\":\"d4e5f6789012345678901234567890123456789012345678901234567890abcdef\",\"status\":\"received\",\"rating\":5,\"feedback\":\"Excellent transaction, item as described, fast shipping\",\"delivery_confirmation_time\":1672703800}",
+        "sig": "ef01234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef12345678901234"
+      },
+      "valid": true,
+      "description": "Buyer confirms receipt and releases funds"
+    }
+  ],
+  "transaction_chains": [
+    {
+      "name": "Complete Successful Transaction",
+      "description": "Full transaction from listing to completion",
+      "events": [
+        "a1b2c3d4e5f6789012345678901234567890123456789012345678901234567890",
+        "b2c3d4e5f6789012345678901234567890123456789012345678901234567890ab", 
+        "c3d4e5f6789012345678901234567890123456789012345678901234567890abcd",
+        "d4e5f6789012345678901234567890123456789012345678901234567890abcdef",
+        "e5f6789012345678901234567890123456789012345678901234567890abcdef12"
+      ],
+      "state_transitions": [
+        "NONE -> LISTED",
+        "LISTED -> BID_RECEIVED", 
+        "BID_RECEIVED -> BID_ACCEPTED",
+        "BID_ACCEPTED -> PAYMENT_CONFIRMED",
+        "PAYMENT_CONFIRMED -> COMPLETED"
+      ]
+    }
+  ]
+}
