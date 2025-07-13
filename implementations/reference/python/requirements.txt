@@ -7,9 +7,14 @@ jsonschema>=4.0.0
 click>=8.0.0
 pydantic>=1.10.0
 
-# Lightning integration (optional)
-# lnd-grpc-client>=0.3.0
-# grpcio>=1.50.0
+# Lightning integration
+grpcio>=1.50.0
+grpcio-tools>=1.50.0
+googleapis-common-protos>=1.56.0
+
+# Web framework (already in use)
+fastapi>=0.104.0
+uvicorn>=0.24.0
 
 # Development dependencies
 pytest>=7.0.0

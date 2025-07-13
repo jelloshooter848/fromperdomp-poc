@@ -1,10 +1,32 @@
-(domp-env) lando@jellynose:~/projects/fromperdomp-poc/implementations/reference/python$ source domp-env/bin/activate && python3 web_api.py
-/home/lando/projects/fromperdomp-poc/implementations/reference/python/web_api.py:236: DeprecationWarning:
-        on_event is deprecated, use lifespan event handlers instead.
+(domp-env) lando@jellynose:~/projects/fromperdomp-poc/implementations/reference/python$ python3 test_real_lightning.py
+🧪 DOMP Real Lightning Integration Test
+==================================================
+⚡ Testing Real Lightning Network Operations
+==================================================
+🔗 Connecting to LND...
+✅ Connected to LND at localhost:10009
 
-        Read more about it in the
-        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+📊 Getting node information...
+✅ Node ID: 03ef9bd9383bd3db...
+✅ Alias: 03ef9bd9383bd3dbdeb2
+✅ Network: testnet
+✅ Synced to chain: True
+✅ Block height: 4551852
 
-  @app.on_event("startup")
-INFO:     Will watch for changes in these directories: ['/home/lando/projects/fromperdomp-poc/implementations/reference/python']
-ERROR:    [Errno 98] Address already in use
+💰 Getting wallet balance...
+✅ Wallet balance: 0 sats
+
+🧾 Creating test invoice...
+✅ Created invoice:
+   Payment request: lntb10u1p58gtuwpp5sd3jrce0vczstau6xv0yczg38cq456dx...
+   Payment hash: 836321e32f660505...
+   Amount: 1000 sats
+
+🎉 All Lightning operations successful!
+✅ Real Lightning integration working
+
+🔌 Disconnected from LND
+
+==================================================
+🎉 Lightning integration test PASSED
+✅ Ready to implement DOMP escrow with real Lightning
