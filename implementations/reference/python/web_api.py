@@ -416,6 +416,36 @@ async def pay_lightning_invoice(request: PayInvoiceRequest):
         raise HTTPException(status_code=500, detail=f"Failed to pay invoice: {str(e)}")
 
 
+@app.post("/api/transactions/{tx_id}/complete-payment")
+async def complete_payment_for_testing(tx_id: str):
+    """Complete a Lightning payment for testing purposes (testnet only)."""
+    if tx_id not in app_state.transactions:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    
+    tx_data = app_state.transactions[tx_id]
+    
+    # Update transaction status
+    tx_data["status"] = "paid"
+    if hasattr(tx_data["escrow"], 'state'):
+        from domp.lightning import EscrowState
+        tx_data["escrow"].state = EscrowState.ACTIVE
+    
+    # Broadcast update
+    await app_state.broadcast_update({
+        "type": "payment_completed",
+        "transaction_id": tx_id,
+        "status": "paid",
+        "message": "Payment completed (test simulation)"
+    })
+    
+    return {
+        "success": True,
+        "transaction_id": tx_id,
+        "status": "paid",
+        "message": "Payment completed for testing"
+    }
+
+
 # Marketplace endpoints
 @app.get("/api/listings")
 async def get_listings():
