@@ -145,3 +145,11 @@ INFO:     127.0.0.1:47340 - "GET /api/listings HTTP/1.1" 200 OK
 INFO:     127.0.0.1:47348 - "WebSocket /ws" [accepted]
 INFO:     connection open
 INFO:     connection closed
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:38478 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38494 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38506 - "POST /api/bids HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38520 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38534 - "POST /api/transactions/tx_4f6b0b26/complete-payment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38546 - "GET /api/transactions HTTP/1.1" 200 OK

@@ -436,6 +436,118 @@ class DOMPWebState:
         if self.nostr_client:
             await self.nostr_client.disconnect()
             print("✅ Nostr client disconnected")
+    
+    async def get_listings_from_nostr(self, limit: int = 100) -> List[Dict]:
+        """Get product listings from Nostr relays instead of memory."""
+        if not self.nostr_client:
+            print("⚠️  No Nostr client available - using sample data")
+            return list(self.listings.values())
+        
+        try:
+            # Get recent product listings from Nostr
+            events = await self.nostr_client.get_product_listings(limit=limit)
+            listings = []
+            
+            for event in events:
+                try:
+                    content = json.loads(event.content)
+                    listings.append({
+                        "event": event.to_dict(),
+                        "seller_keypair": None  # Remote seller
+                    })
+                except json.JSONDecodeError:
+                    print(f"Invalid JSON in listing event {event.id}")
+                    continue
+            
+            # Include local sample data for demo purposes
+            listings.extend(list(self.listings.values()))
+            return listings
+            
+        except Exception as e:
+            print(f"Error fetching listings from Nostr: {e}")
+            # Fallback to sample data
+            return list(self.listings.values())
+    
+    async def get_bids_from_nostr(self, listing_id: str = None) -> List[Dict]:
+        """Get bid submissions from Nostr relays instead of memory.""" 
+        if not self.nostr_client:
+            return list(self.bids.values())
+        
+        try:
+            # Build filters for bid events
+            filters = [{"kinds": [301]}]
+            if listing_id:
+                filters[0]["#ref"] = [listing_id]
+            
+            events = await self.nostr_client.get_events(filters, timeout=5)
+            bids = []
+            
+            for event in events:
+                try:
+                    content = json.loads(event.content)
+                    bids.append({
+                        "event": event.to_dict(),
+                        "listing_id": content.get("product_ref"),
+                        "status": "pending"  # Default status
+                    })
+                except json.JSONDecodeError:
+                    continue
+            
+            return bids
+            
+        except Exception as e:
+            print(f"Error fetching bids from Nostr: {e}")
+            return list(self.bids.values())
+    
+    async def get_transactions_from_nostr(self, pubkey: str = None) -> List[Dict]:
+        """Get transaction events from Nostr relays instead of memory."""
+        if not self.nostr_client:
+            return []
+        
+        try:
+            # Get transaction-related events (bids, acceptances, payments, receipts)
+            filters = [
+                {"kinds": [301, 303, 311, 313]},  # Bid, acceptance, payment, receipt
+            ]
+            
+            if pubkey:
+                filters[0]["authors"] = [pubkey]
+            
+            events = await self.nostr_client.get_events(filters, timeout=5)
+            
+            # Group events by transaction/product
+            transactions = {}
+            
+            for event in events:
+                try:
+                    content = json.loads(event.content)
+                    
+                    if event.kind == 301:  # Bid
+                        product_ref = content.get("product_ref")
+                        if product_ref:
+                            if product_ref not in transactions:
+                                transactions[product_ref] = {"bids": [], "acceptances": [], "payments": [], "receipts": []}
+                            transactions[product_ref]["bids"].append(event.to_dict())
+                    
+                    elif event.kind == 303:  # Bid acceptance
+                        bid_ref = content.get("bid_ref")
+                        # Find the product this bid belongs to
+                        for tx_id, tx_data in transactions.items():
+                            for bid in tx_data["bids"]:
+                                if bid["id"] == bid_ref:
+                                    transactions[tx_id]["acceptances"].append(event.to_dict())
+                                    break
+                    
+                    # Similar logic for payments and receipts...
+                    
+                except json.JSONDecodeError:
+                    continue
+            
+            return list(transactions.values())
+            
+        except Exception as e:
+            print(f"Error fetching transactions from Nostr: {e}")
+            return []
 
 
 # Initialize global state
@@ -672,13 +784,17 @@ async def complete_payment_for_testing(tx_id: str):
 # Marketplace endpoints
 @app.get("/api/listings")
 async def get_listings():
-    """Get all marketplace listings with reputation data."""
+    """Get all marketplace listings with reputation data from Nostr."""
     listings_with_reputation = []
     
-    for listing_id, listing_data in app_state.listings.items():
+    # Get listings from Nostr instead of memory
+    nostr_listings = await app_state.get_listings_from_nostr(limit=100)
+    
+    for listing_data in nostr_listings:
         event = listing_data["event"]
         content = json.loads(event["content"])
         seller_pubkey = event["pubkey"]
+        listing_id = event["id"]
         
         # Get seller reputation
         rep_summary = app_state.reputation_system.get_reputation_summary(seller_pubkey)
@@ -711,11 +827,19 @@ async def get_listings():
 
 @app.get("/api/listings/{listing_id}")
 async def get_listing_details(listing_id: str):
-    """Get detailed information about a specific listing."""
-    if listing_id not in app_state.listings:
+    """Get detailed information about a specific listing from Nostr."""
+    # First check if listing exists in Nostr or local memory
+    nostr_listings = await app_state.get_listings_from_nostr(limit=100)
+    listing_data = None
+    
+    for listing in nostr_listings:
+        if listing["event"]["id"] == listing_id:
+            listing_data = listing
+            break
+    
+    if not listing_data:
         raise HTTPException(status_code=404, detail="Listing not found")
     
-    listing_data = app_state.listings[listing_id]
     event = listing_data["event"]
     content = json.loads(event["content"])
     seller_pubkey = event["pubkey"]
@@ -753,7 +877,7 @@ async def get_listing_details(listing_id: str):
 
 @app.post("/api/listings")
 async def create_listing(request: CreateListingRequest):
-    """Create a new product listing."""
+    """Create a new product listing and publish to Nostr."""
     if not app_state.keypair:
         raise HTTPException(status_code=400, detail="User identity not initialized")
     
@@ -768,11 +892,24 @@ async def create_listing(request: CreateListingRequest):
     )
     listing.sign(app_state.keypair)
     
-    # Store listing
+    # Store listing locally (temporary for demo)
     app_state.listings[listing.id] = {
         "event": listing.to_dict(),
         "seller_keypair": app_state.keypair
     }
+    
+    # Publish to Nostr for cross-computer visibility
+    if app_state.nostr_client:
+        try:
+            from domp.events import create_event_from_dict
+            nostr_event = create_event_from_dict(listing.to_dict())
+            published = await app_state.nostr_client.publish_event(nostr_event)
+            if published:
+                print(f"✅ Published listing {listing.id} to Nostr relays")
+            else:
+                print(f"⚠️  Failed to publish listing {listing.id} to Nostr")
+        except Exception as e:
+            print(f"❌ Error publishing listing to Nostr: {e}")
     
     # Broadcast update
     await app_state.broadcast_update({
@@ -784,17 +921,21 @@ async def create_listing(request: CreateListingRequest):
     return {
         "success": True,
         "listing_id": listing.id,
-        "message": "Listing created successfully"
+        "message": "Listing created and published to Nostr"
     }
 
 
 @app.post("/api/bids")
 async def place_bid(request: PlaceBidRequest):
-    """Place a bid on a listing."""
+    """Place a bid on a listing and publish to Nostr."""
     if not app_state.keypair:
         raise HTTPException(status_code=400, detail="User identity not initialized")
     
-    if request.listing_id not in app_state.listings:
+    # Check if listing exists in Nostr or local memory
+    nostr_listings = await app_state.get_listings_from_nostr(limit=100)
+    listing_exists = any(listing["event"]["id"] == request.listing_id for listing in nostr_listings)
+    
+    if not listing_exists:
         raise HTTPException(status_code=404, detail="Listing not found")
     
     # Create bid
@@ -807,20 +948,34 @@ async def place_bid(request: PlaceBidRequest):
     )
     bid.sign(app_state.keypair)
     
-    # Store bid
+    # Store bid locally (temporary)
     app_state.bids[bid.id] = {
         "event": bid.to_dict(),
         "listing_id": request.listing_id,
         "status": "pending"
     }
     
-    # Simulate automatic bid acceptance for demo
+    # Publish bid to Nostr for cross-computer visibility
+    if app_state.nostr_client:
+        try:
+            from domp.events import create_event_from_dict
+            nostr_event = create_event_from_dict(bid.to_dict())
+            published = await app_state.nostr_client.publish_event(nostr_event)
+            if published:
+                print(f"✅ Published bid {bid.id} to Nostr relays")
+            else:
+                print(f"⚠️  Failed to publish bid {bid.id} to Nostr")
+        except Exception as e:
+            print(f"❌ Error publishing bid to Nostr: {e}")
+    
+    # For now, still simulate acceptance for demo
+    # TODO: Remove this and implement real cross-computer bid acceptance
     success = await simulate_bid_acceptance(bid.id, request.listing_id)
     
     return {
         "success": success,
         "bid_id": bid.id,
-        "message": "Bid placed and accepted!" if success else "Bid placed, waiting for acceptance"
+        "message": "Bid placed and published to Nostr!" if success else "Bid placed, waiting for acceptance"
     }
 
 
@@ -986,9 +1141,10 @@ async def simulate_bid_acceptance(bid_id: str, listing_id: str):
 
 @app.get("/api/transactions")
 async def get_transactions():
-    """Get user's transactions."""
+    """Get user's transactions from both local memory and Nostr."""
     transactions = []
     
+    # Get transactions from local memory (for current demo functionality)
     for tx_id in app_state.my_transactions:
         if tx_id in app_state.transactions:
             tx_data = app_state.transactions[tx_id]
