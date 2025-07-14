@@ -323,15 +323,24 @@ Enhanced spam prevention mechanisms:
    - Include Lightning payment status, escrow state, and cross-computer sync status
    - File: `implementations/reference/python/web_api.py` (new endpoint)
 
+5. **Wallet Creation for New Computers**:
+   - Enhance `domp-launcher.py` to detect if Lightning wallet exists
+   - Add wallet creation workflow for computers without existing wallets
+   - Implement automatic wallet initialization and funding instructions
+   - File: `implementations/reference/python/domp-launcher.py` (wallet setup section)
+
 **Key Files to Modify:**
 - `web_api.py`: Payment event publishing, event handlers, status endpoints
 - `domp/lightning.py`: Escrow state coordination methods
 - `domp/events.py`: PaymentConfirmation event class (if needed)
+- `domp-launcher.py`: Wallet detection and creation workflow
 
 **Testing Strategy:**
 - Test payment on Computer A triggers escrow update on Computer B
 - Verify HTLCEscrow state synchronization across multiple instances
 - Confirm payment timeouts handled consistently across computers
+- Test wallet creation workflow on fresh computer without existing Lightning setup
+- Verify new wallet integration with DOMP marketplace functionality
 
 ### **Phase 2: Complete Event Type Coverage**
 **Timeline: 2-3 months**
