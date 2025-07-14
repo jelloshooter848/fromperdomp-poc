@@ -236,10 +236,12 @@ Enhanced spam prevention mechanisms:
 
 **🎯 Goal**: Enable real P2P marketplace between two computers using existing HTLC escrow system.
 
-1. **Nostr-Based State Synchronization**
-   - Integrate DOMPClient into Web API for real-time event processing
-   - Replace in-memory listings/bids/transactions with Nostr-sourced data
-   - Add background Nostr subscription to all DOMP event types
+1. **✅ Nostr-Based State Synchronization** (COMPLETED)
+   - ✅ Integrate DOMPClient into Web API for real-time event processing
+   - ✅ Replace in-memory listings/bids/transactions with Nostr-sourced data
+   - ✅ Add background Nostr subscription to all DOMP event types
+   - ✅ API endpoints now source data from Nostr relays (cross-computer visible)
+   - ✅ Event publishing to 4 public Nostr relays for multi-computer sync
 
 2. **Cross-Computer Bid Flow**
    - Remove simulate_bid_acceptance() automatic behavior
@@ -306,12 +308,13 @@ Enhanced spam prevention mechanisms:
 - ✅ **July 2025**: Production-ready service launcher
 - ✅ **July 2025**: Comprehensive documentation suite
 - ✅ **July 2025**: Real Nostr relay compatibility
+- ✅ **July 2025**: Nostr-based state synchronization for multi-computer marketplace
 
 ### **Current Development Status:**
 - **Active Work**: Phase 1 - Multi-Computer Communication
-- **Next Priority**: Nostr-based state synchronization
+- **Current Priority**: Cross-computer bid acceptance flow (Task 2/4 complete)
 - **Test Coverage**: 11/11 tests passing (100%)
-- **System Status**: Single-computer fully functional, multi-computer partial
+- **System Status**: Cross-computer state sync working, bid flow in progress
 
 ### **Key Metrics:**
 - **Lines of Code**: ~3,000+ (Python implementation)
