@@ -295,6 +295,8 @@ class DOMPWebState:
                 self.process_bid_event(event_dict)
             elif kind == 303:  # Bid Acceptance
                 self.process_bid_acceptance_event(event_dict)
+            elif kind == 311:  # Payment Confirmation
+                self.process_payment_confirmation_event(event_dict)
             elif kind == 313:  # Receipt Confirmation
                 self.process_receipt_event(event_dict)
             elif kind == 321:  # Reputation Feedback
@@ -388,6 +390,58 @@ class DOMPWebState:
         except Exception as e:
             print(f"❌ Error processing bid acceptance event: {e}")
     
+    def process_payment_confirmation_event(self, event_dict):
+        """Process incoming payment confirmation events for cross-computer escrow coordination."""
+        try:
+            content = json.loads(event_dict['content'])
+            bid_ref = content.get('bid_ref')
+            payment_proof = content.get('payment_proof', '')
+            payment_method = content.get('payment_method', 'lightning_htlc')
+            
+            print(f"💰 Processing payment confirmation for bid {bid_ref[:16]}...")
+            
+            # Find the transaction this payment belongs to
+            transaction_id = None
+            for tx_id, tx_data in self.transactions.items():
+                bid_data = tx_data.get("bid", {})
+                if bid_data and bid_data.get("event", {}).get("id") == bid_ref:
+                    transaction_id = tx_id
+                    break
+            
+            if transaction_id:
+                tx_data = self.transactions[transaction_id]
+                escrow = tx_data.get("escrow")
+                
+                if escrow:
+                    # Update escrow state with payment confirmation
+                    escrow.fund_escrow(
+                        transaction_id=transaction_id,
+                        buyer_payment_hash=payment_proof[:64],  # Use first 64 chars as hash
+                        buyer_collateral_hash="",
+                        seller_collateral_hash=""
+                    )
+                    
+                    # Update transaction status
+                    tx_data["status"] = "payment_confirmed"
+                    
+                    print(f"🔒 Updated escrow state for transaction {transaction_id} from remote payment")
+                    
+                    # Broadcast real-time update
+                    asyncio.create_task(self.broadcast_update({
+                        "type": "payment_confirmed_remote",
+                        "transaction_id": transaction_id,
+                        "bid_ref": bid_ref,
+                        "payment_method": payment_method,
+                        "message": "Payment confirmed from other computer"
+                    }))
+                else:
+                    print(f"⚠️  No escrow found for transaction {transaction_id}")
+            else:
+                print(f"⚠️  No transaction found for bid {bid_ref[:16]}...")
+            
+        except Exception as e:
+            print(f"❌ Error processing payment confirmation event: {e}")
+    
     def process_receipt_event(self, event_dict):
         """Process incoming receipt confirmation events."""
         try:
@@ -432,8 +486,8 @@ class DOMPWebState:
             
             # Subscribe to DOMP event types
             filters = [
-                {"kinds": [300, 301, 303, 313, 321]},  # Core DOMP events
-                {"since": int(time.time()) - 3600}     # Last hour
+                {"kinds": [300, 301, 303, 311, 313, 321]},  # Core DOMP events including payment confirmations
+                {"since": int(time.time()) - 3600}           # Last hour
             ]
             
             await self.nostr_client.subscribe("domp_events", filters)
@@ -745,6 +799,10 @@ async def pay_lightning_invoice(request: PayInvoiceRequest):
                 "status": "SUCCEEDED",
                 "client_type": "mock"
             }
+            
+            # Publish payment confirmation event to Nostr for cross-computer escrow coordination
+            await publish_payment_confirmation(request.invoice, result)
+            
             return result
         else:
             # Real client (asynchronous)
@@ -768,10 +826,89 @@ async def pay_lightning_invoice(request: PayInvoiceRequest):
                 "payment_error": payment_result.get("payment_error", ""),
                 "client_type": "real_lnd"
             }
+            
+            # Publish payment confirmation event to Nostr for cross-computer escrow coordination
+            if payment_result["status"] == "SUCCEEDED":
+                await publish_payment_confirmation(request.invoice, payment_result)
+            
             return result
     except Exception as e:
         print(f"Failed to pay Lightning invoice: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to pay invoice: {str(e)}")
+
+
+async def publish_payment_confirmation(invoice: str, payment_result: Dict[str, Any]):
+    """Publish payment confirmation event to Nostr for cross-computer escrow coordination."""
+    try:
+        if not app_state.nostr_client or not app_state.keypair:
+            print("⚠️  Cannot publish payment confirmation - missing Nostr client or keypair")
+            return
+        
+        # Find which transaction this payment belongs to by matching invoice
+        transaction_id = None
+        bid_ref = None
+        
+        for tx_id, tx_data in app_state.transactions.items():
+            lightning_invoices = tx_data.get("lightning_invoices", {})
+            purchase_invoice = lightning_invoices.get("purchase", {}).get("payment_request", "")
+            
+            if purchase_invoice == invoice:
+                transaction_id = tx_id
+                # Get bid reference from transaction
+                bid_data = tx_data.get("bid", {})
+                if bid_data:
+                    bid_ref = bid_data.get("event", {}).get("id")
+                break
+        
+        if not transaction_id or not bid_ref:
+            print(f"⚠️  Could not find transaction for invoice {invoice[:20]}...")
+            return
+        
+        # Create payment confirmation event
+        from domp.events import PaymentConfirmation
+        payment_confirmation = PaymentConfirmation(
+            bid_ref=bid_ref,
+            payment_proof=payment_result.get("payment_preimage", ""),
+            payment_method="lightning_htlc",
+            collateral_proof="",  # Would include collateral payment proof if applicable
+            escrow_timeout_blocks=144
+        )
+        payment_confirmation.sign(app_state.keypair)
+        
+        # Publish to Nostr relays
+        from domp.events import create_event_from_dict
+        nostr_event = create_event_from_dict(payment_confirmation.to_dict())
+        published = await app_state.nostr_client.publish_event(nostr_event)
+        
+        if published:
+            print(f"✅ Published payment confirmation {payment_confirmation.id[:16]}... to Nostr relays")
+            
+            # Update local escrow state
+            if transaction_id in app_state.transactions:
+                tx_data = app_state.transactions[transaction_id]
+                escrow = tx_data.get("escrow")
+                if escrow:
+                    # Fund the escrow with payment confirmation
+                    escrow.fund_escrow(
+                        transaction_id=transaction_id,
+                        buyer_payment_hash=payment_result.get("payment_hash", ""),
+                        buyer_collateral_hash="",  # Would include if collateral was paid
+                        seller_collateral_hash=""  # Would include if seller collateral exists
+                    )
+                    print(f"🔒 Updated escrow state for transaction {transaction_id}")
+            
+            # Broadcast real-time update
+            await app_state.broadcast_update({
+                "type": "payment_confirmed",
+                "transaction_id": transaction_id,
+                "payment_hash": payment_result.get("payment_hash", ""),
+                "status": "payment_confirmed"
+            })
+        else:
+            print(f"⚠️  Failed to publish payment confirmation to Nostr")
+            
+    except Exception as e:
+        print(f"❌ Error publishing payment confirmation: {e}")
 
 
 @app.post("/api/transactions/{tx_id}/complete-payment")
@@ -1182,6 +1319,57 @@ async def reject_bid(bid_id: str):
         "success": True,
         "message": "Bid rejected"
     }
+
+
+@app.get("/api/transactions/{tx_id}/status")
+async def get_transaction_status(tx_id: str):
+    """Get real-time transaction status including Lightning payment and escrow state."""
+    if tx_id not in app_state.transactions:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    
+    tx_data = app_state.transactions[tx_id]
+    escrow = tx_data.get("escrow")
+    listing_data = tx_data.get("listing", {})
+    bid_data = tx_data.get("bid", {})
+    
+    # Get basic transaction info
+    listing_content = json.loads(listing_data.get("event", {}).get("content", "{}"))
+    bid_content = json.loads(bid_data.get("event", {}).get("content", "{}"))
+    
+    status_info = {
+        "transaction_id": tx_id,
+        "status": tx_data.get("status", "unknown"),
+        "product_name": listing_content.get("product_name", "Unknown"),
+        "bid_amount_sats": bid_content.get("bid_amount_satoshis", 0),
+        "created_at": tx_data.get("created_at", 0)
+    }
+    
+    # Add escrow information
+    if escrow:
+        status_info["escrow"] = {
+            "state": escrow.state.value,
+            "purchase_amount_sats": escrow.purchase_amount_sats,
+            "buyer_collateral_sats": escrow.buyer_collateral_sats,
+            "seller_collateral_sats": escrow.seller_collateral_sats,
+            "payment_hash": escrow.payment_hash,
+            "created_at": escrow.created_at,
+            "expires_at": escrow.expires_at,
+            "time_remaining": max(0, escrow.expires_at - int(time.time()))
+        }
+    
+    # Add Lightning invoice information
+    lightning_invoices = tx_data.get("lightning_invoices", {})
+    if lightning_invoices:
+        status_info["lightning_invoices"] = lightning_invoices
+    
+    # Add cross-computer sync status
+    status_info["sync_status"] = {
+        "local_state": tx_data.get("status", "unknown"),
+        "last_updated": int(time.time()),
+        "source": "local" if tx_id in app_state.my_transactions else "remote"
+    }
+    
+    return status_info
 
 
 async def create_transaction_invoices(escrow, listing_content):

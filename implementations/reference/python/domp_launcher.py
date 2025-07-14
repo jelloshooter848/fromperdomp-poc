@@ -423,12 +423,184 @@ class DOMPLauncher:
             else:
                 if "wallet locked" in result.stderr.lower():
                     print("🔐 LND wallet is locked - needs unlocking")
+                elif "wallet not found" in result.stderr.lower() or "no wallet exists" in result.stderr.lower():
+                    print("📝 No LND wallet found - needs creation")
+                    return "no_wallet"
                 else:
                     print(f"❌ LND wallet error: {result.stderr}")
                 return False
         except Exception as e:
             print(f"❌ Failed to check wallet status: {e}")
             return False
+    
+    def check_wallet_exists(self):
+        """Check if LND wallet database exists."""
+        wallet_db_path = os.path.expanduser("~/.lnd/data/chain/bitcoin/testnet/wallet.db")
+        return os.path.exists(wallet_db_path)
+    
+    def create_lnd_wallet(self, interactive: bool = True):
+        """Create a new LND wallet for first-time setup."""
+        print("📝 Creating new LND wallet...")
+        
+        if self.check_wallet_exists():
+            print("⚠️  Wallet database already exists. Use 'unlock' instead of 'create'.")
+            return False
+        
+        if self.services["lnd"].status != ServiceStatus.RUNNING:
+            print("❌ LND must be running to create wallet. Start LND first.")
+            return False
+        
+        try:
+            if interactive:
+                print("🆕 Creating new LND wallet...")
+                print("📋 Please follow the prompts to create your wallet.")
+                print("⚠️  IMPORTANT: Save your seed phrase securely!")
+                print("=" * 50)
+                
+                result = subprocess.run([
+                    "lncli", "--network=testnet", "create"
+                ], stdin=sys.stdin, stdout=sys.stdout, stderr=sys.stderr)
+                
+                if result.returncode == 0:
+                    print("=" * 50)
+                    print("✅ LND wallet created successfully!")
+                    print("🔑 Your wallet is now unlocked and ready to use.")
+                    print("💡 Remember to backup your seed phrase!")
+                    return True
+                else:
+                    print("❌ Wallet creation failed")
+                    return False
+            else:
+                print("❌ Non-interactive wallet creation not implemented")
+                print("💡 Use interactive mode for wallet creation")
+                return False
+                
+        except Exception as e:
+            print(f"❌ Failed to create wallet: {e}")
+            return False
+    
+    def check_dependencies(self):
+        """Check if required dependencies are installed."""
+        print("🔍 Checking system dependencies...")
+        
+        missing_deps = []
+        
+        # Check for LND
+        try:
+            result = subprocess.run(["lnd", "--version"], capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                print("✅ LND (Lightning Network Daemon) found")
+            else:
+                missing_deps.append("lnd")
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            missing_deps.append("lnd")
+        
+        # Check for lncli
+        try:
+            result = subprocess.run(["lncli", "--version"], capture_output=True, text=True, timeout=5)
+            if result.returncode == 0:
+                print("✅ lncli (Lightning CLI) found")
+            else:
+                missing_deps.append("lncli")
+        except (subprocess.TimeoutExpired, FileNotFoundError):
+            missing_deps.append("lncli")
+        
+        # Check Python version
+        import sys
+        if sys.version_info >= (3, 8):
+            print(f"✅ Python {sys.version_info.major}.{sys.version_info.minor} found")
+        else:
+            print(f"⚠️  Python {sys.version_info.major}.{sys.version_info.minor} found (3.8+ recommended)")
+        
+        return missing_deps
+    
+    def show_dependency_install_instructions(self, missing_deps):
+        """Show installation instructions for missing dependencies."""
+        if not missing_deps:
+            return
+        
+        print("\n❌ Missing Dependencies:")
+        print("=" * 40)
+        
+        if "lnd" in missing_deps or "lncli" in missing_deps:
+            print("📦 LND (Lightning Network Daemon) not found")
+            print("\n🔧 Installation Instructions:")
+            print("\n🐧 Ubuntu/Debian:")
+            print("   wget https://github.com/lightningnetwork/lnd/releases/download/v0.17.0-beta/lnd-linux-amd64-v0.17.0-beta.tar.gz")
+            print("   tar -xzf lnd-linux-amd64-v0.17.0-beta.tar.gz")
+            print("   sudo install lnd-linux-amd64-v0.17.0-beta/lnd /usr/local/bin/")
+            print("   sudo install lnd-linux-amd64-v0.17.0-beta/lncli /usr/local/bin/")
+            
+            print("\n🍎 macOS:")
+            print("   brew install lnd")
+            
+            print("\n🪟 Windows:")
+            print("   Download from: https://github.com/lightningnetwork/lnd/releases")
+            print("   Extract and add to PATH")
+            
+            print("\n✅ Verify installation:")
+            print("   lnd --version")
+            print("   lncli --version")
+            
+            print("\n📚 After installing LND, run:")
+            print("   python domp_launcher.py setup")
+    
+    def setup_wallet_workflow(self):
+        """Complete wallet setup workflow for new computers."""
+        print("🚀 DOMP Complete Setup Workflow")
+        print("=" * 40)
+        
+        # Check dependencies first
+        missing_deps = self.check_dependencies()
+        if missing_deps:
+            self.show_dependency_install_instructions(missing_deps)
+            print("\n❌ Please install missing dependencies and try again.")
+            return False
+        
+        print("✅ All dependencies found!")
+        print("\n📋 Starting DOMP marketplace setup...")
+        
+        # Check if LND is running
+        if self.services["lnd"].status != ServiceStatus.RUNNING:
+            print("📋 Step 1: Starting LND...")
+            if not self.start_lnd():
+                print("❌ Failed to start LND. Cannot proceed with wallet setup.")
+                return False
+            
+            # Wait for LND to start
+            print("⏳ Waiting for LND to initialize...")
+            time.sleep(5)
+        
+        # Check wallet status
+        print("📋 Step 2: Checking wallet status...")
+        wallet_status = self.check_wallet_status()
+        
+        if wallet_status == "no_wallet" or not self.check_wallet_exists():
+            print("📋 Step 3: Creating new wallet...")
+            if not self.create_lnd_wallet(interactive=True):
+                print("❌ Wallet creation failed. Setup incomplete.")
+                return False
+        elif wallet_status == False:
+            print("📋 Step 3: Unlocking existing wallet...")
+            if not self.unlock_lnd_wallet(interactive=True):
+                print("❌ Wallet unlock failed. Setup incomplete.")
+                return False
+        else:
+            print("✅ Wallet is already unlocked and operational!")
+        
+        print("📋 Step 4: Starting Web API...")
+        if not self.start_web_api():
+            print("❌ Failed to start Web API. Setup incomplete.")
+            return False
+        
+        print("=" * 40)
+        print("🎉 DOMP Setup Complete!")
+        print("✅ LND wallet is operational")
+        print("✅ Web API is running")
+        print("🌐 Marketplace: http://localhost:8001")
+        print("💡 Your computer is ready for P2P marketplace!")
+        
+        return True
 
 def interactive_menu():
     """Interactive menu interface."""
@@ -457,14 +629,17 @@ def interactive_menu():
         print("  6. Stop All Services")
         print("  7. Unlock Wallet")
         print("  8. Check Wallet Status")
-        print("  9. Run Tests")
-        print("  10. View Logs")
-        print("  11. Restart All")
-        print("  12. Help")
+        print("  9. Create New Wallet")
+        print("  10. Setup New Computer")
+        print("  11. Check Dependencies")
+        print("  12. Run Tests")
+        print("  13. View Logs")
+        print("  14. Restart All")
+        print("  15. Help")
         print("  0. Exit")
         
         try:
-            choice = input("\n🔹 Select option (0-12): ").strip()
+            choice = input("\n🔹 Select option (0-15): ").strip()
             
             if choice == "0":
                 print("👋 Goodbye!")
@@ -494,29 +669,46 @@ def interactive_menu():
                 else:
                     print("❌ LND is not running. Start LND first.")
             elif choice == "9":
-                launcher.run_tests()
+                launcher.check_service_status()
+                if launcher.services["lnd"].status == ServiceStatus.RUNNING:
+                    launcher.create_lnd_wallet(interactive=True)
+                else:
+                    print("❌ LND is not running. Start LND first.")
             elif choice == "10":
+                launcher.setup_wallet_workflow()
+            elif choice == "11":
+                missing_deps = launcher.check_dependencies()
+                if missing_deps:
+                    launcher.show_dependency_install_instructions(missing_deps)
+                else:
+                    print("✅ All dependencies satisfied!")
+            elif choice == "12":
+                launcher.run_tests()
+            elif choice == "13":
                 log_choice = input("View logs for (lnd/api): ").strip().lower()
                 if log_choice in ["lnd", "api"]:
                     service_name = "lnd" if log_choice == "lnd" else "web_api"
                     launcher.show_logs(service_name)
                 else:
                     print("❌ Invalid log choice")
-            elif choice == "11":
+            elif choice == "14":
                 print("🔄 Restarting all services...")
                 launcher.stop_all()
                 time.sleep(2)
                 launcher.start_all()
-            elif choice == "12":
+            elif choice == "15":
                 print("\n📚 DOMP LAUNCHER HELP:")
                 print("  🚀 Start services before running tests")
-                print("  🔐 Unlock wallet after starting LND")
+                print("  🔐 Unlock wallet after starting LND") 
+                print("  📝 Create wallet for new computers")
+                print("  🛠️  Use 'Setup New Computer' for complete first-time setup")
+                print("  🔍 Check Dependencies shows what needs to be installed")
                 print("  🧪 Run tests to verify everything works")
                 print("  📄 Check logs if services fail to start")
                 print("  🌐 Web interface: http://localhost:8001")
                 print("  ⚡ Lightning gRPC: localhost:10009")
             else:
-                print("❌ Invalid choice. Please select 0-12.")
+                print("❌ Invalid choice. Please select 0-15.")
             
             if choice != "0":
                 input("\n⏸️  Press Enter to continue...")
@@ -602,6 +794,23 @@ def main():
         else:
             launcher.show_logs(sys.argv[2])
     
+    elif command == "create-wallet":
+        launcher.check_service_status()
+        if launcher.services["lnd"].status == ServiceStatus.RUNNING:
+            launcher.create_lnd_wallet(interactive=True)
+        else:
+            print("❌ LND is not running. Start LND first with: python domp_launcher.py start-lnd")
+    
+    elif command == "setup":
+        launcher.setup_wallet_workflow()
+    
+    elif command == "check-deps":
+        missing_deps = launcher.check_dependencies()
+        if missing_deps:
+            launcher.show_dependency_install_instructions(missing_deps)
+        else:
+            print("✅ All dependencies satisfied!")
+    
     else:
         print(f"❌ Unknown command: {command}")
         print("\n📚 Available commands:")
@@ -615,6 +824,9 @@ def main():
         print("  stop-api      - Stop Web API only")
         print("  unlock        - Unlock LND wallet (interactive)")
         print("  unlock-auto   - Unlock LND wallet (automated)")
+        print("  create-wallet - Create new LND wallet")
+        print("  setup         - Complete setup for new computer")
+        print("  check-deps    - Check system dependencies")
         print("  test          - Run test suite")
         print("  logs <service> - Show logs for service")
         print("\n💡 Run without arguments for interactive menu")

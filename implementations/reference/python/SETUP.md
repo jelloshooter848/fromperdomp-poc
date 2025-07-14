@@ -1,11 +1,50 @@
 # DOMP Quick Setup Guide
 
-Get the DOMP marketplace running in under 5 minutes with the Service Launcher.
+Get the DOMP P2P marketplace running on any computer in under 10 minutes!
+
+## 🚀 New Computer Setup (One Command)
+
+If you're setting up DOMP on a fresh computer:
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-repo/fromperdomp-poc.git
+cd fromperdomp-poc/implementations/reference/python
+
+# 2. Setup Python environment  
+python -m venv domp-env
+source domp-env/bin/activate  # On Windows: domp-env\Scripts\activate
+pip install -r requirements.txt
+
+# 3. Check what needs to be installed
+python domp_launcher.py check-deps
+
+# 4. Complete automated setup (if dependencies are installed)
+python domp_launcher.py setup
+```
+
+## 📦 What's Included vs What to Install
+
+### ✅ Included in Repository
+- Complete DOMP marketplace implementation
+- Python dependencies (installed via `pip install -r requirements.txt`)
+- Nostr client and protocol implementation
+- Lightning Network integration code
+- Web interface and API
+- Service launcher and management tools
+- Comprehensive test suite
+
+### 📥 Needs Separate Installation
+- **LND (Lightning Network Daemon)** - The actual Lightning node software
+- **Python 3.8+** - Programming language runtime
+- **Git** - Version control (for cloning)
+
+**Note**: LND is a separate project (~50MB) that provides Lightning Network functionality. DOMP integrates with it but doesn't include it to keep the repository lightweight.
 
 ## Prerequisites
 
 1. **Python 3.8+** installed
-2. **LND (Lightning Network Daemon)** installed and configured
+2. **LND (Lightning Network Daemon)** - automatically checked and instructions provided
 3. **Git** for cloning the repository
 
 ### Install LND
