@@ -357,10 +357,33 @@ class DOMPWebState:
         try:
             content = json.loads(event_dict['content'])
             bid_ref = content.get('bid_ref')
+            ln_invoice = content.get('ln_invoice', '')
+            collateral_invoice = content.get('collateral_invoice', '')
             
+            print(f"✅ Processing bid acceptance for bid {bid_ref[:16]}...")
+            
+            # If this is our bid that was accepted, we need to pay the invoices
             if bid_ref in self.bids:
                 self.bids[bid_ref]['status'] = 'accepted'
-                print(f"✅ Bid accepted: {bid_ref[:16]}...")
+                
+                # Create payment information for the buyer
+                payment_info = {
+                    "bid_id": bid_ref,
+                    "ln_invoice": ln_invoice,
+                    "collateral_invoice": collateral_invoice,
+                    "status": "payment_required"
+                }
+                
+                # Broadcast to UI so buyer can pay invoices
+                asyncio.create_task(self.broadcast_update({
+                    "type": "bid_accepted_payment_required",
+                    "bid_id": bid_ref,
+                    "lightning_invoice": ln_invoice,
+                    "collateral_invoice": collateral_invoice,
+                    "message": "Your bid was accepted! Payment required to complete transaction."
+                }))
+                
+                print(f"💰 Bid {bid_ref[:16]}... accepted - payment invoices available")
             
         except Exception as e:
             print(f"❌ Error processing bid acceptance event: {e}")
@@ -968,14 +991,196 @@ async def place_bid(request: PlaceBidRequest):
         except Exception as e:
             print(f"❌ Error publishing bid to Nostr: {e}")
     
-    # For now, still simulate acceptance for demo
-    # TODO: Remove this and implement real cross-computer bid acceptance
-    success = await simulate_bid_acceptance(bid.id, request.listing_id)
+    # Bid placed successfully - no automatic acceptance
+    # Sellers must now manually accept bids via /api/bids/{bid_id}/accept
     
     return {
-        "success": success,
+        "success": True,
         "bid_id": bid.id,
-        "message": "Bid placed and published to Nostr!" if success else "Bid placed, waiting for acceptance"
+        "message": "Bid placed and published to Nostr! Waiting for seller acceptance.",
+        "status": "pending"
+    }
+
+
+@app.get("/api/bids")
+async def get_bids(listing_id: str = None):
+    """Get bids from Nostr, optionally filtered by listing."""
+    if not app_state.keypair:
+        raise HTTPException(status_code=400, detail="User identity not initialized")
+    
+    # Get bids from Nostr
+    nostr_bids = await app_state.get_bids_from_nostr(listing_id)
+    
+    # Format bids for response
+    formatted_bids = []
+    for bid_data in nostr_bids:
+        event = bid_data["event"]
+        content = json.loads(event["content"])
+        
+        formatted_bids.append({
+            "id": event["id"],
+            "listing_id": content.get("product_ref"),
+            "bidder_pubkey": event["pubkey"],
+            "bidder_short": event["pubkey"][:16] + "...",
+            "bid_amount_sats": content.get("bid_amount_satoshis"),
+            "bid_amount_btc": content.get("bid_amount_satoshis", 0) / 100_000_000,
+            "message": content.get("message", ""),
+            "collateral_sats": content.get("buyer_collateral_satoshis", 0),
+            "created_at": event["created_at"],
+            "status": bid_data.get("status", "pending")
+        })
+    
+    # Filter for listings owned by current user if no specific listing_id
+    if not listing_id:
+        user_listings = await app_state.get_listings_from_nostr()
+        user_listing_ids = {listing["event"]["id"] for listing in user_listings 
+                           if listing["event"]["pubkey"] == app_state.keypair.public_key_hex}
+        formatted_bids = [bid for bid in formatted_bids if bid["listing_id"] in user_listing_ids]
+    
+    return {"bids": formatted_bids}
+
+
+@app.post("/api/bids/{bid_id}/accept")
+async def accept_bid(bid_id: str):
+    """Accept a bid and create Lightning escrow."""
+    if not app_state.keypair:
+        raise HTTPException(status_code=400, detail="User identity not initialized")
+    
+    # Find the bid in Nostr data
+    nostr_bids = await app_state.get_bids_from_nostr()
+    bid_data = None
+    
+    for bid in nostr_bids:
+        if bid["event"]["id"] == bid_id:
+            bid_data = bid
+            break
+    
+    if not bid_data:
+        raise HTTPException(status_code=404, detail="Bid not found")
+    
+    bid_event = bid_data["event"]
+    bid_content = json.loads(bid_event["content"])
+    listing_id = bid_content.get("product_ref")
+    
+    if not listing_id:
+        raise HTTPException(status_code=400, detail="Invalid bid: missing product reference")
+    
+    # Find the listing to ensure we own it
+    nostr_listings = await app_state.get_listings_from_nostr()
+    listing_data = None
+    
+    for listing in nostr_listings:
+        if listing["event"]["id"] == listing_id:
+            listing_data = listing
+            break
+    
+    if not listing_data:
+        raise HTTPException(status_code=404, detail="Listing not found")
+    
+    listing_event = listing_data["event"]
+    
+    # Verify we own this listing
+    if listing_event["pubkey"] != app_state.keypair.public_key_hex:
+        raise HTTPException(status_code=403, detail="You can only accept bids on your own listings")
+    
+    listing_content = json.loads(listing_event["content"])
+    
+    try:
+        # Create Lightning escrow
+        escrow = app_state.escrow_manager.create_escrow(
+            transaction_id=f"tx_{bid_id[:8]}",
+            buyer_pubkey=bid_event["pubkey"],
+            seller_pubkey=app_state.keypair.public_key_hex,
+            purchase_amount_sats=bid_content["bid_amount_satoshis"],
+            buyer_collateral_sats=bid_content.get("buyer_collateral_satoshis", 0),
+            seller_collateral_sats=listing_content.get("seller_collateral_satoshis", 0)
+        )
+        
+        # Create Lightning invoices
+        lightning_invoices = await create_transaction_invoices(escrow, listing_content)
+        
+        if "error" in lightning_invoices:
+            raise HTTPException(status_code=500, detail=f"Failed to create Lightning invoices: {lightning_invoices['error']}")
+        
+        # Create bid acceptance event
+        purchase_invoice = lightning_invoices.get("purchase", {}).get("payment_request", "")
+        collateral_invoice = lightning_invoices.get("buyer_collateral", {}).get("payment_request", "")
+        
+        from domp.events import BidAcceptance
+        acceptance = BidAcceptance(
+            bid_ref=bid_id,
+            ln_invoice=purchase_invoice,
+            collateral_invoice=collateral_invoice,
+            estimated_shipping_time="2-3 business days",
+            shipping_time_days=3,
+            terms="Payment required within 24 hours"
+        )
+        acceptance.sign(app_state.keypair)
+        
+        # Store transaction locally
+        app_state.transactions[escrow.transaction_id] = {
+            "status": "awaiting_payment",
+            "escrow": escrow,
+            "bid": bid_data,
+            "listing": listing_data,
+            "lightning_invoices": lightning_invoices,
+            "acceptance_event": acceptance.to_dict(),
+            "created_at": int(time.time())
+        }
+        
+        app_state.my_transactions.append(escrow.transaction_id)
+        
+        # Publish acceptance event to Nostr
+        if app_state.nostr_client:
+            try:
+                from domp.events import create_event_from_dict
+                nostr_event = create_event_from_dict(acceptance.to_dict())
+                published = await app_state.nostr_client.publish_event(nostr_event)
+                if published:
+                    print(f"✅ Published bid acceptance {acceptance.id} to Nostr relays")
+                else:
+                    print(f"⚠️  Failed to publish bid acceptance to Nostr")
+            except Exception as e:
+                print(f"❌ Error publishing bid acceptance to Nostr: {e}")
+        
+        # Broadcast update
+        await app_state.broadcast_update({
+            "type": "bid_accepted",
+            "transaction_id": escrow.transaction_id,
+            "bid_id": bid_id,
+            "product_name": listing_content["product_name"],
+            "lightning_invoices": lightning_invoices,
+            "status": "awaiting_payment"
+        })
+        
+        return {
+            "success": True,
+            "transaction_id": escrow.transaction_id,
+            "lightning_invoices": lightning_invoices,
+            "message": "Bid accepted! Lightning invoices created and published to Nostr."
+        }
+        
+    except Exception as e:
+        print(f"Error accepting bid: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to accept bid: {str(e)}")
+
+
+@app.post("/api/bids/{bid_id}/reject")  
+async def reject_bid(bid_id: str):
+    """Reject a bid."""
+    if not app_state.keypair:
+        raise HTTPException(status_code=400, detail="User identity not initialized")
+    
+    # For now, just return success - could implement bid rejection events later
+    await app_state.broadcast_update({
+        "type": "bid_rejected",
+        "bid_id": bid_id,
+        "message": "Bid rejected by seller"
+    })
+    
+    return {
+        "success": True,
+        "message": "Bid rejected"
     }
 
 
@@ -1062,81 +1267,8 @@ async def create_transaction_invoices(escrow, listing_content):
         return {"error": str(e)}
 
 
-async def simulate_bid_acceptance(bid_id: str, listing_id: str):
-    """Simulate seller accepting the bid."""
-    try:
-        bid_data = app_state.bids[bid_id]
-        listing_data = app_state.listings[listing_id]
-        
-        bid_event = bid_data["event"]
-        listing_event = listing_data["event"]
-        
-        bid_content = json.loads(bid_event["content"])
-        listing_content = json.loads(listing_event["content"])
-        
-        # Create Lightning escrow
-        escrow = app_state.escrow_manager.create_escrow(
-            transaction_id=f"tx_{bid_id[:8]}",
-            buyer_pubkey=app_state.keypair.public_key_hex,
-            seller_pubkey=listing_event["pubkey"],
-            purchase_amount_sats=bid_content["bid_amount_satoshis"],
-            buyer_collateral_sats=bid_content["buyer_collateral_satoshis"],
-            seller_collateral_sats=listing_content.get("seller_collateral_satoshis", 0)
-        )
-        
-        # Create real Lightning invoices for this transaction
-        try:
-            lightning_invoices = await asyncio.wait_for(
-                create_transaction_invoices(escrow, listing_content), 
-                timeout=10.0  # 10 second timeout
-            )
-        except asyncio.TimeoutError:
-            print("⚠️  Lightning invoice creation timed out, using mock invoices")
-            lightning_invoices = {
-                "purchase": {
-                    "payment_request": f"mock_invoice_{escrow.transaction_id}",
-                    "amount_sats": escrow.purchase_amount_sats,
-                    "description": f"DOMP: {listing_content['product_name']} - Purchase",
-                    "client_type": "mock_fallback"
-                }
-            }
-        
-        # Store transaction with Lightning invoice details
-        app_state.transactions[escrow.transaction_id] = {
-            "status": "awaiting_payment",
-            "escrow": escrow,
-            "bid": bid_data,
-            "listing": listing_data,
-            "lightning_invoices": lightning_invoices,
-            "created_at": int(time.time())
-        }
-        
-        app_state.my_transactions.append(escrow.transaction_id)
-        
-        # Broadcast update with Lightning invoice information
-        update_message = {
-            "type": "bid_accepted",
-            "transaction_id": escrow.transaction_id,
-            "product_name": listing_content["product_name"],
-            "lightning_invoices": lightning_invoices,
-            "status": "awaiting_payment"
-        }
-        
-        if "purchase" in lightning_invoices and "error" not in lightning_invoices:
-            purchase_invoice = lightning_invoices["purchase"]
-            update_message["payment_required"] = {
-                "amount_sats": purchase_invoice["amount_sats"],
-                "payment_request": purchase_invoice["payment_request"],
-                "description": purchase_invoice["description"]
-            }
-        
-        await app_state.broadcast_update(update_message)
-        
-        return True
-        
-    except Exception as e:
-        print(f"Error in bid acceptance simulation: {e}")
-        return False
+# simulate_bid_acceptance function removed - replaced with real cross-computer bid acceptance flow
+# Sellers now manually accept bids via POST /api/bids/{bid_id}/accept
 
 
 @app.get("/api/transactions")
