@@ -250,10 +250,18 @@ Enhanced spam prevention mechanisms:
    - ✅ Added GET /api/bids, POST /api/bids/{id}/accept, POST /api/bids/{id}/reject endpoints
    - ✅ Real Lightning invoice creation and publishing via bid acceptance events
 
-3. **Lightning Escrow Coordination** (IN PROGRESS)
+3. **Lightning Escrow Coordination** (IN PROGRESS - TASK 4/4)
    - ✅ Publish Lightning invoice details in bid acceptance events
    - Sync HTLCEscrow states via Nostr events between computers
    - Coordinate payment confirmations across instances
+   
+   **Next Implementation Steps (Task 4):**
+   - Create kind-311 (Payment Confirmation) events when Lightning invoices are paid
+   - Publish payment confirmations to Nostr for cross-computer escrow state sync
+   - Update HTLCEscrow states across computers when payments are detected
+   - Implement escrow release coordination via Nostr events
+   - Add payment status tracking endpoints for buyers/sellers
+   - Handle payment timeouts and escrow expiration across computers
 
 4. **Real-time UI Updates**
    - Enhanced WebSocket broadcasting for cross-computer changes
@@ -285,6 +293,45 @@ Enhanced spam prevention mechanisms:
 - Cryptographic signatures validate all events before processing
 - HTLC escrow creation tied to bid acceptance with proper multi-party coordination
 - Cross-computer Lightning invoice distribution via cryptographically secure events
+
+#### **🎯 Next Steps: Task 4 Implementation Guidance**
+
+**Current State:** 
+- Cross-computer bid acceptance working with Lightning invoice creation
+- HTLCEscrow objects created locally but not synchronized across computers
+- Payment detection happening locally but not shared via Nostr events
+
+**Required Implementation (Task 4/4):**
+
+1. **Payment Confirmation Events**:
+   - Enhance `/api/lightning/pay-invoice` endpoint to publish kind-311 events after successful payments
+   - Include payment hash, preimage, transaction ID, and escrow state in event content
+   - File: `implementations/reference/python/web_api.py` (around line 620-640)
+
+2. **Cross-Computer Escrow State Sync**:
+   - Add `process_payment_confirmation_event()` method to handle kind-311 events from other computers
+   - Update local HTLCEscrow state when remote payment confirmations are received
+   - File: `implementations/reference/python/web_api.py` (around line 390-420)
+
+3. **Escrow Release Coordination**:
+   - Modify escrow release logic to publish Nostr events when payments are confirmed
+   - Implement cross-computer escrow state transitions (PENDING → ACTIVE → COMPLETED)
+   - File: `implementations/reference/python/domp/lightning.py` (HTLCEscrow class)
+
+4. **Payment Status API Endpoints**:
+   - Add `GET /api/transactions/{tx_id}/status` for real-time payment tracking
+   - Include Lightning payment status, escrow state, and cross-computer sync status
+   - File: `implementations/reference/python/web_api.py` (new endpoint)
+
+**Key Files to Modify:**
+- `web_api.py`: Payment event publishing, event handlers, status endpoints
+- `domp/lightning.py`: Escrow state coordination methods
+- `domp/events.py`: PaymentConfirmation event class (if needed)
+
+**Testing Strategy:**
+- Test payment on Computer A triggers escrow update on Computer B
+- Verify HTLCEscrow state synchronization across multiple instances
+- Confirm payment timeouts handled consistently across computers
 
 ### **Phase 2: Complete Event Type Coverage**
 **Timeline: 2-3 months**
@@ -342,9 +389,11 @@ Enhanced spam prevention mechanisms:
 
 ### **Current Development Status:**
 - **Active Work**: Phase 1 - Multi-Computer Communication
-- **Current Priority**: Cross-computer Lightning escrow coordination (Task 3/4 complete)
+- **Current Priority**: Cross-computer Lightning escrow coordination (Task 4/4 - FINAL TASK)
 - **Test Coverage**: 11/11 tests passing (100%)
 - **System Status**: Cross-computer bid flow working, escrow coordination in progress
+- **Active Branch**: `feature/multi-computer-communication`
+- **Recent Commits**: Real bid acceptance flow implementation complete
 
 ### **Key Metrics:**
 - **Lines of Code**: ~3,000+ (Python implementation)
