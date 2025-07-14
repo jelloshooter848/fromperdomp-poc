@@ -51,14 +51,22 @@ class Event:
         """Sign the event with given keypair."""
         self.pubkey = keypair.public_key_hex
         
-        # Compute event ID
-        event_data = self.to_dict()
-        event_data.pop('id', None)
-        event_data.pop('sig', None)
+        # Check if this event has PoW (anti-spam proof) - if so, preserve existing ID
+        has_pow = False
+        for tag in self.tags:
+            if len(tag) >= 2 and tag[0] == "anti_spam_proof" and tag[1] == "pow":
+                has_pow = True
+                break
         
-        self.id = compute_event_id(event_data)
+        # Only compute new ID if no PoW exists (preserves PoW-generated IDs)
+        if not has_pow:
+            event_data = self.to_dict()
+            event_data.pop('id', None)
+            event_data.pop('sig', None)
+            
+            self.id = compute_event_id(event_data)
         
-        # Sign the event
+        # Sign the event (signatures are computed on the event ID)
         self.sig = sign_event({"id": self.id}, keypair)
 
 

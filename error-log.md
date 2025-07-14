@@ -1,61 +1,76 @@
-Test Log:
-(domp-env) lando@jellynose:~/projects/fromperdomp-poc/implementations/reference/python$   python3 test_domp_lightning_integration.py
-🧪 DOMP Lightning Integration Test
-==================================================
-🏪 Testing DOMP Lightning Integration
-==================================================
-👤 Step 0: Initializing user identity...
-✅ Identity initialized: 3441a49fd873c5e5...
-📦 Step 1: Getting marketplace listings...
-✅ Found 6 listings
-   Sample: Digital Camera DSLR - 75000000 sats
+(domp-env) lando@jellynose:~/projects/fromperdomp-poc/implementations/reference/python$   python run_all_tests.py
+🎯 DOMP COMPREHENSIVE TEST SUITE
+======================================================================
+Running all DOMP protocol tests to verify system integrity
+📋 Total tests to run: 11
+======================================================================
 
-💰 Step 2: Placing bid on 'Digital Camera DSLR'...
-✅ Bid placed successfully!
-   Bid ID: c16f4a8eaad72a5d605f3fa4bb8f3a8fb74efcbb8fbe9b76c65e32df24cc054f
-   Success: True
+[██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9.1% (1/11) - test_pow.py
+🧪 Running test_pow.py...
+  ✅ PASS - test_pow.py (0.29s)
 
-⚡ Step 3: Checking for Lightning invoices in transactions...
-✅ Found transaction: tx_c16f4a8e
-   Status: awaiting_payment
-   Product: Digital Camera DSLR
-   Amount: 75000000 sats
+[█████░░░░░░░░░░░░░░░░░░░░░░░░░] 18.2% (2/11) - test_lightning_client.py
+🧪 Running test_lightning_client.py...
+  ✅ PASS - test_lightning_client.py (1.34s)
 
-🧾 Step 4: Lightning invoice created successfully!
-   Amount: 75000000 sats
-   Description: DOMP: Digital Camera DSLR - Purchase
-   Client type: real_lnd
-   Payment request: lntb750m1p58g0z5pp55msdsexh95nxrg6yzjzzyja3yw25ntjxv2pxg0emm...
-🎉 SUCCESS: Real Lightning invoice created for DOMP transaction!
-   Payment hash: a6e0d864d72d2661...
-   Invoice valid for: 1 hour
+[████████░░░░░░░░░░░░░░░░░░░░░░] 27.3% (3/11) - test_reputation_system.py
+🧪 Running test_reputation_system.py...
+  ✅ PASS - test_reputation_system.py (0.36s)
 
-✅ DOMP Lightning Integration COMPLETE!
-   • Real Lightning invoices for marketplace transactions
-   • Escrow with HTLC payment hashes
-   • Production-ready Bitcoin testnet integration
+[██████████░░░░░░░░░░░░░░░░░░░░] 36.4% (4/11) - test_lightning_escrow.py
+🧪 Running test_lightning_escrow.py...
+  ✅ PASS - test_lightning_escrow.py (0.27s)
 
-==================================================
-🎉 DOMP Lightning integration test PASSED
-✅ Marketplace now creates real Lightning invoices for transactions
-✅ Ready for end-to-end testing with external Lightning wallet
+[█████████████░░░░░░░░░░░░░░░░░] 45.5% (5/11) - test_complete_domp_flow.py
+🧪 Running test_complete_domp_flow.py...
+  ✅ PASS - test_complete_domp_flow.py (0.15s)
 
+[████████████████░░░░░░░░░░░░░░] 54.5% (6/11) - test_web_lightning.py
+🧪 Running test_web_lightning.py...
+  ✅ PASS - test_web_lightning.py (0.15s)
 
-Server Log:
-(domp-env) lando@jellynose:~/projects/fromperdomp-poc/implementations/reference/python$   python3 -m uvicorn web_api:app --host localhost --port 8001
-✅ Using real Lightning client (LND)
-INFO:     Started server process [80013]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://localhost:8001 (Press CTRL+C to quit)
-INFO:     127.0.0.1:48816 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42820 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44308 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:44322 - "POST /api/bids HTTP/1.1" 400 Bad Request
-✅ Connected to LND at localhost:10009
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:46506 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46518 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46522 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46536 - "GET /api/transactions HTTP/1.1" 200 OK
+[███████████████████░░░░░░░░░░░] 63.6% (7/11) - test_lightning_payment.py
+🧪 Running test_lightning_payment.py...
+  ✅ PASS - test_lightning_payment.py (0.20s)
+
+[█████████████████████░░░░░░░░░] 72.7% (8/11) - test_nostr_relays.py
+🧪 Running test_nostr_relays.py...
+  ✅ PASS - test_nostr_relays.py (0.29s)
+
+[████████████████████████░░░░░░] 81.8% (9/11) - test_domp_lightning_integration.py
+🧪 Running test_domp_lightning_integration.py...
+  ✅ PASS - test_domp_lightning_integration.py (0.15s)
+
+[███████████████████████████░░░] 90.9% (10/11) - test_real_lightning.py
+🧪 Running test_real_lightning.py...
+  ✅ PASS - test_real_lightning.py (1.37s)
+
+[██████████████████████████████] 100.0% (11/11) - test_web_simple.py
+🧪 Running test_web_simple.py...
+  ✅ PASS - test_web_simple.py (0.15s)
+
+======================================================================
+📊 COMPREHENSIVE TEST RESULTS SUMMARY
+======================================================================
+
+📈 Overall Results:
+  ✅ Passed: 11/11 tests
+  ❌ Failed: 0/11 tests
+  ⏱️  Total time: 4.71 seconds
+  📊 Success rate: 100.0%
+
+🏷️  Results by Category:
+  ✅ Core & Crypto: 1/1 (100%)
+  ✅ Lightning Network: 5/5 (100%)
+  ✅ Network Integration: 1/1 (100%)
+  ✅ Web API: 2/2 (100%)
+  ✅ Complete Flows: 2/2 (100%)
+
+⚡ Performance Analysis:
+  🚀 Fastest: test_domp_lightning_integration.py (0.15s)
+  🐌 Slowest: test_real_lightning.py (1.37s)
+
+🎯 FINAL VERDICT:
+  🎉 ALL TESTS PASSED! DOMP system is fully functional!
+  ✅ Ready for production deployment
+  🚀 No regressions detected

@@ -122,6 +122,13 @@ class DOMPWebState:
         sample_listings = [
             {
                 "seller": alice,
+                "product_name": "Lightning Test Item",
+                "description": "Small test item for Lightning Network payment testing. Perfect for testing real Lightning transactions!",
+                "price_sats": 100,
+                "category": "test"
+            },
+            {
+                "seller": alice,
                 "product_name": "Digital Camera DSLR",
                 "description": "Professional 24MP camera with 50mm lens, excellent condition. Includes battery, charger, and camera bag.",
                 "price_sats": 75_000_000,

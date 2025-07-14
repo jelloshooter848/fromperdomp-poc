@@ -104,7 +104,9 @@ def test_complete_domp_flow():
         print(f"   Amount: {payment_info['amount_sats']:,} sats")
         print(f"   Description: {payment_info['description']}")
         print(f"   Client type: {payment_info['client_type']}")
-        print(f"   Invoice: {payment_info['payment_request'][:50]}...")
+        print(f"   Invoice: {payment_info['payment_request']}")
+        print(f"   📋 COPY THIS INVOICE TO PAY WITH YOUR IPHONE WALLET:")
+        print(f"   {payment_info['payment_request']}")
         
         if payment_info['client_type'] == 'real_lnd':
             print(f"🎉 Real Lightning invoice created!")

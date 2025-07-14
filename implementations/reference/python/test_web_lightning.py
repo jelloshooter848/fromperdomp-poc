@@ -98,9 +98,15 @@ def test_lightning_integration():
         response = requests.get(f"{API_BASE}/api/listings")
         if response.status_code == 200:
             data = response.json()
-            print(f"✅ Found {len(data)} listings")
-            if data:
-                print(f"   Sample listing: {data[0]['product_name']}")
+            # The API returns {"listings": [...]} not a direct array
+            listings = data.get("listings", [])
+            print(f"✅ Found {len(listings)} listings")
+            if listings and len(listings) > 0:
+                listing = listings[0]
+                if 'product_name' in listing:
+                    print(f"   Sample listing: {listing['product_name']}")
+                else:
+                    print(f"   Sample listing: (found but couldn't get product name)")
         else:
             print(f"❌ Listings endpoint failed: {response.status_code}")
             return False
@@ -119,13 +125,10 @@ def main():
     """Run web API Lightning integration test."""
     print("🧪 DOMP Web API Lightning Integration Test")
     print("=" * 50)
+    print("ℹ️  Connecting to existing web server on port 8001...")
     
-    # Start web server
-    server_proc = None
     try:
-        server_proc = start_web_server()
-        
-        # Run tests
+        # Run tests (connect to existing server)
         success = test_lightning_integration()
         
         print("\n" + "=" * 50)
@@ -140,15 +143,6 @@ def main():
     except KeyboardInterrupt:
         print("\n🛑 Test interrupted by user")
         return False
-        
-    finally:
-        # Cleanup
-        if server_proc:
-            print("\n🔌 Stopping web server...")
-            server_proc.terminate()
-            time.sleep(2)
-            if server_proc.poll() is None:
-                server_proc.kill()
 
 
 if __name__ == "__main__":

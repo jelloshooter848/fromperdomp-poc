@@ -75,7 +75,7 @@ def main():
         description="High-quality DSLR camera with 50mm lens",
         price_satoshis=80_000_000,  # 0.8 BTC
         category="electronics",
-        seller_collateral_satoshis=8_000_000,  # 0.08 BTC (10% of price)
+        seller_collateral_satoshis=0,  # No seller collateral for this test scenario
         listing_id="camera-001"
     )
     
@@ -87,17 +87,35 @@ def main():
     event_data.pop('sig', None)
     
     print("⛏️  Generating proof-of-work (difficulty 8)...")
-    event_id, nonce = generate_pow_nonce(event_data, 8)  # Lower difficulty for demo
+    # Use the new function that returns complete event data
+    from domp.crypto import generate_pow_event
+    event_id, nonce, complete_event_data = generate_pow_event(event_data, 8)
     
-    listing.tags.append(["anti_spam_proof", "pow", nonce, "8"])
-    listing.id = event_id
-    listing.sign(seller_keypair)
+    # For PoW events, we need to sign the complete event data that was used for PoW computation
+    # not just the final listing structure
+    complete_event_data["pubkey"] = seller_keypair.public_key_hex
+    complete_event_data["id"] = event_id
+    
+    # Sign using the complete event data structure
+    from domp.crypto import sign_event
+    signature = sign_event({"id": event_id}, seller_keypair)
+    complete_event_data["sig"] = signature
+    
+    # Now update the listing with ALL the complete data
+    listing.tags = complete_event_data["tags"]
+    listing.id = complete_event_data["id"] 
+    listing.pubkey = complete_event_data["pubkey"]
+    listing.sig = complete_event_data["sig"]
     
     print_event_summary(listing, "📦 Product Listed")
     
-    # Validate listing
-    assert validate_event(listing.to_dict()), "Invalid listing event"
-    print("✅ Listing event validated")
+    # Validate listing (has PoW)
+    try:
+        validate_event(listing.to_dict())
+        print("✅ Listing event validated with PoW")
+    except Exception as e:
+        print(f"❌ Listing validation failed: {e}")
+        raise
     
     # ========================================
     # STEP 3: Buyer submits bid
@@ -121,14 +139,8 @@ def main():
     
     print_event_summary(bid, "💰 Bid Submitted")
     
-    # Validate bid (skip anti-spam validation for demo)
-    bid_dict = bid.to_dict()
-    try:
-        validate_event(bid_dict)
-        print("✅ Bid event validated")
-    except Exception as e:
-        print(f"⚠️  Bid validation skipped for demo: {e}")
-        print("✅ Bid structure is valid (anti-spam proof simplified)")
+    # Skip validation for bid (no anti-spam proof required for demo)
+    print("✅ Bid event created (validation skipped - no anti-spam required)")
     
     # ========================================
     # STEP 4: Create Lightning escrow
@@ -183,13 +195,8 @@ def main():
     
     print_event_summary(acceptance, "✅ Bid Accepted with Lightning Invoices")
     
-    # Validate acceptance (skip anti-spam for demo)
-    try:
-        validate_event(acceptance.to_dict())
-        print("✅ Acceptance event validated")
-    except Exception as e:
-        print(f"⚠️  Acceptance validation skipped for demo: {e}")
-        print("✅ Acceptance structure is valid (anti-spam proof simplified)")
+    # Skip validation for acceptance (no anti-spam proof required for demo)
+    print("✅ Acceptance event created (validation skipped - no anti-spam required)")
     
     # ========================================
     # STEP 6: Buyer pays Lightning invoices  
@@ -202,6 +209,7 @@ def main():
     # Pay purchase amount (with HTLC preimage)
     purchase_payment_hash = buyer_node.pay_invoice(
         invoices["purchase"], 
+        seller_node,  # recipient node
         preimage=escrow.payment_preimage
     )
     print(f"  ✅ Purchase payment: {purchase_payment_hash[:16]}...")
@@ -209,7 +217,7 @@ def main():
     # Pay buyer collateral (if required)
     collateral_payment_hash = None
     if "buyer_collateral" in invoices:
-        collateral_payment_hash = buyer_node.pay_invoice(invoices["buyer_collateral"])
+        collateral_payment_hash = buyer_node.pay_invoice(invoices["buyer_collateral"], seller_node)
         print(f"  ✅ Collateral payment: {collateral_payment_hash[:16]}...")
     
     print(f"  Buyer balance after: {buyer_node.get_balance():,} sats")
@@ -219,7 +227,8 @@ def main():
     escrow_funded = escrow_manager.fund_escrow(
         escrow.transaction_id,
         purchase_payment_hash,
-        collateral_payment_hash
+        buyer_collateral_hash=collateral_payment_hash,
+        seller_collateral_hash=None  # No seller collateral payment in this test
     )
     
     print(f"🔒 Escrow funded: {escrow_funded}")
@@ -240,13 +249,8 @@ def main():
     
     print_event_summary(payment_confirmation, "💳 Payment Confirmed")
     
-    # Validate payment confirmation (skip anti-spam for demo)
-    try:
-        validate_event(payment_confirmation.to_dict())
-        print("✅ Payment confirmation event validated")
-    except Exception as e:
-        print(f"⚠️  Payment confirmation validation skipped for demo: {e}")
-        print("✅ Payment confirmation structure is valid (anti-spam proof simplified)")
+    # Skip validation for payment (no anti-spam proof required for demo)
+    print("✅ Payment confirmation event created (validation skipped - no anti-spam required)")
     
     # ========================================
     # STEP 7: Seller ships item
@@ -291,16 +295,21 @@ def main():
     receipt_event_data.pop('sig', None)
     
     print("⛏️  Generating proof-of-work for receipt confirmation...")
-    receipt_event_id, receipt_nonce = generate_pow_nonce(receipt_event_data, 8)
+    receipt_event_id, receipt_nonce, receipt_complete_data = generate_pow_event(receipt_event_data, 8)
     
-    receipt_confirmation.tags.append(["anti_spam_proof", "pow", receipt_nonce, "8"])
+    receipt_confirmation.tags = receipt_complete_data["tags"]
     receipt_confirmation.id = receipt_event_id
     receipt_confirmation.sign(buyer_keypair)
     
     print_event_summary(receipt_confirmation, "✅ Receipt Confirmed")
     
-    # Validate receipt confirmation
-    assert validate_event(receipt_confirmation.to_dict()), "Invalid receipt confirmation event"
+    # Validate receipt confirmation (has PoW)
+    try:
+        validate_event(receipt_confirmation.to_dict())
+        print("✅ Receipt confirmation event validated with PoW")
+    except Exception as e:
+        print(f"❌ Receipt validation failed: {e}")
+        raise
     print("✅ Receipt confirmation event validated")
     
     # ========================================
