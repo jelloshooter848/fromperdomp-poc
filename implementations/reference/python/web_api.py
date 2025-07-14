@@ -214,7 +214,8 @@ class DOMPWebState:
                 price_satoshis=item["price_sats"],
                 category=item["category"],
                 seller_collateral_satoshis=item["price_sats"] // 10,
-                listing_id=f"item_{int(time.time())}_{len(self.listings)}"
+                listing_id=f"item_{int(time.time())}_{len(self.listings)}",
+                anti_spam_proof=["ref", "0000000000000000000000000000000000000000000000000000000000000000", "300"]  # Genesis reference proof
             )
             listing.sign(item["seller"])
             
@@ -1041,14 +1042,15 @@ async def create_listing(request: CreateListingRequest):
     if not app_state.keypair:
         raise HTTPException(status_code=400, detail="User identity not initialized")
     
-    # Create listing
+    # Create listing with anti-spam proof (required by DOMP protocol)
     listing = ProductListing(
         product_name=request.product_name,
         description=request.description,
         price_satoshis=request.price_sats,
         category=request.category,
         seller_collateral_satoshis=request.price_sats // 10,
-        listing_id=f"user_item_{int(time.time())}"
+        listing_id=f"user_item_{int(time.time())}",
+        anti_spam_proof=["ref", "0000000000000000000000000000000000000000000000000000000000000000", "300"]  # Genesis reference proof
     )
     listing.sign(app_state.keypair)
     
@@ -1098,13 +1100,14 @@ async def place_bid(request: PlaceBidRequest):
     if not listing_exists:
         raise HTTPException(status_code=404, detail="Listing not found")
     
-    # Create bid
+    # Create bid with anti-spam proof (required by DOMP protocol)
     bid = BidSubmission(
         product_ref=request.listing_id,
         bid_amount_satoshis=request.bid_amount_sats,
         buyer_collateral_satoshis=request.bid_amount_sats,
         message=request.message or "Interested in purchasing",
-        payment_timeout_hours=24
+        payment_timeout_hours=24,
+        anti_spam_proof=["ref", request.listing_id, "301"]  # Reference the listing being bid on
     )
     bid.sign(app_state.keypair)
     
@@ -1183,14 +1186,23 @@ async def accept_bid(bid_id: str):
     if not app_state.keypair:
         raise HTTPException(status_code=400, detail="User identity not initialized")
     
-    # Find the bid in Nostr data
+    # Find the bid in Nostr data or local memory
     nostr_bids = await app_state.get_bids_from_nostr()
     bid_data = None
     
+    # First check Nostr data
     for bid in nostr_bids:
         if bid["event"]["id"] == bid_id:
             bid_data = bid
             break
+    
+    # If not found in Nostr, check local memory (for bids that failed to publish)
+    if not bid_data and bid_id in app_state.bids:
+        local_bid = app_state.bids[bid_id]
+        bid_data = {
+            "event": local_bid["event"],
+            "status": local_bid.get("status", "pending")
+        }
     
     if not bid_data:
         raise HTTPException(status_code=404, detail="Bid not found")
@@ -1206,10 +1218,19 @@ async def accept_bid(bid_id: str):
     nostr_listings = await app_state.get_listings_from_nostr()
     listing_data = None
     
+    # First check Nostr data
     for listing in nostr_listings:
         if listing["event"]["id"] == listing_id:
             listing_data = listing
             break
+    
+    # If not found in Nostr, check local memory
+    if not listing_data and listing_id in app_state.listings:
+        local_listing = app_state.listings[listing_id]
+        listing_data = {
+            "event": local_listing["event"],
+            "seller_keypair": local_listing.get("seller_keypair")
+        }
     
     if not listing_data:
         raise HTTPException(status_code=404, detail="Listing not found")
@@ -1250,7 +1271,8 @@ async def accept_bid(bid_id: str):
             collateral_invoice=collateral_invoice,
             estimated_shipping_time="2-3 business days",
             shipping_time_days=3,
-            terms="Payment required within 24 hours"
+            terms="Payment required within 24 hours",
+            anti_spam_proof=["ref", bid_id, "303"]  # Reference the bid being accepted
         )
         acceptance.sign(app_state.keypair)
         
@@ -1563,6 +1585,33 @@ async def get_reputation_analytics():
 
 
 # WebSocket endpoint for real-time updates
+@app.post("/api/test/reset")
+async def reset_test_state():
+    """Reset server state for testing - clears all in-memory data."""
+    # Clear all in-memory state
+    app_state.listings.clear()
+    app_state.bids.clear() 
+    app_state.transactions.clear()
+    app_state.my_transactions.clear()
+    
+    # Clear websocket connections
+    app_state.websocket_connections.clear()
+    
+    print("🧪 Test state reset - all in-memory data cleared")
+    
+    return {
+        "success": True,
+        "message": "Test state reset successfully",
+        "cleared": {
+            "listings": "cleared",
+            "bids": "cleared", 
+            "transactions": "cleared",
+            "my_transactions": "cleared",
+            "websocket_connections": "cleared"
+        }
+    }
+
+
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
     """WebSocket endpoint for real-time marketplace updates."""

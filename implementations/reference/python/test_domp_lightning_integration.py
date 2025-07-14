@@ -18,6 +18,14 @@ def test_domp_lightning_integration():
     print("=" * 50)
     
     try:
+        # Reset server state for clean test environment
+        print("🧪 Resetting server state for clean test...")
+        reset_response = requests.post(f"{API_BASE}/api/test/reset", timeout=5)
+        if reset_response.status_code == 200:
+            print("✅ Server state reset successfully")
+        else:
+            print("⚠️  Warning: Could not reset server state, continuing anyway...")
+        
         # Step 0: Initialize user identity
         print("👤 Step 0: Initializing user identity...")
         response = requests.get(f"{API_BASE}/api/identity")
@@ -28,29 +36,37 @@ def test_domp_lightning_integration():
         identity = response.json()
         print(f"✅ Identity initialized: {identity['pubkey_short']}")
         
-        # Step 1: Get marketplace listings
-        print("📦 Step 1: Getting marketplace listings...")
-        response = requests.get(f"{API_BASE}/api/listings")
+        # Step 1: Create test listing for Lightning integration
+        print("📦 Step 1: Creating test listing for Lightning integration...")
+        listing_request = {
+            "product_name": "Lightning Integration Test Item",
+            "description": "Test item for validating DOMP Lightning Network integration", 
+            "price_sats": 50,
+            "category": "test"
+        }
+        
+        response = requests.post(
+            f"{API_BASE}/api/listings",
+            headers={"Content-Type": "application/json"},
+            data=json.dumps(listing_request),
+            timeout=10
+        )
+        
         if response.status_code != 200:
-            print(f"❌ Failed to get listings: {response.status_code}")
+            print(f"❌ Failed to create test listing: {response.status_code} - {response.text}")
             return False
         
-        data = response.json()
-        listings = data.get("listings", [])
+        listing_result = response.json()
+        print(f"✅ Test listing created successfully!")
+        print(f"   Product: {listing_request['product_name']} - {listing_request['price_sats']} sats")
         
-        if not listings or len(listings) == 0:
-            print("❌ No listings found")
-            return False
+        test_listing_id = listing_result['listing_id']
         
-        sample_listing = listings[0]
-        print(f"✅ Found {len(listings)} listings")
-        print(f"   Sample: {sample_listing['product_name']} - {sample_listing['price_sats']} sats")
-        
-        # Step 2: Place a bid (triggers Lightning integration)
-        print(f"\n💰 Step 2: Placing bid on '{sample_listing['product_name']}'...")
+        # Step 2: Place a bid on own listing (triggers Lightning integration)
+        print(f"\n💰 Step 2: Placing bid on own listing...")
         bid_request = {
-            "listing_id": sample_listing["id"],
-            "bid_amount_sats": sample_listing["price_sats"],
+            "listing_id": test_listing_id,
+            "bid_amount_sats": listing_request["price_sats"],
             "message": "DOMP Lightning integration test bid"
         }
         
@@ -67,10 +83,22 @@ def test_domp_lightning_integration():
         bid_result = response.json()
         print(f"✅ Bid placed successfully!")
         print(f"   Bid ID: {bid_result['bid_id']}")
-        print(f"   Success: {bid_result['success']}")
+        print(f"   Status: {bid_result['status']}")
+        bid_id = bid_result['bid_id']
         
-        # Step 3: Check transactions for Lightning invoices
-        print(f"\n⚡ Step 3: Checking for Lightning invoices in transactions...")
+        # Step 3: Accept the bid (simulating seller acceptance)
+        print(f"\n👋 Step 3: Accepting bid (simulating seller)...")
+        response = requests.post(f"{API_BASE}/api/bids/{bid_id}/accept", timeout=15)
+        if response.status_code != 200:
+            print(f"❌ Bid acceptance failed: {response.status_code} - {response.text}")
+            return False
+        
+        acceptance_result = response.json()
+        print(f"✅ Bid accepted successfully!")
+        print(f"   Transaction ID: {acceptance_result['transaction_id']}")
+        
+        # Step 4: Check transactions for Lightning invoices
+        print(f"\n⚡ Step 4: Checking for Lightning invoices in transactions...")
         response = requests.get(f"{API_BASE}/api/transactions")
         if response.status_code != 200:
             print(f"❌ Failed to get transactions: {response.status_code}")
@@ -90,10 +118,10 @@ def test_domp_lightning_integration():
         print(f"   Product: {latest_transaction['product_name']}")
         print(f"   Amount: {latest_transaction['amount_sats']} sats")
         
-        # Step 4: Verify Lightning invoice was created
+        # Step 5: Verify Lightning invoice was created
         if "payment_required" in latest_transaction:
             payment_info = latest_transaction["payment_required"]
-            print(f"\n🧾 Step 4: Lightning invoice created successfully!")
+            print(f"\n🧾 Step 5: Lightning invoice created successfully!")
             print(f"   Amount: {payment_info['amount_sats']} sats")
             print(f"   Description: {payment_info['description']}")
             print(f"   Client type: {payment_info['client_type']}")

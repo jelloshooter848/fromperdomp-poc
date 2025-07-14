@@ -292,30 +292,95 @@ class DOMPLauncher:
         print(f"🛑 Stopping {service.name}...")
         
         try:
-            # Try graceful shutdown first
-            if service.process:
-                service.process.terminate()
+            # Special handling for LND with graceful shutdown via API
+            if service_name == "lnd":
+                return self._stop_lnd_gracefully(service)
+            else:
+                return self._stop_generic_service(service)
+                
+        except Exception as e:
+            print(f"❌ Error stopping {service.name}: {e}")
+            return False
+    
+    def _stop_lnd_gracefully(self, service: ServiceInfo):
+        """Stop LND using graceful shutdown methods."""
+        print("🔄 Attempting graceful LND shutdown...")
+        
+        # Method 1: Try lncli stop command
+        try:
+            result = subprocess.run(
+                ["lncli", "stop"],
+                capture_output=True,
+                text=True,
+                timeout=10
+            )
+            if result.returncode == 0:
+                print("✅ LND graceful shutdown initiated")
+                # Wait for LND to shut down
+                for i in range(15):  # Wait up to 15 seconds
+                    time.sleep(1)
+                    self.check_service_status()
+                    if service.status == ServiceStatus.STOPPED:
+                        print(f"✅ {service.name} stopped gracefully")
+                        return True
+                    print(f"   Waiting for shutdown... ({i+1}/15)")
+                    
+        except (subprocess.TimeoutExpired, subprocess.CalledProcessError, FileNotFoundError) as e:
+            print(f"⚠️  lncli stop failed: {e}")
+        
+        # Method 2: Fall back to signal-based shutdown
+        print("🔄 Falling back to signal-based shutdown...")
+        return self._stop_generic_service(service)
+    
+    def _stop_generic_service(self, service: ServiceInfo):
+        """Stop service using generic signal-based methods."""
+        # Try graceful shutdown first
+        if service.process:
+            print("🔄 Terminating process...")
+            service.process.terminate()
+            try:
                 service.process.wait(timeout=5)
-            elif service.pid:
-                os.kill(service.pid, signal.SIGTERM)
-                time.sleep(2)
-            
-            # Force kill if still running
-            self.check_service_status()
-            if service.status == ServiceStatus.RUNNING and service.pid:
+                print(f"✅ {service.name} stopped via process termination")
+                service.status = ServiceStatus.STOPPED
+                service.pid = None
+                service.process = None
+                service.start_time = None
+                return True
+            except subprocess.TimeoutExpired:
+                print("⚠️  Process termination timed out, trying SIGKILL")
+        
+        elif service.pid:
+            print(f"🔄 Sending SIGTERM to PID {service.pid}")
+            os.kill(service.pid, signal.SIGTERM)
+            time.sleep(3)  # Give more time for graceful shutdown
+        
+        # Check if it stopped
+        self.check_service_status()
+        if service.status == ServiceStatus.STOPPED:
+            print(f"✅ {service.name} stopped gracefully")
+            return True
+        
+        # Force kill if still running
+        if service.status == ServiceStatus.RUNNING and service.pid:
+            print(f"🔄 Force killing PID {service.pid}")
+            try:
                 os.kill(service.pid, signal.SIGKILL)
-                time.sleep(1)
-            
+                time.sleep(2)
+                self.check_service_status()
+            except ProcessLookupError:
+                # Process already dead
+                pass
+        
+        # Final status check
+        if service.status == ServiceStatus.STOPPED:
+            print(f"✅ {service.name} stopped")
             service.status = ServiceStatus.STOPPED
             service.pid = None
             service.process = None
             service.start_time = None
-            
-            print(f"✅ {service.name} stopped")
             return True
-            
-        except Exception as e:
-            print(f"❌ Error stopping {service.name}: {e}")
+        else:
+            print(f"❌ Failed to stop {service.name}")
             return False
     
     def start_all(self):

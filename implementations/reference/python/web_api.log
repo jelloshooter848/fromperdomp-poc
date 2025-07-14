@@ -1,117 +1,48 @@
-INFO:     Started server process [11174]
+INFO:     Started server process [34516]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 ✅ Using real Lightning client (LND)
+✅ Nostr client initialized with 4 relays
+🚀 Background Nostr processing started
+🚀 Starting Nostr client and event processing...
+Error listening to wss://relay.damus.io: 'ClientConnection' object has no attribute 'closed'
+Error listening to wss://nostr.wine: 'ClientConnection' object has no attribute 'closed'
+Error listening to wss://nos.lol: 'ClientConnection' object has no attribute 'closed'
+Error listening to wss://relay.nostr.band: 'ClientConnection' object has no attribute 'closed'
+✅ Subscribed to DOMP events on Nostr relays
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:49708 - "POST /api/test/reset HTTP/1.1" 200 OK
 ✅ Connected to LND at localhost:10009
-Failed to get wallet balance: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "wallet locked, unlock it to enable full RPC access"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
->
-Real Lightning client failed: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "wallet locked, unlock it to enable full RPC access"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
->
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:56108 - "GET /api/identity HTTP/1.1" 200 OK
-Failed to get wallet balance: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "wallet locked, unlock it to enable full RPC access"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
->
-Real Lightning client failed: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "wallet locked, unlock it to enable full RPC access"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
->
+INFO:     127.0.0.1:49718 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 8c39048fcbe39995d1b1861c1dccf2b0a9f9b138d441bc52d2402087bfbb0847 to Nostr
+INFO:     127.0.0.1:49730 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid f04b32b1f7e2a93c8da4cae4780f4e990d8c9f017f56fdaf9f8f7811de1a05e0 to Nostr
+INFO:     127.0.0.1:49744 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:56114 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60080 - "GET /api/identity HTTP/1.1" 200 OK
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:60082 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:51814 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60084 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 46b026c042d44960db9cee7373dd320a519d0a164effbe8f73e84d5b400a2751 to Nostr
+INFO:     127.0.0.1:60100 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid fe9dec874cb7a39352b0979528d2fa25609d88ee8d40e9779dac24832010bdc6 to Nostr
+INFO:     127.0.0.1:60102 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+INFO:     127.0.0.1:46394 - "POST /api/bids/fe9dec874cb7a39352b0979528d2fa25609d88ee8d40e9779dac24832010bdc6/accept HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:44998 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:45006 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45018 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45032 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45046 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45062 - "POST /api/transactions/tx_a7ddb29f/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45070 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:45076 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45088 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45102 - "POST /api/invoices HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45114 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:45120 - "POST /api/invoices HTTP/1.1" 200 OK
-Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "self-payments not allowed"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"self-payments not allowed", grpc_status:2}"
->
-Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
-	status = StatusCode.UNKNOWN
-	details = "self-payments not allowed"
-	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"self-payments not allowed", grpc_status:2}"
->
-INFO:     127.0.0.1:45124 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:49600 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49616 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49632 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49646 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:49652 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49656 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:49666 - "POST /api/invoices HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:49676 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:50796 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:47830 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:47838 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:36750 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:38578 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:59344 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54012 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54022 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54038 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54052 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54058 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54074 - "POST /api/transactions/tx_23f908f2/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54076 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54078 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54084 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54088 - "POST /api/invoices HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54102 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54118 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48570 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48574 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48590 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48602 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51540 - "POST /api/invoices HTTP/1.1" 200 OK
 Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
 	status = StatusCode.UNKNOWN
 	details = "self-payments not allowed"
@@ -122,80 +53,59 @@ Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
 	details = "self-payments not allowed"
 	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:2, grpc_message:"self-payments not allowed"}"
 >
-INFO:     127.0.0.1:54130 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51554 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:51566 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54138 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54140 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54152 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54164 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51568 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing eb9356abac2b5d757f59e1e20df50dd505807565978a2a37e2092604eb289faa to Nostr
+INFO:     127.0.0.1:51574 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid ea8dc14c26a9a494f367feb74710e5d27e97737045ef785faddbc0d2115a287a to Nostr
+INFO:     127.0.0.1:51576 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+INFO:     127.0.0.1:47290 - "POST /api/bids/ea8dc14c26a9a494f367feb74710e5d27e97737045ef785faddbc0d2115a287a/accept HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33922 - "GET /api/transactions HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54172 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54188 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54194 - "POST /api/invoices HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47340 - "GET / HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47340 - "GET /static/app.js HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48936 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48940 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48948 - "POST /api/invoices HTTP/1.1" 200 OK
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:39226 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:47340 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47344 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:47340 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47340 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:47348 - "WebSocket /ws" [accepted]
-INFO:     connection open
-INFO:     connection closed
+INFO:     127.0.0.1:39228 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing fbd1a1bb06763269758861a49839798588c080709b3c29d8f2566e9bcd124c27 to Nostr
+INFO:     127.0.0.1:39230 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid b17d65e6a7b9c5fab14983eec333a2fa425a05aac94277d8bd9f07ed3bcf4f36 to Nostr
+INFO:     127.0.0.1:39234 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+INFO:     127.0.0.1:55316 - "POST /api/bids/b17d65e6a7b9c5fab14983eec333a2fa425a05aac94277d8bd9f07ed3bcf4f36/accept HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54274 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54290 - "POST /api/transactions/tx_b17d65e6/complete-payment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54298 - "GET /api/transactions HTTP/1.1" 200 OK
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:41662 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:38478 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38494 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38506 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38520 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38534 - "POST /api/transactions/tx_4f6b0b26/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:38546 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41664 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 06044c90f4c368bbd51857996835e0b8da79e24cfc139a8464e0ff09d7aaee9a to Nostr
+INFO:     127.0.0.1:41676 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid 551ff4e6d22d8dea9f75a030e9109a48606e3997e3ab5dca5976af879696e5cc to Nostr
+INFO:     127.0.0.1:41684 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+INFO:     127.0.0.1:35634 - "POST /api/bids/551ff4e6d22d8dea9f75a030e9109a48606e3997e3ab5dca5976af879696e5cc/accept HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37000 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37010 - "POST /api/transactions/tx_551ff4e6/complete-payment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37024 - "GET /api/transactions HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:51462 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51478 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51492 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51508 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51512 - "POST /api/transactions/tx_3e1d42d9/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:51528 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:42510 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42526 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42534 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42538 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42548 - "POST /api/transactions/tx_b29ac7c0/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42554 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:35580 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:57748 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:39726 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:50122 - "GET /api/identity HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:50128 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50134 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50138 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50154 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50156 - "POST /api/transactions/tx_ff666622/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50164 - "GET /api/transactions HTTP/1.1" 200 OK
-Lightning balance result: 0 (type: <class 'int'>)
-Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:50174 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50182 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50188 - "POST /api/invoices HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50198 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50212 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37028 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37042 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37052 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37068 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34380 - "POST /api/invoices HTTP/1.1" 200 OK
 Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
 	status = StatusCode.UNKNOWN
 	details = "self-payments not allowed"
@@ -206,51 +116,62 @@ Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
 	details = "self-payments not allowed"
 	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"self-payments not allowed", grpc_status:2}"
 >
-INFO:     127.0.0.1:50218 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:34382 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:34384 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:50232 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50244 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50252 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:50260 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34392 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 1be591e37f5e85450d2f33dc00199ef5d848db32cd8518d1d271a0e4fdea3c20 to Nostr
+INFO:     127.0.0.1:34396 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid 54cf902c16e5a1ee0112d7ef46bdebdfd2c6b754fa6b376a9464dfb39f571ccc to Nostr
+INFO:     127.0.0.1:34400 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:42020 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42026 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42042 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46234 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46242 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46246 - "POST /api/invoices HTTP/1.1" 200 OK
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:38958 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:42056 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42056 - "GET /favicon.ico HTTP/1.1" 404 Not Found
-INFO:     127.0.0.1:42056 - "GET /api/wallet/balance HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42056 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:42094 - "WebSocket /ws" [accepted]
-INFO:     connection open
-INFO:     connection closed
+INFO:     127.0.0.1:38972 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 4c9da4250c735965e6fd83241fc5861653e6616f4de453b7c4fbd13b735db8df to Nostr
+INFO:     127.0.0.1:38982 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid 4adc2aa92c4f8009f1f4d906e74bc1fb7f94247a5d4f30cc6e27ee2edab0e0c8 to Nostr
+INFO:     127.0.0.1:38992 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:42164 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:33624 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:42166 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing 3678718122f07e52744449d5121aa4e0652bf598be8eeac05ee95f335e765fb2 to Nostr
+INFO:     127.0.0.1:42180 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid 9c660db8935d7a8177b57c8661f23828f959fb07cce35e05ba134465afe66035 to Nostr
+INFO:     127.0.0.1:42196 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+🧪 Test state reset - all in-memory data cleared
+INFO:     127.0.0.1:39634 - "POST /api/test/reset HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:54346 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54352 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54364 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54374 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54382 - "POST /api/transactions/tx_56edde38/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:54390 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39636 - "GET /api/identity HTTP/1.1" 200 OK
+⚠️  Failed to publish listing ddc2774160bbe51055184cd792ccd46d89789aa2fda19aba5f52c3d49fd7b96c to Nostr
+INFO:     127.0.0.1:39648 - "POST /api/listings HTTP/1.1" 200 OK
+⚠️  Failed to publish bid d25368a2ed788174d22eeaa5df9d91c35dee74ea7ec47987c82e4802ff6f6b54 to Nostr
+INFO:     127.0.0.1:39660 - "POST /api/bids HTTP/1.1" 200 OK
+⚠️  Failed to publish bid acceptance to Nostr
+INFO:     127.0.0.1:46670 - "POST /api/bids/d25368a2ed788174d22eeaa5df9d91c35dee74ea7ec47987c82e4802ff6f6b54/accept HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56296 - "GET /api/transactions HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:37762 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37766 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37778 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37788 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37798 - "POST /api/transactions/tx_4760b4d2/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:37800 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46926 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46938 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46942 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46954 - "GET /api/listings HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
-INFO:     127.0.0.1:46468 - "GET /api/identity HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46474 - "GET /api/listings HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46484 - "POST /api/bids HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46492 - "GET /api/transactions HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46496 - "POST /api/transactions/tx_f14be6d0/complete-payment HTTP/1.1" 200 OK
-INFO:     127.0.0.1:46510 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46254 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46264 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46278 - "POST /api/invoices HTTP/1.1" 200 OK

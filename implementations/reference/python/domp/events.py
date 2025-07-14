@@ -112,6 +112,37 @@ class ProductListing(Event):
             content=json.dumps(content_data, separators=(',', ':')),
             **kwargs
         )
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'ProductListing':
+        """Create ProductListing from dictionary, extracting content data."""
+        content_str = data.get("content", "{}")
+        try:
+            content_data = json.loads(content_str)
+        except json.JSONDecodeError:
+            content_data = {}
+        
+        # Extract constructor arguments from content
+        listing = cls(
+            product_name=content_data.get("product_name", ""),
+            description=content_data.get("description", ""),
+            price_satoshis=content_data.get("price_satoshis", 0),
+            category=content_data.get("category", ""),
+            storage_link=content_data.get("storage_link", ""),
+            seller_collateral_satoshis=content_data.get("seller_collateral_satoshis", 0),
+            shipping_info=content_data.get("shipping_info"),
+            # Pass other Event fields as kwargs
+            id=data.get("id"),
+            pubkey=data.get("pubkey"),
+            created_at=data.get("created_at"),
+            sig=data.get("sig")
+        )
+        
+        # Override tags if provided in data (for reconstructing from Nostr)
+        if "tags" in data:
+            listing.tags = data["tags"]
+            
+        return listing
 
 
 class BidSubmission(Event):
@@ -153,6 +184,36 @@ class BidSubmission(Event):
             content=json.dumps(content_data, separators=(',', ':')),
             **kwargs
         )
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'BidSubmission':
+        """Create BidSubmission from dictionary, extracting content data."""
+        content_str = data.get("content", "{}")
+        try:
+            content_data = json.loads(content_str)
+        except json.JSONDecodeError:
+            content_data = {}
+        
+        # Extract constructor arguments from content
+        bid = cls(
+            product_ref=content_data.get("product_ref", ""),
+            bid_amount_satoshis=content_data.get("bid_amount_satoshis", 0),
+            buyer_collateral_satoshis=content_data.get("buyer_collateral_satoshis", 0),
+            message=content_data.get("message", ""),
+            shipping_address_hash=content_data.get("shipping_address_hash", ""),
+            payment_timeout_hours=content_data.get("payment_timeout_hours", 24),
+            # Pass other Event fields as kwargs  
+            id=data.get("id"),
+            pubkey=data.get("pubkey"),
+            created_at=data.get("created_at"),
+            sig=data.get("sig")
+        )
+        
+        # Override tags if provided in data (for reconstructing from Nostr)
+        if "tags" in data:
+            bid.tags = data["tags"]
+            
+        return bid
 
 
 class BidAcceptance(Event):
@@ -201,6 +262,38 @@ class BidAcceptance(Event):
             content=json.dumps(content_data, separators=(',', ':')),
             **kwargs
         )
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'BidAcceptance':
+        """Create BidAcceptance from dictionary, extracting content data."""
+        content_str = data.get("content", "{}")
+        try:
+            content_data = json.loads(content_str)
+        except json.JSONDecodeError:
+            content_data = {}
+        
+        # Extract constructor arguments from content
+        acceptance = cls(
+            bid_ref=content_data.get("bid_ref", ""),
+            ln_invoice=content_data.get("ln_invoice", ""),
+            collateral_invoice=content_data.get("collateral_invoice", ""),
+            estimated_shipping_time=content_data.get("estimated_shipping_time", ""),
+            shipping_time_days=content_data.get("shipping_time_days", 0),
+            terms=content_data.get("terms", ""),
+            invoice_expiry_seconds=content_data.get("invoice_expiry_seconds", 3600),
+            htlc_timeout_blocks=content_data.get("htlc_timeout_blocks", 144),
+            # Pass other Event fields as kwargs
+            id=data.get("id"),
+            pubkey=data.get("pubkey"),
+            created_at=data.get("created_at"),
+            sig=data.get("sig")
+        )
+        
+        # Override tags if provided in data (for reconstructing from Nostr)
+        if "tags" in data:
+            acceptance.tags = data["tags"]
+            
+        return acceptance
 
 
 class PaymentConfirmation(Event):

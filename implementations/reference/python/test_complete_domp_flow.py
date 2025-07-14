@@ -18,6 +18,14 @@ def test_complete_domp_flow():
     print("=" * 60)
     
     try:
+        # Reset server state for clean test environment
+        print("🧪 Resetting server state for clean test...")
+        reset_response = requests.post(f"{API_BASE}/api/test/reset", timeout=5)
+        if reset_response.status_code == 200:
+            print("✅ Server state reset successfully")
+        else:
+            print("⚠️  Warning: Could not reset server state, continuing anyway...")
+        
         # Step 1: Initialize user identity
         print("👤 Step 1: Initializing user identity...")
         response = requests.get(f"{API_BASE}/api/identity", timeout=10)
@@ -29,32 +37,39 @@ def test_complete_domp_flow():
         print(f"✅ Identity: {identity['pubkey_short']}")
         print(f"   Lightning balance: {identity['lightning_balance']} sats")
         
-        # Step 2: Browse marketplace listings
-        print(f"\n📦 Step 2: Browsing marketplace...")
-        response = requests.get(f"{API_BASE}/api/listings", timeout=10)
+        # Step 2: Create own listing for testing
+        print(f"\n📦 Step 2: Creating test listing...")
+        listing_request = {
+            "product_name": "Test Lightning Item", 
+            "description": "A test item for complete DOMP flow validation with real Lightning integration",
+            "price_sats": 75,
+            "category": "test"
+        }
+        
+        response = requests.post(
+            f"{API_BASE}/api/listings",
+            headers={"Content-Type": "application/json"},
+            data=json.dumps(listing_request),
+            timeout=10
+        )
+        
         if response.status_code != 200:
-            print(f"❌ Failed to get listings: {response.status_code}")
+            print(f"❌ Failed to create listing: {response.status_code} - {response.text}")
             return False
         
-        data = response.json()
-        listings = data.get("listings", [])
+        listing_result = response.json()
+        print(f"✅ Test listing created successfully!")
+        print(f"   Listing ID: {listing_result['listing_id'][:16]}...")
+        print(f"   Product: {listing_request['product_name']}")
+        print(f"   Price: {listing_request['price_sats']:,} sats")
         
-        if not listings:
-            print("❌ No listings found")
-            return False
+        test_listing_id = listing_result['listing_id']
         
-        # Choose the cheapest item for testing
-        cheapest_listing = min(listings, key=lambda x: x["price_sats"])
-        print(f"✅ Found {len(listings)} listings")
-        print(f"   Selected: {cheapest_listing['product_name']}")
-        print(f"   Price: {cheapest_listing['price_sats']:,} sats ({cheapest_listing['price_btc']} BTC)")
-        print(f"   Seller: {cheapest_listing['seller']['pubkey_short']}")
-        
-        # Step 3: Place bid (triggers Lightning integration)
-        print(f"\n💰 Step 3: Placing bid...")
+        # Step 3: Place bid on own listing (simulating buyer)
+        print(f"\n💰 Step 3: Placing bid (simulating buyer)...")
         bid_request = {
-            "listing_id": cheapest_listing["id"],
-            "bid_amount_sats": cheapest_listing["price_sats"],
+            "listing_id": test_listing_id,
+            "bid_amount_sats": listing_request["price_sats"],
             "message": "Complete DOMP flow test - want to buy this item!"
         }
         
@@ -72,10 +87,23 @@ def test_complete_domp_flow():
         bid_result = response.json()
         print(f"✅ Bid placed successfully!")
         print(f"   Bid ID: {bid_result['bid_id'][:16]}...")
-        print(f"   Auto-accepted: {bid_result['success']}")
+        print(f"   Status: {bid_result['status']}")
+        bid_id = bid_result['bid_id']
         
-        # Step 4: Check transaction and Lightning invoice
-        print(f"\n⚡ Step 4: Checking Lightning invoice generation...")
+        # Step 4: Accept the bid (simulating seller acceptance)
+        print(f"\n👋 Step 4: Accepting bid (simulating seller)...")
+        response = requests.post(f"{API_BASE}/api/bids/{bid_id}/accept", timeout=15)
+        if response.status_code != 200:
+            print(f"❌ Bid acceptance failed: {response.status_code} - {response.text}")
+            return False
+        
+        acceptance_result = response.json()
+        print(f"✅ Bid accepted successfully!")
+        print(f"   Transaction ID: {acceptance_result['transaction_id']}")
+        print(f"   Lightning invoices created: {len(acceptance_result.get('lightning_invoices', {}))}")
+        
+        # Step 5: Check transaction and Lightning invoice
+        print(f"\n⚡ Step 5: Checking Lightning invoice generation...")
         response = requests.get(f"{API_BASE}/api/transactions", timeout=10)
         if response.status_code != 200:
             print(f"❌ Failed to get transactions: {response.status_code}")
@@ -112,8 +140,8 @@ def test_complete_domp_flow():
         if payment_info['client_type'] == 'real_lnd':
             print(f"🎉 Real Lightning invoice created!")
         
-        # Step 5: Simulate Lightning payment
-        print(f"\n💸 Step 5: Simulating Lightning payment...")
+        # Step 6: Simulate Lightning payment
+        print(f"\n💸 Step 6: Simulating Lightning payment...")
         response = requests.post(f"{API_BASE}/api/transactions/{latest_tx['id']}/complete-payment", timeout=10)
         
         if response.status_code != 200:
@@ -126,8 +154,8 @@ def test_complete_domp_flow():
         print(f"   Status: {payment_result['status']}")
         print(f"   Message: {payment_result['message']}")
         
-        # Step 6: Verify transaction completion
-        print(f"\n✅ Step 6: Verifying transaction completion...")
+        # Step 7: Verify transaction completion
+        print(f"\n✅ Step 7: Verifying transaction completion...")
         response = requests.get(f"{API_BASE}/api/transactions", timeout=10)
         if response.status_code == 200:
             updated_transactions = response.json().get("transactions", [])
@@ -144,8 +172,8 @@ def test_complete_domp_flow():
         print(f"🎉 COMPLETE DOMP LIGHTNING TRANSACTION FLOW SUCCESSFUL!")
         print(f"=" * 60)
         print(f"✅ User identity and Lightning wallet integration")
-        print(f"✅ Marketplace browsing and item selection")  
-        print(f"✅ Bid placement with automatic acceptance")
+        print(f"✅ Marketplace listing creation and publishing")  
+        print(f"✅ Cross-role bid placement and manual seller acceptance")
         print(f"✅ Real Lightning invoice generation ({payment_info['client_type']})")
         print(f"✅ Payment processing and escrow management")
         print(f"✅ Transaction state updates and notifications")
