@@ -1,0 +1,1204 @@
+2025-07-13 23:33:01.794 [INF] LTND: Version: 0.17.0-beta commit=v0.17.0-beta, build=production, logging=default, debuglevel=info
+2025-07-13 23:33:01.794 [INF] LTND: Active chain: Bitcoin (network=testnet)
+2025-07-13 23:33:01.795 [INF] RPCS: RPC server listening on 127.0.0.1:10009
+2025-07-13 23:33:01.803 [INF] RPCS: gRPC proxy started at 127.0.0.1:8002
+2025-07-13 23:33:01.803 [INF] LTND: Opening the main database, this might take a few minutes...
+2025-07-13 23:33:01.803 [INF] LTND: Opening bbolt database, sync_freelist=false, auto_compact=false
+2025-07-13 23:33:01.820 [INF] LTND: Creating local graph and channel state DB instances
+2025-07-13 23:33:01.881 [INF] CHDB: Checking for schema update: latest_version=31, db_version=31
+2025-07-13 23:33:01.881 [INF] CHDB: Checking for optional update: prune_revocation_log=false, db_version=empty
+2025-07-13 23:33:01.881 [INF] LTND: Database(s) now open (time_to_open=78.53122ms)!
+2025-07-13 23:33:02.238 [INF] BTCN: Loaded 672 addresses from file '/home/lando/.lnd/data/chain/bitcoin/testnet/peers.json'
+2025-07-13 23:33:02.238 [INF] BTCN: Registering block subscription: id=1
+2025-07-13 23:33:02.238 [INF] LTND: We're not running within systemd or the service type is not 'notify'
+2025-07-13 23:33:02.238 [INF] LTND: Waiting for wallet encryption password. Use `lncli create` to create a wallet, `lncli unlock` to unlock an existing wallet, or `lncli changepassword` to change the password of an existing wallet and unlock it.
+2025-07-13 23:33:02.238 [INF] BTCN: Broadcaster now active
+2025-07-13 23:33:02.294 [INF] CMGR: 15 addresses found from DNS seed x49.seed.tbtc.petertodd.org
+2025-07-13 23:33:02.310 [INF] CMGR: 3 addresses found from DNS seed testnet-seed.bluematt.me
+2025-07-13 23:33:02.317 [INF] CMGR: DNS discovery failed on seed testnet-seed.bitcoin.schildbach.de: lookup testnet-seed.bitcoin.schildbach.de on 10.255.255.254:53: no such host
+2025-07-13 23:33:02.317 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:02.324 [INF] CMGR: 14 addresses found from DNS seed x49.testnet-seed.bitcoin.jonasschnelli.ch
+2025-07-13 23:33:02.338 [INF] BTCN: New valid peer 54.215.91.44:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:33:02.338 [INF] BTCN: Waiting for more block headers, then will start cfheaders sync from height 4553052...
+2025-07-13 23:33:02.338 [INF] BTCN: Starting cfheaders sync from (block_height=4553052, block_hash=0000000004dfc594023aa124cebc737d63d394aeb5116aff577aa0620b7ec206) to (block_height=4553055, block_hash=000000000ce6f4c96f545b4cc2b5e13a791d7efefc019a6700e895464236c0e6)
+2025-07-13 23:33:02.338 [INF] BTCN: Starting cfheaders sync for filter_type=0
+2025-07-13 23:33:02.338 [INF] BTCN: Syncing to block height 4553082 from peer 54.215.91.44:18333
+2025-07-13 23:33:02.338 [INF] BTCN: Fetching set of headers from tip (height=4553055) from peer 54.215.91.44:18333
+2025-07-13 23:33:02.446 [INF] BTCN: New valid peer 54.236.59.55:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:33:02.453 [INF] BTCN: New valid peer 148.51.196.40:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:33:02.494 [INF] BTCN: Fetching set of checkpointed cfheaders filters from height=4553052, hash=168872e38403d0a2d4e0d044e0a1652a2602be627e05f5c9e966a78d0ca27c93
+2025-07-13 23:33:02.495 [INF] BTCN: Starting to query for cfheaders from checkpoint_interval=4553, checkpoints=4553
+2025-07-13 23:33:02.495 [INF] BTCN: Fully caught up with cfheaders at height 4553055, waiting at tip for new blocks
+2025-07-13 23:33:02.495 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553082, hash=00000000000011bd5248ab76707686a2d1400fa9586205e9751ce579c4701e76
+2025-07-13 23:33:02.606 [INF] BTCN: New valid peer 54.93.244.242:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:33:02.632 [INF] BTCN: New valid peer 3.126.103.252:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:33:02.650 [INF] BTCN: New valid peer 203.132.94.196:18333 (outbound) (/Satoshi:28.1.0/)
+2025-07-13 23:33:02.923 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553083, hash=000000000494217c4440b567df780d42512ac17947867222a8190fe113c56aac
+2025-07-13 23:33:01.917 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553084, hash=000000000fcca273de2db24dfe332904cd097af29285d8de31cea118b511cd1c
+2025-07-13 23:33:02.123 [INF] BTCN: Lost peer 203.132.94.196:18333 (outbound)
+2025-07-13 23:33:04.457 [ERR] RPCS: [/lnrpc.Lightning/WalletBalance]: wallet locked, unlock it to enable full RPC access
+2025-07-13 23:33:06.024 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:07.058 [ERR] RPCS: [/lnrpc.Lightning/WalletBalance]: wallet locked, unlock it to enable full RPC access
+2025-07-13 23:33:07.114 [ERR] RPCS: [/lnrpc.Lightning/GetInfo]: wallet locked, unlock it to enable full RPC access
+2025-07-13 23:33:07.498 [INF] BTCN: Lost peer 54.215.91.44:18333 (outbound)
+2025-07-13 23:33:07.498 [INF] BTCN: Syncing to block height 4553091 from peer 54.236.59.55:18333
+2025-07-13 23:33:07.498 [INF] BTCN: Fetching set of headers from tip (height=4553091) from peer 54.236.59.55:18333
+2025-07-13 23:33:07.579 [INF] BTCN: New valid peer 135.180.99.74:18333 (outbound) (/Satoshi:29.99.0/)
+2025-07-13 23:33:11.050 [INF] BTCN: Processed 40 blocks in the last 10.16s (height 4553095, 2025-07-13 23:33:09 -0700 PDT)
+2025-07-13 23:33:11.075 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:11.921 [INF] BTCN: Verified 32 filter headers in the last 11.03s (height 4553084, 2025-07-13 23:33:01 -0700 PDT)
+2025-07-13 23:33:11.921 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553096, hash=0000000006e1f3c904618ae395404604cef19f408add0b5942ac863cde47fb6c
+2025-07-13 23:33:12.153 [INF] BTCN: Lost peer 3.126.103.252:18333 (outbound)
+2025-07-13 23:33:12.154 [INF] BTCN: Lost peer 54.93.244.242:18333 (outbound)
+2025-07-13 23:33:12.516 [INF] BTCN: New valid peer 202.8.10.137:18333 (outbound) (/Satoshi:28.0.0/)
+2025-07-13 23:33:13.997 [INF] BTCN: Lost peer 202.8.10.137:18333 (outbound)
+2025-07-13 23:33:15.857 [INF] LNWL: Opened wallet
+2025-07-13 23:33:15.899 [INF] CHRE: Primary chain is set to: bitcoin
+2025-07-13 23:33:16.136 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:16.470 [INF] LNWL: The wallet has been unlocked without a time limit
+2025-07-13 23:33:16.478 [INF] CHRE: LightningWallet opened
+2025-07-13 23:33:16.483 [INF] HSWC: Cleaning circuits from disk for closed channels
+2025-07-13 23:33:16.483 [INF] HSWC: Finished cleaning: no closed channels found, no actions taken.
+2025-07-13 23:33:16.483 [INF] HSWC: Restoring in-memory circuit state from disk
+2025-07-13 23:33:16.484 [INF] HSWC: Payment circuits loaded: num_pending=0, num_open=0
+2025-07-13 23:33:16.488 [INF] LTND: Channel backup proxy channel notifier starting
+2025-07-13 23:33:16.488 [INF] ATPL: Instantiating autopilot with active=false, max_channels=5, allocation=0.600000, min_chan_size=20000, max_chan_size=16777215, private=false, min_confs=1, conf_target=3
+2025-07-13 23:33:16.489 [INF] LTND: We're not running within systemd or the service type is not 'notify'
+2025-07-13 23:33:16.489 [INF] LTND: Waiting for chain backend to finish sync, start_height=4553084
+2025-07-13 23:33:21.195 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:21.933 [INF] BTCN: Verified 1 filter header in the last 10.01s (height 4553085, 2025-07-13 23:33:02 -0700 PDT)
+2025-07-13 23:33:21.933 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553103, hash=00000000000021cf1da41751b1d6b7f3e2818bfef4631cf83c4fc6da7c8094aa
+2025-07-13 23:33:22.490 [INF] BTCN: Registering block subscription: id=2
+2025-07-13 23:33:22.491 [INF] LNWL: Started rescan from block 0000000000000046506b2610591df8a103223a978609182b600ef1d099a5ea85 (height 4552124) for 1 address
+2025-07-13 23:33:22.491 [INF] BTCN: Canceling block subscription: id=2
+2025-07-13 23:33:22.615 [INF] LNWL: Catching up block hashes to height 4552125, this might take a while
+2025-07-13 23:33:22.619 [INF] LNWL: Done catching up block hashes
+2025-07-13 23:33:22.619 [INF] LNWL: Rescanned through block 0000000006f4edf7d0f5d8c99ab8a741e821181a72cb6f21638b67beddf18a85 (height 4552125)
+2025-07-13 23:33:22.684 [INF] BTCN: Registering block subscription: id=3
+2025-07-13 23:33:22.831 [INF] BTCN: Processed 9 blocks in the last 11.78s (height 4553104, 2025-07-13 23:33:19 -0700 PDT)
+2025-07-13 23:33:22.833 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553104, hash=000000000e145fbead93e4000344c9f787d93f769904b45628c216b6658fa3a6
+2025-07-13 23:33:23.817 [INF] LNWL: Catching up block hashes to height 4553103, this might take a while
+2025-07-13 23:33:23.819 [INF] LNWL: Done catching up block hashes
+2025-07-13 23:33:23.819 [INF] LNWL: Finished rescan for 1 address (synced to block 00000000000021cf1da41751b1d6b7f3e2818bfef4631cf83c4fc6da7c8094aa, height 4553103)
+2025-07-13 23:33:23.870 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553105, hash=0000000009256e687e080beaab124f54f1e026a8e9f6df92b4d061ca27ef2ac4
+2025-07-13 23:33:24.375 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553106, hash=00000000000026efad6a0cc72cb74d1fbe9b09e541adf1b1edb23f37a1c4f739
+2025-07-13 23:33:24.676 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553107, hash=00000000000014a8815c49d9e87c76f7bf41b69e793f42c959a1caf190e7914d
+2025-07-13 23:33:25.496 [INF] LTND: Chain backend is fully synced (end_height=4553107)!
+2025-07-13 23:33:25.496 [WRN] HLCK: check: disk space configured with 0 attempts, skipping it
+2025-07-13 23:33:25.496 [WRN] HLCK: check: tls configured with 0 attempts, skipping it
+2025-07-13 23:33:25.496 [INF] LNWL: SigPool starting
+2025-07-13 23:33:25.496 [INF] CHNF: ChannelNotifier starting
+2025-07-13 23:33:25.496 [INF] PRNF: PeerNotifier starting
+2025-07-13 23:33:25.496 [INF] HSWC: HtlcNotifier starting
+2025-07-13 23:33:25.496 [INF] SWPR: Sweeper starting
+2025-07-13 23:33:25.496 [INF] UTXN: UTXO nursery starting
+2025-07-13 23:33:25.496 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.496 [INF] BTCN: Registering block subscription: id=4
+2025-07-13 23:33:25.496 [INF] BRAR: Breach arbiter starting
+2025-07-13 23:33:25.496 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.496 [INF] FNDG: Funding manager starting
+2025-07-13 23:33:25.496 [INF] HSWC: HTLC Switch starting
+2025-07-13 23:33:25.496 [INF] BRAR: Starting contract observer, watching for breaches.
+2025-07-13 23:33:25.496 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.497 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.497 [INF] CNCT: ChainArbitrator starting
+2025-07-13 23:33:25.497 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.497 [INF] DISC: Authenticated Gossiper starting
+2025-07-13 23:33:25.497 [INF] CRTR: Channel Router starting
+2025-07-13 23:33:25.497 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.498 [INF] INVC: InvoiceRegistry starting
+2025-07-13 23:33:25.498 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.499 [INF] HSWC: Onion processor starting
+2025-07-13 23:33:25.499 [INF] NANN: Channel Status Manager starting
+2025-07-13 23:33:25.499 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:25.499 [INF] CHFT: ChannelEventStore starting
+2025-07-13 23:33:25.499 [INF] CHFT: Adding 0 channels to event store
+2025-07-13 23:33:25.499 [INF] CHBU: chanbackup.SubSwapper starting
+2025-07-13 23:33:25.503 [INF] CHBU: Updating backup file at /home/lando/.lnd/data/chain/bitcoin/testnet/channel.backup
+2025-07-13 23:33:25.505 [INF] CHBU: Swapping old multi backup file from /home/lando/.lnd/data/chain/bitcoin/testnet/temp-dont-use.backup to /home/lando/.lnd/data/chain/bitcoin/testnet/channel.backup
+2025-07-13 23:33:25.505 [INF] CMGR: Server listening on 127.0.0.1:9736
+2025-07-13 23:33:25.505 [INF] SRVR: Initializing peer network bootstrappers!
+2025-07-13 23:33:25.505 [INF] SRVR: Creating DNS peer bootstrapper with seeds: [[test.nodes.lightning.directory soa.nodes.lightning.directory]]
+2025-07-13 23:33:25.505 [INF] DISC: Attempting to bootstrap with: BOLT-0010 DNS Seed: [[test.nodes.lightning.directory soa.nodes.lightning.directory]]
+2025-07-13 23:33:25.536 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553108, hash=000000000e5c26b997290cf845f2c89723a2addeb1a7d11ce5dd4d40e33bf4cc
+2025-07-13 23:33:25.711 [INF] NTFN: New block: height=4553108, sha=000000000e5c26b997290cf845f2c89723a2addeb1a7d11ce5dd4d40e33bf4cc
+2025-07-13 23:33:25.711 [INF] UTXN: Attempting to graduate height=4553108: num_kids=0, num_babies=0
+2025-07-13 23:33:25.787 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553109, hash=000000000000011833111b6c2dfdfe68b8ac61ffa806ca70c50be97165bfa693
+2025-07-13 23:33:25.954 [INF] NTFN: New block: height=4553109, sha=000000000000011833111b6c2dfdfe68b8ac61ffa806ca70c50be97165bfa693
+2025-07-13 23:33:25.954 [INF] UTXN: Attempting to graduate height=4553109: num_kids=0, num_babies=0
+2025-07-13 23:33:26.125 [INF] DISC: Obtained 3 addrs to bootstrap network with
+2025-07-13 23:33:26.185 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553110, hash=000000000592e7b91ff7468689e3d03faff905dbfdf19a95e4a9a8a16878934a
+2025-07-13 23:33:26.240 [INF] SRVR: Established connection to: 03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9@34.218.152.137:9735
+2025-07-13 23:33:26.240 [INF] SRVR: Finalizing connection to 03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9@34.218.152.137:9735, inbound=false
+2025-07-13 23:33:26.248 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:26.298 [INF] PEER: Peer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): Negotiated chan series queries
+2025-07-13 23:33:26.298 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:26.298 [INF] DISC: Creating new GossipSyncer for peer=03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9
+2025-07-13 23:33:26.298 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): requesting new chans from height=0 and 4553109 blocks after
+2025-07-13 23:33:26.322 [INF] SRVR: Established connection to: 02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2@173.230.131.87:19735
+2025-07-13 23:33:26.322 [INF] SRVR: Finalizing connection to 02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2@173.230.131.87:19735, inbound=false
+2025-07-13 23:33:26.360 [INF] NTFN: New block: height=4553110, sha=000000000592e7b91ff7468689e3d03faff905dbfdf19a95e4a9a8a16878934a
+2025-07-13 23:33:26.360 [INF] UTXN: Attempting to graduate height=4553110: num_kids=0, num_babies=0
+2025-07-13 23:33:26.413 [INF] PEER: Peer(02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2): Negotiated chan series queries
+2025-07-13 23:33:26.413 [INF] DISC: Creating new GossipSyncer for peer=02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2
+2025-07-13 23:33:26.413 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:26.481 [INF] SRVR: Established connection to: 03dfb5cb100df56d3b4d1d765851e58189c32cd0cb04326c6a60a0b407ed4fb735@34.76.209.74:9735
+2025-07-13 23:33:26.481 [INF] SRVR: Finalizing connection to 03dfb5cb100df56d3b4d1d765851e58189c32cd0cb04326c6a60a0b407ed4fb735@34.76.209.74:9735, inbound=false
+2025-07-13 23:33:26.541 [INF] DISC: GossipSyncer(02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2): applying new update horizon: start=2106-02-06 22:28:15 -0800 PST, end=2242-03-16 05:56:30 -0700 PDT, backlog_size=0
+2025-07-13 23:33:26.559 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): buffering chan range reply of size=8000
+2025-07-13 23:33:26.620 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): buffering chan range reply of size=6353
+2025-07-13 23:33:26.620 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): filtering through 14353 chans
+2025-07-13 23:33:26.629 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): starting query for 4 new chans
+2025-07-13 23:33:26.629 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): querying for 4 new channels
+2025-07-13 23:33:26.670 [INF] PEER: Peer(03dfb5cb100df56d3b4d1d765851e58189c32cd0cb04326c6a60a0b407ed4fb735): Negotiated chan series queries
+2025-07-13 23:33:26.670 [INF] DISC: Creating new GossipSyncer for peer=03dfb5cb100df56d3b4d1d765851e58189c32cd0cb04326c6a60a0b407ed4fb735
+2025-07-13 23:33:26.670 [INF] NTFN: New block epoch subscription
+2025-07-13 23:33:26.685 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): no more chans to query
+2025-07-13 23:33:26.686 [INF] DISC: GossipSyncer(03dfb5cb100df56d3b4d1d765851e58189c32cd0cb04326c6a60a0b407ed4fb735): applying gossipFilter(start=2025-07-13 23:33:26.6861485 -0700 PDT m=+26.284615184, end=2161-08-20 06:01:41.6861485 -0700 PDT)
+2025-07-13 23:33:26.686 [INF] DISC: GossipSyncer(03c7bf385b3019e094db78142622e783041344ec692527ff8a652da855c5a80fc9): applying gossipFilter(start=2025-07-13 23:33:26.686392952 -0700 PDT m=+26.284859646, end=2161-08-20 06:01:41.686392952 -0700 PDT)
+2025-07-13 23:33:26.686 [INF] DISC: GossipSyncer(02cdfbc50a09e40d0adbe54a275eca9bcf4685bd67d697558bcb22c6c0ebcd0be2): applying gossipFilter(start=2025-07-13 23:33:26.686474275 -0700 PDT m=+26.284940969, end=2161-08-20 06:01:41.686474275 -0700 PDT)
+2025-07-13 23:33:27.168 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553111, hash=00000000063755f6c823680a2c7e9872b84af9e07fdd4aca820cc53d69f455c1
+2025-07-13 23:33:27.228 [ERR] RPCS: [/lnrpc.Lightning/SendPaymentSync]: self-payments not allowed
+2025-07-13 23:33:27.377 [INF] NTFN: New block: height=4553111, sha=00000000063755f6c823680a2c7e9872b84af9e07fdd4aca820cc53d69f455c1
+2025-07-13 23:33:27.377 [INF] UTXN: Attempting to graduate height=4553111: num_kids=0, num_babies=0
+2025-07-13 23:33:29.419 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553112, hash=000000000fefdeaa454fcb1102d28bac789f31228f32c1eaf189650363c4302d
+2025-07-13 23:33:29.642 [INF] NTFN: New block: height=4553112, sha=000000000fefdeaa454fcb1102d28bac789f31228f32c1eaf189650363c4302d
+2025-07-13 23:33:29.642 [INF] UTXN: Attempting to graduate height=4553112: num_kids=0, num_babies=0
+2025-07-13 23:33:30.237 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553113, hash=0000000000086d2754fea3ebe28889b8a3d1f7fc221e08b10b388e6a1d2db2cb
+2025-07-13 23:33:30.441 [INF] NTFN: New block: height=4553113, sha=0000000000086d2754fea3ebe28889b8a3d1f7fc221e08b10b388e6a1d2db2cb
+2025-07-13 23:33:30.441 [INF] UTXN: Attempting to graduate height=4553113: num_kids=0, num_babies=0
+2025-07-13 23:33:31.302 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:31.363 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553114, hash=0000000000002e9d635c232bdb7aff98a93030a0d2b0a0a3c31fbe803b3cd5f0
+2025-07-13 23:33:31.595 [INF] NTFN: New block: height=4553114, sha=0000000000002e9d635c232bdb7aff98a93030a0d2b0a0a3c31fbe803b3cd5f0
+2025-07-13 23:33:31.595 [INF] UTXN: Attempting to graduate height=4553114: num_kids=0, num_babies=0
+2025-07-13 23:33:30.599 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553115, hash=00000000094563f0e1b8eed8f05545be7fc103b5e7081effb52c654171cd7d78
+2025-07-13 23:33:30.733 [INF] BTCN: Verified 30 filter headers in the last 10.18s (height 4553115, 2025-07-13 23:33:29 -0700 PDT)
+2025-07-13 23:33:30.863 [INF] NTFN: New block: height=4553115, sha=00000000094563f0e1b8eed8f05545be7fc103b5e7081effb52c654171cd7d78
+2025-07-13 23:33:30.864 [INF] UTXN: Attempting to graduate height=4553115: num_kids=0, num_babies=0
+2025-07-13 23:33:30.866 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553116, hash=000000000d5862e31c04422c5133aecd3b438e2f957bbd3d2f74c630de4c6193
+2025-07-13 23:33:31.071 [INF] NTFN: New block: height=4553116, sha=000000000d5862e31c04422c5133aecd3b438e2f957bbd3d2f74c630de4c6193
+2025-07-13 23:33:31.071 [INF] UTXN: Attempting to graduate height=4553116: num_kids=0, num_babies=0
+2025-07-13 23:33:31.712 [INF] BTCN: Processed 13 blocks in the last 10.26s (height 4553117, 2025-07-13 23:33:31 -0700 PDT)
+2025-07-13 23:33:31.714 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553117, hash=000000000a9e66963717ccaad01461b1bc9de948357348a115a2afed9169ddb2
+2025-07-13 23:33:31.912 [INF] NTFN: New block: height=4553117, sha=000000000a9e66963717ccaad01461b1bc9de948357348a115a2afed9169ddb2
+2025-07-13 23:33:31.912 [INF] UTXN: Attempting to graduate height=4553117: num_kids=0, num_babies=0
+2025-07-13 23:33:32.366 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553118, hash=0000000008195ca3eda5bb19e2b0860e76e9e7f66f6ed48fc2e8b946c448d4fc
+2025-07-13 23:33:32.561 [INF] NTFN: New block: height=4553118, sha=0000000008195ca3eda5bb19e2b0860e76e9e7f66f6ed48fc2e8b946c448d4fc
+2025-07-13 23:33:32.561 [INF] UTXN: Attempting to graduate height=4553118: num_kids=0, num_babies=0
+2025-07-13 23:33:33.003 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553119, hash=000000000a1d2cb27282bf0e293a04f40d0a4b59eeb23656779c7aeecb114b37
+2025-07-13 23:33:33.256 [INF] NTFN: New block: height=4553119, sha=000000000a1d2cb27282bf0e293a04f40d0a4b59eeb23656779c7aeecb114b37
+2025-07-13 23:33:33.256 [INF] UTXN: Attempting to graduate height=4553119: num_kids=0, num_babies=0
+2025-07-13 23:33:33.619 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553120, hash=0000000007b5e75208a2412d5b1ce71aba985028640a67228947b3397b1e6148
+2025-07-13 23:33:33.798 [INF] NTFN: New block: height=4553120, sha=0000000007b5e75208a2412d5b1ce71aba985028640a67228947b3397b1e6148
+2025-07-13 23:33:33.798 [INF] UTXN: Attempting to graduate height=4553120: num_kids=0, num_babies=0
+2025-07-13 23:33:34.054 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553121, hash=000000000c760b1287a0d2b3c8844373c714394d7e5ec4ca8e7323527f550c92
+2025-07-13 23:33:34.226 [INF] NTFN: New block: height=4553121, sha=000000000c760b1287a0d2b3c8844373c714394d7e5ec4ca8e7323527f550c92
+2025-07-13 23:33:34.226 [INF] UTXN: Attempting to graduate height=4553121: num_kids=0, num_babies=0
+2025-07-13 23:33:34.587 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553122, hash=0000000001890830b127e1355b9861082699d8aaf912ac2c05cde784f671021a
+2025-07-13 23:33:34.763 [INF] NTFN: New block: height=4553122, sha=0000000001890830b127e1355b9861082699d8aaf912ac2c05cde784f671021a
+2025-07-13 23:33:34.763 [INF] UTXN: Attempting to graduate height=4553122: num_kids=0, num_babies=0
+2025-07-13 23:33:34.989 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:35.756 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553123, hash=000000000a45f493de5a7f51a0fb9e9fe4f4b51fdfa18e624c3a4dd0efb48800
+2025-07-13 23:33:35.922 [INF] NTFN: New block: height=4553123, sha=000000000a45f493de5a7f51a0fb9e9fe4f4b51fdfa18e624c3a4dd0efb48800
+2025-07-13 23:33:35.923 [INF] UTXN: Attempting to graduate height=4553123: num_kids=0, num_babies=0
+2025-07-13 23:33:38.463 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553124, hash=000000000a7c257cfe4d7354de8b07f24ff5d22bccba8dcbeaea157fa85f95c2
+2025-07-13 23:33:38.630 [INF] NTFN: New block: height=4553124, sha=000000000a7c257cfe4d7354de8b07f24ff5d22bccba8dcbeaea157fa85f95c2
+2025-07-13 23:33:38.630 [INF] UTXN: Attempting to graduate height=4553124: num_kids=0, num_babies=0
+2025-07-13 23:33:39.247 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553125, hash=0000000007394441c642ed35b5ab65e631864cf048b4872a17825bc43abb43e8
+2025-07-13 23:33:39.361 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553126, hash=000000000b42c4503259b920f80e2271867a3b38b001999ffa7bc99587e0b8c0
+2025-07-13 23:33:39.429 [INF] NTFN: New block: height=4553125, sha=0000000007394441c642ed35b5ab65e631864cf048b4872a17825bc43abb43e8
+2025-07-13 23:33:39.430 [INF] UTXN: Attempting to graduate height=4553125: num_kids=0, num_babies=0
+2025-07-13 23:33:39.533 [INF] NTFN: New block: height=4553126, sha=000000000b42c4503259b920f80e2271867a3b38b001999ffa7bc99587e0b8c0
+2025-07-13 23:33:39.533 [INF] UTXN: Attempting to graduate height=4553126: num_kids=0, num_babies=0
+2025-07-13 23:33:40.038 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:40.327 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553127, hash=000000000b524511a21b8620ec0bf34ee185758b88659afaa7323fe595b91cdf
+2025-07-13 23:33:40.494 [INF] NTFN: New block: height=4553127, sha=000000000b524511a21b8620ec0bf34ee185758b88659afaa7323fe595b91cdf
+2025-07-13 23:33:40.494 [INF] UTXN: Attempting to graduate height=4553127: num_kids=0, num_babies=0
+2025-07-13 23:33:42.472 [INF] BTCN: Processed 11 blocks in the last 10.76s (height 4553128, 2025-07-13 23:33:39 -0700 PDT)
+2025-07-13 23:33:42.475 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553128, hash=0000000000000ad3db2a9cafd252537c515bafd363dcb7954a02f639cc1b59f1
+2025-07-13 23:33:42.578 [INF] BTCN: Verified 13 filter headers in the last 11.84s (height 4553128, 2025-07-13 23:33:39 -0700 PDT)
+2025-07-13 23:33:42.629 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553129, hash=0000000000001378e00689b5a5b9aadf474117e37ba991b6eac5ef3d1f380f8f
+2025-07-13 23:33:42.638 [INF] NTFN: New block: height=4553128, sha=0000000000000ad3db2a9cafd252537c515bafd363dcb7954a02f639cc1b59f1
+2025-07-13 23:33:42.638 [INF] UTXN: Attempting to graduate height=4553128: num_kids=0, num_babies=0
+2025-07-13 23:33:42.797 [INF] NTFN: New block: height=4553129, sha=0000000000001378e00689b5a5b9aadf474117e37ba991b6eac5ef3d1f380f8f
+2025-07-13 23:33:42.797 [INF] UTXN: Attempting to graduate height=4553129: num_kids=0, num_babies=0
+2025-07-13 23:33:43.293 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553130, hash=000000000437d942789a170d211653dbdc33992c93b1b08e900e93350a92d224
+2025-07-13 23:33:43.468 [INF] NTFN: New block: height=4553130, sha=000000000437d942789a170d211653dbdc33992c93b1b08e900e93350a92d224
+2025-07-13 23:33:43.468 [INF] UTXN: Attempting to graduate height=4553130: num_kids=0, num_babies=0
+2025-07-13 23:33:43.647 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553131, hash=000000000d672329f17e3c7b041d312fd71c194e170c985c2db4958deb5869eb
+2025-07-13 23:33:43.846 [INF] NTFN: New block: height=4553131, sha=000000000d672329f17e3c7b041d312fd71c194e170c985c2db4958deb5869eb
+2025-07-13 23:33:43.846 [INF] UTXN: Attempting to graduate height=4553131: num_kids=0, num_babies=0
+2025-07-13 23:33:44.205 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553132, hash=0000000008ecc61cf5c4151e21edff1c92fd10c1f6346f61c9d5d5438064f774
+2025-07-13 23:33:44.378 [INF] NTFN: New block: height=4553132, sha=0000000008ecc61cf5c4151e21edff1c92fd10c1f6346f61c9d5d5438064f774
+2025-07-13 23:33:44.378 [INF] UTXN: Attempting to graduate height=4553132: num_kids=0, num_babies=0
+2025-07-13 23:33:45.085 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:45.162 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553133, hash=0000000003e67893f32522a3ca2c5cb960a63e2a0ac58795f510dba410036ca3
+2025-07-13 23:33:45.325 [INF] NTFN: New block: height=4553133, sha=0000000003e67893f32522a3ca2c5cb960a63e2a0ac58795f510dba410036ca3
+2025-07-13 23:33:45.325 [INF] UTXN: Attempting to graduate height=4553133: num_kids=0, num_babies=0
+2025-07-13 23:33:45.879 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553134, hash=000000000000152d80ab5e46a9f404a709f36a55f1d27331af3c4d8dbec89666
+2025-07-13 23:33:46.045 [INF] NTFN: New block: height=4553134, sha=000000000000152d80ab5e46a9f404a709f36a55f1d27331af3c4d8dbec89666
+2025-07-13 23:33:46.045 [INF] UTXN: Attempting to graduate height=4553134: num_kids=0, num_babies=0
+2025-07-13 23:33:46.530 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553135, hash=000000000593adef581b8a57249a72493f5ab01b00599fb1a8e0df201b0b0001
+2025-07-13 23:33:46.703 [INF] NTFN: New block: height=4553135, sha=000000000593adef581b8a57249a72493f5ab01b00599fb1a8e0df201b0b0001
+2025-07-13 23:33:46.703 [INF] UTXN: Attempting to graduate height=4553135: num_kids=0, num_babies=0
+2025-07-13 23:33:47.445 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553136, hash=000000000c8bc98fe356468994190f0eedc820e4ede31cbb3b56d6ac012f698e
+2025-07-13 23:33:47.608 [INF] NTFN: New block: height=4553136, sha=000000000c8bc98fe356468994190f0eedc820e4ede31cbb3b56d6ac012f698e
+2025-07-13 23:33:47.608 [INF] UTXN: Attempting to graduate height=4553136: num_kids=0, num_babies=0
+2025-07-13 23:33:48.673 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553137, hash=0000000004e89ad280a07ba1f731310700324644c9a2b0ab8caac949b49e2e27
+2025-07-13 23:33:48.842 [INF] NTFN: New block: height=4553137, sha=0000000004e89ad280a07ba1f731310700324644c9a2b0ab8caac949b49e2e27
+2025-07-13 23:33:48.842 [INF] UTXN: Attempting to graduate height=4553137: num_kids=0, num_babies=0
+2025-07-13 23:33:49.130 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553138, hash=000000000e9d0777d09223de252611ba58fff33e864c31f391ea8896d15617ad
+2025-07-13 23:33:49.298 [INF] NTFN: New block: height=4553138, sha=000000000e9d0777d09223de252611ba58fff33e864c31f391ea8896d15617ad
+2025-07-13 23:33:49.298 [INF] UTXN: Attempting to graduate height=4553138: num_kids=0, num_babies=0
+2025-07-13 23:33:49.599 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553139, hash=000000000293d7e12f3df4f03b5e830a7e0b61e15e86463c5843fd73e568a79f
+2025-07-13 23:33:49.772 [INF] NTFN: New block: height=4553139, sha=000000000293d7e12f3df4f03b5e830a7e0b61e15e86463c5843fd73e568a79f
+2025-07-13 23:33:49.772 [INF] UTXN: Attempting to graduate height=4553139: num_kids=0, num_babies=0
+2025-07-13 23:33:50.130 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:51.687 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553140, hash=0000000007dfe1d0b1a303d0c92ca94fd36b14ebba9aa4adfe7556562d0692de
+2025-07-13 23:33:51.862 [INF] NTFN: New block: height=4553140, sha=0000000007dfe1d0b1a303d0c92ca94fd36b14ebba9aa4adfe7556562d0692de
+2025-07-13 23:33:51.862 [INF] UTXN: Attempting to graduate height=4553140: num_kids=0, num_babies=0
+2025-07-13 23:33:52.129 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553141, hash=0000000001ef462d82deea2dc9d1ac9e0460518a26ba02028821189ff4237dcd
+2025-07-13 23:33:52.292 [INF] NTFN: New block: height=4553141, sha=0000000001ef462d82deea2dc9d1ac9e0460518a26ba02028821189ff4237dcd
+2025-07-13 23:33:52.292 [INF] UTXN: Attempting to graduate height=4553141: num_kids=0, num_babies=0
+2025-07-13 23:33:53.385 [INF] BTCN: Processed 14 blocks in the last 10.91s (height 4553142, 2025-07-13 23:33:51 -0700 PDT)
+2025-07-13 23:33:53.393 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553142, hash=00000000042197b3159ac331a724bdf6d3f11e55ba8a3b7e2ec69d03c2c52bdb
+2025-07-13 23:33:53.505 [INF] BTCN: Verified 14 filter headers in the last 10.92s (height 4553142, 2025-07-13 23:33:51 -0700 PDT)
+2025-07-13 23:33:53.570 [INF] NTFN: New block: height=4553142, sha=00000000042197b3159ac331a724bdf6d3f11e55ba8a3b7e2ec69d03c2c52bdb
+2025-07-13 23:33:53.571 [INF] UTXN: Attempting to graduate height=4553142: num_kids=0, num_babies=0
+2025-07-13 23:33:54.117 [INF] CRTR: Initial zombie prune starting
+2025-07-13 23:33:54.117 [INF] CRTR: Examining channel graph for zombie channels
+2025-07-13 23:33:54.125 [INF] CRTR: Pruning 0 zombie channels
+2025-07-13 23:33:54.695 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553143, hash=0000000007bb6793b6769ec4fddab373018c9ee3a7a03eae4b2c8f143785c717
+2025-07-13 23:33:54.869 [INF] NTFN: New block: height=4553143, sha=0000000007bb6793b6769ec4fddab373018c9ee3a7a03eae4b2c8f143785c717
+2025-07-13 23:33:54.870 [INF] UTXN: Attempting to graduate height=4553143: num_kids=0, num_babies=0
+2025-07-13 23:33:55.179 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:33:55.200 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553144, hash=00000000052d7cd99eeb5437ea68ad09cf521bf065d5dde107bdcd3cefb80e7e
+2025-07-13 23:33:55.382 [INF] NTFN: New block: height=4553144, sha=00000000052d7cd99eeb5437ea68ad09cf521bf065d5dde107bdcd3cefb80e7e
+2025-07-13 23:33:55.382 [INF] UTXN: Attempting to graduate height=4553144: num_kids=0, num_babies=0
+2025-07-13 23:33:55.580 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553145, hash=000000000000156cc6fe226e98fbada29843728623054342b1e9d6b45d85d103
+2025-07-13 23:33:55.751 [INF] NTFN: New block: height=4553145, sha=000000000000156cc6fe226e98fbada29843728623054342b1e9d6b45d85d103
+2025-07-13 23:33:55.751 [INF] UTXN: Attempting to graduate height=4553145: num_kids=0, num_babies=0
+2025-07-13 23:33:57.041 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553146, hash=00000000022aa07ad13c3a5b9a2d54e544a55d38e3f0a2a11e4843dc8b80325b
+2025-07-13 23:33:57.184 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553147, hash=000000000ef8c7bb481ee8c787dbd813f627a49e6ffe02ac84318198c8622db5
+2025-07-13 23:33:57.219 [INF] NTFN: New block: height=4553146, sha=00000000022aa07ad13c3a5b9a2d54e544a55d38e3f0a2a11e4843dc8b80325b
+2025-07-13 23:33:57.219 [INF] UTXN: Attempting to graduate height=4553146: num_kids=0, num_babies=0
+2025-07-13 23:33:57.356 [INF] NTFN: New block: height=4553147, sha=000000000ef8c7bb481ee8c787dbd813f627a49e6ffe02ac84318198c8622db5
+2025-07-13 23:33:57.356 [INF] UTXN: Attempting to graduate height=4553147: num_kids=0, num_babies=0
+2025-07-13 23:33:57.841 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553148, hash=0000000003848b73a0279d1eba92d6803460fad9b08c337deb095230b54f6fe1
+2025-07-13 23:33:58.013 [INF] NTFN: New block: height=4553148, sha=0000000003848b73a0279d1eba92d6803460fad9b08c337deb095230b54f6fe1
+2025-07-13 23:33:58.013 [INF] UTXN: Attempting to graduate height=4553148: num_kids=0, num_babies=0
+2025-07-13 23:33:58.251 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553149, hash=0000000000003b7366e575066164dafa5bb634006fa53a82e3c9d5eb59dff74f
+2025-07-13 23:33:58.423 [INF] NTFN: New block: height=4553149, sha=0000000000003b7366e575066164dafa5bb634006fa53a82e3c9d5eb59dff74f
+2025-07-13 23:33:58.423 [INF] UTXN: Attempting to graduate height=4553149: num_kids=0, num_babies=0
+2025-07-13 23:33:58.892 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553150, hash=0000000003911de3b4ef7de35ed05ffe3359c9949ce5e6b2b740608b2ad246d1
+2025-07-13 23:33:59.082 [INF] NTFN: New block: height=4553150, sha=0000000003911de3b4ef7de35ed05ffe3359c9949ce5e6b2b740608b2ad246d1
+2025-07-13 23:33:59.082 [INF] UTXN: Attempting to graduate height=4553150: num_kids=0, num_babies=0
+2025-07-13 23:33:59.438 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553151, hash=000000000ddb12cfa350432211ee67e848d1ade3d2f01d2aa2172abe1cd1a26a
+2025-07-13 23:33:59.607 [INF] NTFN: New block: height=4553151, sha=000000000ddb12cfa350432211ee67e848d1ade3d2f01d2aa2172abe1cd1a26a
+2025-07-13 23:33:59.607 [INF] UTXN: Attempting to graduate height=4553151: num_kids=0, num_babies=0
+2025-07-13 23:34:00.098 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553152, hash=000000000bbf3842db042aa2611e6d599c30669dba37ad415a04a39a6e600fa4
+2025-07-13 23:34:00.224 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:00.267 [INF] NTFN: New block: height=4553152, sha=000000000bbf3842db042aa2611e6d599c30669dba37ad415a04a39a6e600fa4
+2025-07-13 23:34:00.267 [INF] UTXN: Attempting to graduate height=4553152: num_kids=0, num_babies=0
+2025-07-13 23:33:59.349 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553153, hash=000000000a6e3cba68bac7b97415a20c6c5fc6ba1bf5e04780976af18a7bb93a
+2025-07-13 23:33:59.583 [INF] NTFN: New block: height=4553153, sha=000000000a6e3cba68bac7b97415a20c6c5fc6ba1bf5e04780976af18a7bb93a
+2025-07-13 23:33:59.583 [INF] UTXN: Attempting to graduate height=4553153: num_kids=0, num_babies=0
+2025-07-13 23:33:59.713 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553154, hash=000000000839afb86189d3b244c80885d74949a6923dc49b0dd6136260933de3
+2025-07-13 23:33:59.888 [INF] NTFN: New block: height=4553154, sha=000000000839afb86189d3b244c80885d74949a6923dc49b0dd6136260933de3
+2025-07-13 23:33:59.889 [INF] UTXN: Attempting to graduate height=4553154: num_kids=0, num_babies=0
+2025-07-13 23:34:00.175 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553155, hash=00000000013da90e08a0934f5640f5da2f7f623373ed1faa01cca85e6422aa2e
+2025-07-13 23:34:00.352 [INF] NTFN: New block: height=4553155, sha=00000000013da90e08a0934f5640f5da2f7f623373ed1faa01cca85e6422aa2e
+2025-07-13 23:34:00.352 [INF] UTXN: Attempting to graduate height=4553155: num_kids=0, num_babies=0
+2025-07-13 23:34:00.773 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553156, hash=0000000001bd43cd4d4ddec041ec338f3764230de002fde17e650b3a1f791f59
+2025-07-13 23:34:00.970 [INF] NTFN: New block: height=4553156, sha=0000000001bd43cd4d4ddec041ec338f3764230de002fde17e650b3a1f791f59
+2025-07-13 23:34:00.971 [INF] UTXN: Attempting to graduate height=4553156: num_kids=0, num_babies=0
+2025-07-13 23:34:02.137 [INF] BTCN: Processed 15 blocks in the last 10.11s (height 4553157, 2025-07-13 23:34:00 -0700 PDT)
+2025-07-13 23:34:02.141 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553157, hash=00000000059b834648cf8079b624c33decf3122e7369f195f6ef6a63d0a9ec9e
+2025-07-13 23:34:02.268 [INF] BTCN: Verified 15 filter headers in the last 10.12s (height 4553157, 2025-07-13 23:34:00 -0700 PDT)
+2025-07-13 23:34:02.335 [INF] NTFN: New block: height=4553157, sha=00000000059b834648cf8079b624c33decf3122e7369f195f6ef6a63d0a9ec9e
+2025-07-13 23:34:02.335 [INF] UTXN: Attempting to graduate height=4553157: num_kids=0, num_babies=0
+2025-07-13 23:34:02.972 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553158, hash=00000000018bd09d894283aee5d821b874439322a9bf29b1aab59b060935344e
+2025-07-13 23:34:03.242 [INF] NTFN: New block: height=4553158, sha=00000000018bd09d894283aee5d821b874439322a9bf29b1aab59b060935344e
+2025-07-13 23:34:03.242 [INF] UTXN: Attempting to graduate height=4553158: num_kids=0, num_babies=0
+2025-07-13 23:34:03.812 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553159, hash=000000000c5994592c92143cbdb9c8e012b17c0be970538bc10a52bfdf810a6f
+2025-07-13 23:34:03.920 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:04.036 [INF] NTFN: New block: height=4553159, sha=000000000c5994592c92143cbdb9c8e012b17c0be970538bc10a52bfdf810a6f
+2025-07-13 23:34:04.036 [INF] UTXN: Attempting to graduate height=4553159: num_kids=0, num_babies=0
+2025-07-13 23:34:04.235 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553160, hash=0000000000003e50508896e3c9ff8046c5b4957ae6a0e917322c0e9a76d45906
+2025-07-13 23:34:04.429 [INF] NTFN: New block: height=4553160, sha=0000000000003e50508896e3c9ff8046c5b4957ae6a0e917322c0e9a76d45906
+2025-07-13 23:34:04.429 [INF] UTXN: Attempting to graduate height=4553160: num_kids=0, num_babies=0
+2025-07-13 23:34:05.954 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553161, hash=000000000c2628c424d26319b952e155460adabda4275778b90c7f24b6f1462f
+2025-07-13 23:34:06.120 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553162, hash=00000000045114f5e2f014d797adff89455f58cb1da30a5117f9377147056f4d
+2025-07-13 23:34:06.144 [INF] NTFN: New block: height=4553161, sha=000000000c2628c424d26319b952e155460adabda4275778b90c7f24b6f1462f
+2025-07-13 23:34:06.144 [INF] UTXN: Attempting to graduate height=4553161: num_kids=0, num_babies=0
+2025-07-13 23:34:06.337 [INF] NTFN: New block: height=4553162, sha=00000000045114f5e2f014d797adff89455f58cb1da30a5117f9377147056f4d
+2025-07-13 23:34:06.337 [INF] UTXN: Attempting to graduate height=4553162: num_kids=0, num_babies=0
+2025-07-13 23:34:07.051 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553163, hash=000000000e25ff5b0bc3c474749dab7de2abad5bddd765dc040996bcce75a22b
+2025-07-13 23:34:07.281 [INF] NTFN: New block: height=4553163, sha=000000000e25ff5b0bc3c474749dab7de2abad5bddd765dc040996bcce75a22b
+2025-07-13 23:34:07.281 [INF] UTXN: Attempting to graduate height=4553163: num_kids=0, num_babies=0
+2025-07-13 23:34:07.892 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553164, hash=00000000050bcdbc76f8180fe78f7c237f75c63bd79df569209cf84bdad58272
+2025-07-13 23:34:08.120 [INF] NTFN: New block: height=4553164, sha=00000000050bcdbc76f8180fe78f7c237f75c63bd79df569209cf84bdad58272
+2025-07-13 23:34:08.120 [INF] UTXN: Attempting to graduate height=4553164: num_kids=0, num_babies=0
+2025-07-13 23:34:08.963 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:09.539 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553165, hash=000000000e3fff7c2c819e49463b3f217d660f126266e118f10f5337382baf3e
+2025-07-13 23:34:12.212 [INF] BTCN: Processed 11 blocks in the last 10.07s (height 4553168, 2025-07-13 23:34:10 -0700 PDT)
+2025-07-13 23:34:14.018 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:19.074 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:19.542 [INF] BTCN: Verified 8 filter headers in the last 17.27s (height 4553165, 2025-07-13 23:34:07 -0700 PDT)
+2025-07-13 23:34:19.542 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553175, hash=00000000031c92a50530881acb30b06b339399dcb035553fdba9d9756cff9d47
+2025-07-13 23:34:19.614 [INF] NTFN: New block: height=4553165, sha=000000000e3fff7c2c819e49463b3f217d660f126266e118f10f5337382baf3e
+2025-07-13 23:34:19.614 [INF] UTXN: Attempting to graduate height=4553165: num_kids=0, num_babies=0
+2025-07-13 23:34:19.815 [INF] NTFN: New block: height=4553166, sha=00000000093e759aa165ca6aa59260ad414b5ab76037f826c0718eedaa82e0e8
+2025-07-13 23:34:19.816 [INF] UTXN: Attempting to graduate height=4553166: num_kids=0, num_babies=0
+2025-07-13 23:34:19.926 [INF] NTFN: New block: height=4553167, sha=0000000000003dafb9baf299ab11ede7593c9885d5d00da5e3f5e0a73b6d5a3f
+2025-07-13 23:34:19.926 [INF] UTXN: Attempting to graduate height=4553167: num_kids=0, num_babies=0
+2025-07-13 23:34:19.979 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553176, hash=0000000000002e21cf2fba943daf167589e71ba2a8e82b672dbdc6357aa6699a
+2025-07-13 23:34:20.033 [INF] NTFN: New block: height=4553168, sha=000000000349d36f4a96f971cb742b469fd5c0819d7efef8cd6b8fde585ceee4
+2025-07-13 23:34:20.033 [INF] UTXN: Attempting to graduate height=4553168: num_kids=0, num_babies=0
+2025-07-13 23:34:20.064 [INF] NTFN: New block: height=4553169, sha=0000000003390a66472d4d390cc31c04d4bc9fb28cb8239e023cb351d1e039b5
+2025-07-13 23:34:20.064 [INF] UTXN: Attempting to graduate height=4553169: num_kids=0, num_babies=0
+2025-07-13 23:34:20.093 [INF] NTFN: New block: height=4553170, sha=000000000e55ec5e3abd9df3b440cba6c2f174f891add411870d9d4ec6305f0b
+2025-07-13 23:34:20.093 [INF] UTXN: Attempting to graduate height=4553170: num_kids=0, num_babies=0
+2025-07-13 23:34:20.125 [INF] NTFN: New block: height=4553171, sha=0000000002cb7b8c103d3a0b21b32e0b0b0ed270256ad807dd8b5112a719dc25
+2025-07-13 23:34:20.125 [INF] UTXN: Attempting to graduate height=4553171: num_kids=0, num_babies=0
+2025-07-13 23:34:20.165 [INF] NTFN: New block: height=4553172, sha=000000000bb704397a7ddce5442ec5b71a11a978721463516fe137d55e59d835
+2025-07-13 23:34:20.165 [INF] UTXN: Attempting to graduate height=4553172: num_kids=0, num_babies=0
+2025-07-13 23:34:20.201 [INF] NTFN: New block: height=4553173, sha=0000000008aedaf8cf2cc714feb19052ecee22dfd155245b2e38aae268fbce45
+2025-07-13 23:34:20.201 [INF] UTXN: Attempting to graduate height=4553173: num_kids=0, num_babies=0
+2025-07-13 23:34:20.238 [INF] NTFN: New block: height=4553174, sha=0000000001ab63bd69f2680c803404d963710e6fa14aa645dd7ad10623293b3c
+2025-07-13 23:34:20.238 [INF] UTXN: Attempting to graduate height=4553174: num_kids=0, num_babies=0
+2025-07-13 23:34:20.269 [INF] NTFN: New block: height=4553175, sha=00000000031c92a50530881acb30b06b339399dcb035553fdba9d9756cff9d47
+2025-07-13 23:34:20.269 [INF] UTXN: Attempting to graduate height=4553175: num_kids=0, num_babies=0
+2025-07-13 23:34:22.276 [INF] BTCN: Processed 11 blocks in the last 10.06s (height 4553179, 2025-07-13 23:34:20 -0700 PDT)
+2025-07-13 23:34:24.132 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:27.803 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:28.609 [INF] BTCN: Verified 11 filter headers in the last 10.44s (height 4553176, 2025-07-13 23:34:18 -0700 PDT)
+2025-07-13 23:34:28.609 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553190, hash=000000000a842aa05c2e1a7b9c6c357d78ecdaf3a0a8831206412d34db5a48b8
+2025-07-13 23:34:28.670 [INF] NTFN: New block: height=4553176, sha=0000000000002e21cf2fba943daf167589e71ba2a8e82b672dbdc6357aa6699a
+2025-07-13 23:34:28.670 [INF] UTXN: Attempting to graduate height=4553176: num_kids=0, num_babies=0
+2025-07-13 23:34:28.838 [INF] NTFN: New block: height=4553177, sha=000000000a702fbdc30a267a7f155afb372a9bbc9b0651e4574db485ea52018e
+2025-07-13 23:34:28.839 [INF] UTXN: Attempting to graduate height=4553177: num_kids=0, num_babies=0
+2025-07-13 23:34:28.937 [INF] NTFN: New block: height=4553178, sha=000000000ba7f8f82c6ac11be62a36141bbcd49f0024a7167fc41d916275244e
+2025-07-13 23:34:28.937 [INF] UTXN: Attempting to graduate height=4553178: num_kids=0, num_babies=0
+2025-07-13 23:34:29.034 [INF] NTFN: New block: height=4553179, sha=0000000008b1be33d46045cf03371013c76917155c47f7c0d98189ea73e58654
+2025-07-13 23:34:29.034 [INF] UTXN: Attempting to graduate height=4553179: num_kids=0, num_babies=0
+2025-07-13 23:34:29.131 [INF] NTFN: New block: height=4553180, sha=000000000b6aa0354248d7d0fc7f9d8030c055f540e3e7296a14f4942531053f
+2025-07-13 23:34:29.131 [INF] UTXN: Attempting to graduate height=4553180: num_kids=0, num_babies=0
+2025-07-13 23:34:29.159 [INF] NTFN: New block: height=4553181, sha=000000000dfff51c32cd4c5ec1c84bdefaf0f9329eeb6736a15eafd9923da5e3
+2025-07-13 23:34:29.159 [INF] UTXN: Attempting to graduate height=4553181: num_kids=0, num_babies=0
+2025-07-13 23:34:29.184 [INF] NTFN: New block: height=4553182, sha=000000001dc18c0c69d176b82a66c3f24b642b6bf648215232191dbf828aa7db
+2025-07-13 23:34:29.184 [INF] UTXN: Attempting to graduate height=4553182: num_kids=0, num_babies=0
+2025-07-13 23:34:29.213 [INF] NTFN: New block: height=4553183, sha=0000000004fc1ed3a8acb620af7c9c0a011bf3470e72d78b4db6c9ac57726552
+2025-07-13 23:34:29.213 [INF] UTXN: Attempting to graduate height=4553183: num_kids=0, num_babies=0
+2025-07-13 23:34:29.248 [INF] NTFN: New block: height=4553184, sha=00000000009ce448a0c491c85e5ecf127c9ac1991c5a08e7d830a129693c3538
+2025-07-13 23:34:29.248 [INF] UTXN: Attempting to graduate height=4553184: num_kids=0, num_babies=0
+2025-07-13 23:34:29.275 [INF] NTFN: New block: height=4553185, sha=000000000eda0066eb87a64d7e00022bb7baf69aa5d535163304b478e3b29be0
+2025-07-13 23:34:29.275 [INF] UTXN: Attempting to graduate height=4553185: num_kids=0, num_babies=0
+2025-07-13 23:34:29.372 [INF] NTFN: New block: height=4553186, sha=00000000089399b5b944028da2d456276cfb20888ce8d61e0de538bc7df86bbe
+2025-07-13 23:34:29.372 [INF] UTXN: Attempting to graduate height=4553186: num_kids=0, num_babies=0
+2025-07-13 23:34:29.405 [INF] NTFN: New block: height=4553187, sha=000000000ea65b9b09ca4fbeca2d3a9662afe3ecf15cce4882d0ab8141fe6d86
+2025-07-13 23:34:29.405 [INF] UTXN: Attempting to graduate height=4553187: num_kids=0, num_babies=0
+2025-07-13 23:34:29.406 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553191, hash=00000000069ed807a0cb64cac61c5cc28a56a811d8dcb30849646c5a68227c72
+2025-07-13 23:34:29.434 [INF] NTFN: New block: height=4553188, sha=0000000001220e731e5c536675f0d7490816a0e9278d7284bbc5cabfac24b501
+2025-07-13 23:34:29.434 [INF] UTXN: Attempting to graduate height=4553188: num_kids=0, num_babies=0
+2025-07-13 23:34:29.461 [INF] NTFN: New block: height=4553189, sha=0000000009d7fbbd46f65d2fe91616b1d738ded6c1d6dbb7877334b1a34c3352
+2025-07-13 23:34:29.461 [INF] UTXN: Attempting to graduate height=4553189: num_kids=0, num_babies=0
+2025-07-13 23:34:29.559 [INF] NTFN: New block: height=4553190, sha=000000000a842aa05c2e1a7b9c6c357d78ecdaf3a0a8831206412d34db5a48b8
+2025-07-13 23:34:29.559 [INF] UTXN: Attempting to graduate height=4553190: num_kids=0, num_babies=0
+2025-07-13 23:34:31.329 [INF] BTCN: Processed 14 blocks in the last 10.42s (height 4553193, 2025-07-13 23:34:29 -0700 PDT)
+2025-07-13 23:34:32.855 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:37.916 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:39.410 [INF] BTCN: Verified 15 filter headers in the last 10.8s (height 4553191, 2025-07-13 23:34:27 -0700 PDT)
+2025-07-13 23:34:39.410 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553199, hash=0000000007ca0f0768ccba8bbf138e7f07476f64ffd2121a3430038d25e2cef9
+2025-07-13 23:34:39.535 [INF] NTFN: New block: height=4553191, sha=00000000069ed807a0cb64cac61c5cc28a56a811d8dcb30849646c5a68227c72
+2025-07-13 23:34:39.535 [INF] UTXN: Attempting to graduate height=4553191: num_kids=0, num_babies=0
+2025-07-13 23:34:39.644 [INF] NTFN: New block: height=4553192, sha=0000000009f1c5fb1a58cc053b799b62faa10281b322e8c1c42b5575c092fcd0
+2025-07-13 23:34:39.645 [INF] UTXN: Attempting to graduate height=4553192: num_kids=0, num_babies=0
+2025-07-13 23:34:39.746 [INF] NTFN: New block: height=4553193, sha=0000000006d6a560f45e19940d289e918da3b679bd8eacfeb84d66f292f98b24
+2025-07-13 23:34:39.747 [INF] UTXN: Attempting to graduate height=4553193: num_kids=0, num_babies=0
+2025-07-13 23:34:39.842 [INF] NTFN: New block: height=4553194, sha=0000000009e3f671615942d2a7a05a9d25e1d8afec0268ca3ab59fac5f1da6b0
+2025-07-13 23:34:39.843 [INF] UTXN: Attempting to graduate height=4553194: num_kids=0, num_babies=0
+2025-07-13 23:34:39.880 [INF] NTFN: New block: height=4553195, sha=0000000000002a1785d81e5c4d20964aa380454a9cd59d2fed13133924f9ad22
+2025-07-13 23:34:39.880 [INF] UTXN: Attempting to graduate height=4553195: num_kids=0, num_babies=0
+2025-07-13 23:34:39.914 [INF] NTFN: New block: height=4553196, sha=000000000e3d4ba6f323bbe6091feb1da427b7bbac18a1067e85bea1221bdce7
+2025-07-13 23:34:39.914 [INF] UTXN: Attempting to graduate height=4553196: num_kids=0, num_babies=0
+2025-07-13 23:34:39.946 [INF] NTFN: New block: height=4553197, sha=00000000097e2dfc9c58c02fce176f7418882d25889d46484e3c5381dfc23e21
+2025-07-13 23:34:39.946 [INF] UTXN: Attempting to graduate height=4553197: num_kids=0, num_babies=0
+2025-07-13 23:34:39.979 [INF] NTFN: New block: height=4553198, sha=000000000bd60f4dcf8ae9303616b80b9dcba7db41c4899fd858641eab4cff46
+2025-07-13 23:34:39.980 [INF] UTXN: Attempting to graduate height=4553198: num_kids=0, num_babies=0
+2025-07-13 23:34:40.081 [INF] NTFN: New block: height=4553199, sha=0000000007ca0f0768ccba8bbf138e7f07476f64ffd2121a3430038d25e2cef9
+2025-07-13 23:34:40.081 [INF] UTXN: Attempting to graduate height=4553199: num_kids=0, num_babies=0
+2025-07-13 23:34:42.573 [INF] BTCN: Processed 7 blocks in the last 11.24s (height 4553200, 2025-07-13 23:34:39 -0700 PDT)
+2025-07-13 23:34:42.575 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553200, hash=000000000e75219dff2afdc85839e8b6bf3790b5d752e8141addb8900d7811c9
+2025-07-13 23:34:42.750 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553201, hash=0000000000000599dd0924bfc19926d5dead3bb39fe9cd08105b93b7b9ae9623
+2025-07-13 23:34:42.803 [INF] NTFN: New block: height=4553200, sha=000000000e75219dff2afdc85839e8b6bf3790b5d752e8141addb8900d7811c9
+2025-07-13 23:34:42.804 [INF] UTXN: Attempting to graduate height=4553200: num_kids=0, num_babies=0
+2025-07-13 23:34:42.972 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:43.006 [INF] NTFN: New block: height=4553201, sha=0000000000000599dd0924bfc19926d5dead3bb39fe9cd08105b93b7b9ae9623
+2025-07-13 23:34:43.006 [INF] UTXN: Attempting to graduate height=4553201: num_kids=0, num_babies=0
+2025-07-13 23:34:44.303 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553202, hash=0000000006bfbc750429c52f943dbcc39591547391e3a15f0e151b1bf86a1dbc
+2025-07-13 23:34:44.485 [INF] NTFN: New block: height=4553202, sha=0000000006bfbc750429c52f943dbcc39591547391e3a15f0e151b1bf86a1dbc
+2025-07-13 23:34:44.485 [INF] UTXN: Attempting to graduate height=4553202: num_kids=0, num_babies=0
+2025-07-13 23:34:45.192 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553203, hash=0000000002fab7cdafd88e0f7567c50a01c52abba5dccf034eff16e3937bd63b
+2025-07-13 23:34:48.067 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:53.126 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:34:53.852 [INF] BTCN: Processed 10 blocks in the last 11.27s (height 4553210, 2025-07-13 23:34:50 -0700 PDT)
+2025-07-13 23:34:55.195 [INF] BTCN: Verified 12 filter headers in the last 15.78s (height 4553203, 2025-07-13 23:34:43 -0700 PDT)
+2025-07-13 23:34:55.196 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553212, hash=000000000f168dd0576acf46f08d6b08477bcaa8263597e2f38cfe11e9a9ee99
+2025-07-13 23:34:55.359 [INF] NTFN: New block: height=4553203, sha=0000000002fab7cdafd88e0f7567c50a01c52abba5dccf034eff16e3937bd63b
+2025-07-13 23:34:55.359 [INF] UTXN: Attempting to graduate height=4553203: num_kids=0, num_babies=0
+2025-07-13 23:34:55.533 [INF] NTFN: New block: height=4553204, sha=00000000007c57dfee8d63bfaf93ea4408d9e3a246a7f773c5355a56b1a3b3cb
+2025-07-13 23:34:55.534 [INF] UTXN: Attempting to graduate height=4553204: num_kids=0, num_babies=0
+2025-07-13 23:34:55.629 [INF] NTFN: New block: height=4553205, sha=000000000d89ddf6e373ac65b1994767b9fd89a6a816954d6e5795e7d58ef46f
+2025-07-13 23:34:55.629 [INF] UTXN: Attempting to graduate height=4553205: num_kids=0, num_babies=0
+2025-07-13 23:34:55.732 [INF] NTFN: New block: height=4553206, sha=00000000017eaaa49b17f335dec7f1dec253f45674e800e6a1206ee03d630458
+2025-07-13 23:34:55.732 [INF] UTXN: Attempting to graduate height=4553206: num_kids=0, num_babies=0
+2025-07-13 23:34:55.843 [INF] NTFN: New block: height=4553207, sha=0000000001c63af4b98b38d98be945315b5b73e8399354fe67fbcccfb7ea9af6
+2025-07-13 23:34:55.843 [INF] UTXN: Attempting to graduate height=4553207: num_kids=0, num_babies=0
+2025-07-13 23:34:55.873 [INF] NTFN: New block: height=4553208, sha=000000000ec43d59c56f32a679a84ba51f13f8db2d52307129d560cc7d71d68e
+2025-07-13 23:34:55.873 [INF] UTXN: Attempting to graduate height=4553208: num_kids=0, num_babies=0
+2025-07-13 23:34:55.902 [INF] NTFN: New block: height=4553209, sha=0000000008a8857970d4cb65f4b7cb74786a59cb1fb2237b0972de29b803b4ee
+2025-07-13 23:34:55.902 [INF] UTXN: Attempting to graduate height=4553209: num_kids=0, num_babies=0
+2025-07-13 23:34:55.932 [INF] NTFN: New block: height=4553210, sha=0000000000707be2eb32ba941874902d04edbf390e13c84b0abd700eb2403d8a
+2025-07-13 23:34:55.932 [INF] UTXN: Attempting to graduate height=4553210: num_kids=0, num_babies=0
+2025-07-13 23:34:55.962 [INF] NTFN: New block: height=4553211, sha=000000000b41ba0b0be238ce6e18ba433d50bad14d4040d64d13ed8f17372c51
+2025-07-13 23:34:55.962 [INF] UTXN: Attempting to graduate height=4553211: num_kids=0, num_babies=0
+2025-07-13 23:34:55.994 [INF] NTFN: New block: height=4553212, sha=000000000f168dd0576acf46f08d6b08477bcaa8263597e2f38cfe11e9a9ee99
+2025-07-13 23:34:55.994 [INF] UTXN: Attempting to graduate height=4553212: num_kids=0, num_babies=0
+2025-07-13 23:34:56.685 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553213, hash=000000000ceadf56b8ef9ac5b5e0f73eda0897c7871ae3a177986671cf52ff99
+2025-07-13 23:34:56.769 [INF] BTCN: New valid peer 208.91.104.61:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:34:56.809 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:01.860 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:03.015 [INF] BTCN: Processed 9 blocks in the last 10.52s (height 4553219, 2025-07-13 23:34:59 -0700 PDT)
+2025-07-13 23:35:05.338 [INF] BTCN: Verified 10 filter headers in the last 11.5s (height 4553213, 2025-07-13 23:34:54 -0700 PDT)
+2025-07-13 23:35:05.338 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553220, hash=000000000dd600a2c4dc736b13da5607111f745ed163db32d9d3c558a9f2f423
+2025-07-13 23:35:06.101 [INF] NTFN: New block: height=4553213, sha=000000000ceadf56b8ef9ac5b5e0f73eda0897c7871ae3a177986671cf52ff99
+2025-07-13 23:35:06.101 [INF] UTXN: Attempting to graduate height=4553213: num_kids=0, num_babies=0
+2025-07-13 23:35:06.102 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553221, hash=0000000001cdb0356baea668fc9a4022b62a336448d19bbe57ede941c07ecd7f
+2025-07-13 23:35:06.622 [INF] NTFN: New block: height=4553214, sha=0000000008f62b62458aaafa7e986c5316d31aeaa7579bb96c6461f51269d32c
+2025-07-13 23:35:06.622 [INF] UTXN: Attempting to graduate height=4553214: num_kids=0, num_babies=0
+2025-07-13 23:35:06.664 [INF] NTFN: New block: height=4553215, sha=000000000d1fd2aa48e35222c2f331bbb3218c54faf6caa549c465ca80ef5155
+2025-07-13 23:35:06.664 [INF] UTXN: Attempting to graduate height=4553215: num_kids=0, num_babies=0
+2025-07-13 23:35:07.131 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553222, hash=00000000051885ab1d7358ea3fd4a2e258c1e36e691f2dacc3c20f6fb4905cec
+2025-07-13 23:35:07.158 [INF] NTFN: New block: height=4553216, sha=00000000053ba40d0e4d7265befbe483f2f36d3d2eec982024ef3887064cca66
+2025-07-13 23:35:07.159 [INF] UTXN: Attempting to graduate height=4553216: num_kids=0, num_babies=0
+2025-07-13 23:35:07.166 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:07.670 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553223, hash=0000000000a61e90412b6d1229be248a1d241cf0e2a8a8f73232b37be5ff0fb9
+2025-07-13 23:35:07.876 [INF] NTFN: New block: height=4553217, sha=000000000e28af18f2599d6b817d042942c89207a4fdfac77c10a9ad1091b639
+2025-07-13 23:35:07.876 [INF] UTXN: Attempting to graduate height=4553217: num_kids=0, num_babies=0
+2025-07-13 23:35:07.914 [INF] NTFN: New block: height=4553218, sha=000000000fd77bf7679a041095bec40da6f7a5f2facc1bf076ce53189b0d3462
+2025-07-13 23:35:07.914 [INF] UTXN: Attempting to graduate height=4553218: num_kids=0, num_babies=0
+2025-07-13 23:35:07.945 [INF] NTFN: New block: height=4553219, sha=0000000000000c208de9cad9e8a3549bf2eb12afa1078c3b1184019d29ee38f2
+2025-07-13 23:35:07.945 [INF] UTXN: Attempting to graduate height=4553219: num_kids=0, num_babies=0
+2025-07-13 23:35:07.996 [INF] BTCN: New valid peer 141.98.219.198:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:35:08.087 [INF] NTFN: New block: height=4553220, sha=000000000dd600a2c4dc736b13da5607111f745ed163db32d9d3c558a9f2f423
+2025-07-13 23:35:08.087 [INF] UTXN: Attempting to graduate height=4553220: num_kids=0, num_babies=0
+2025-07-13 23:35:08.125 [INF] NTFN: New block: height=4553221, sha=0000000001cdb0356baea668fc9a4022b62a336448d19bbe57ede941c07ecd7f
+2025-07-13 23:35:08.125 [INF] UTXN: Attempting to graduate height=4553221: num_kids=0, num_babies=0
+2025-07-13 23:35:08.157 [INF] NTFN: New block: height=4553222, sha=00000000051885ab1d7358ea3fd4a2e258c1e36e691f2dacc3c20f6fb4905cec
+2025-07-13 23:35:08.157 [INF] UTXN: Attempting to graduate height=4553222: num_kids=0, num_babies=0
+2025-07-13 23:35:08.284 [INF] NTFN: New block: height=4553223, sha=0000000000a61e90412b6d1229be248a1d241cf0e2a8a8f73232b37be5ff0fb9
+2025-07-13 23:35:08.284 [INF] UTXN: Attempting to graduate height=4553223: num_kids=0, num_babies=0
+2025-07-13 23:35:08.575 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553224, hash=000000000b5b70d0d3a6a34838cc50c657f9b7291a03aa875984d7ab2858bf2a
+2025-07-13 23:35:08.630 [INF] BTCN: New valid peer 44.237.38.26:18333 (outbound) (/btcwire:0.5.0/btcd:0.23.2/)
+2025-07-13 23:35:08.748 [INF] NTFN: New block: height=4553224, sha=000000000b5b70d0d3a6a34838cc50c657f9b7291a03aa875984d7ab2858bf2a
+2025-07-13 23:35:08.748 [INF] UTXN: Attempting to graduate height=4553224: num_kids=0, num_babies=0
+2025-07-13 23:35:09.684 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553225, hash=0000000009fc9415f8d969f1a8d17264320810d11a4c3736100489c9d7162538
+2025-07-13 23:35:12.214 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:14.087 [INF] BTCN: Processed 9 blocks in the last 11.07s (height 4553228, 2025-07-13 23:35:12 -0700 PDT)
+2025-07-13 23:35:14.454 [INF] BTCN: Lost peer 141.98.219.198:18333 (outbound)
+2025-07-13 23:35:17.281 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:19.714 [INF] BTCN: Verified 12 filter headers in the last 14.37s (height 4553225, 2025-07-13 23:35:07 -0700 PDT)
+2025-07-13 23:35:19.714 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553234, hash=0000000005975bb1bc4464165b47255c6393e4462a2a2c08d5986cdd172b357f
+2025-07-13 23:35:19.869 [INF] NTFN: New block: height=4553225, sha=0000000009fc9415f8d969f1a8d17264320810d11a4c3736100489c9d7162538
+2025-07-13 23:35:19.869 [INF] UTXN: Attempting to graduate height=4553225: num_kids=0, num_babies=0
+2025-07-13 23:35:22.349 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:24.394 [INF] BTCN: Processed 12 blocks in the last 10.3s (height 4553240, 2025-07-13 23:35:22 -0700 PDT)
+2025-07-13 23:35:26.038 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:28.373 [INF] BTCN: Verified 1 filter header in the last 10.01s (height 4553226, 2025-07-13 23:35:09 -0700 PDT)
+2025-07-13 23:35:28.373 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553242, hash=00000000003d038fd454ca4d4ac9f4a3565a15414f204a4ef2e83d9c4d665273
+2025-07-13 23:35:28.510 [INF] NTFN: New block: height=4553226, sha=00000000021f41206f616b95ca29661831e2c23fe0b33040ccfd39efb48c75c3
+2025-07-13 23:35:28.510 [INF] UTXN: Attempting to graduate height=4553226: num_kids=0, num_babies=0
+2025-07-13 23:35:28.609 [INF] NTFN: New block: height=4553227, sha=0000000001d4dddc33af893c0a921be7c6fe830f1966240bbbae2cff8301030e
+2025-07-13 23:35:28.610 [INF] UTXN: Attempting to graduate height=4553227: num_kids=0, num_babies=0
+2025-07-13 23:35:28.708 [INF] NTFN: New block: height=4553228, sha=00000000009be5f51215bf767b51f557336604ac874542f0a58230c1049fab70
+2025-07-13 23:35:28.708 [INF] UTXN: Attempting to graduate height=4553228: num_kids=0, num_babies=0
+2025-07-13 23:35:28.738 [INF] NTFN: New block: height=4553229, sha=000000000d5363adb0d560c5f91372346b9f7200f196551b8ab56519f7e379a1
+2025-07-13 23:35:28.738 [INF] UTXN: Attempting to graduate height=4553229: num_kids=0, num_babies=0
+2025-07-13 23:35:28.768 [INF] NTFN: New block: height=4553230, sha=000000000e8b20b18154a3f72e14df0b713a996b4b74ea09fa79eabf6af67ee0
+2025-07-13 23:35:28.768 [INF] UTXN: Attempting to graduate height=4553230: num_kids=0, num_babies=0
+2025-07-13 23:35:28.796 [INF] NTFN: New block: height=4553231, sha=0000000002399b60f856279c8016a65492a95bb9a448b960305f8e0ecfbb95a6
+2025-07-13 23:35:28.796 [INF] UTXN: Attempting to graduate height=4553231: num_kids=0, num_babies=0
+2025-07-13 23:35:28.890 [INF] NTFN: New block: height=4553232, sha=00000000069279f826f51795a4bd61fb873e002790271111e9274f75e298e4f7
+2025-07-13 23:35:28.890 [INF] UTXN: Attempting to graduate height=4553232: num_kids=0, num_babies=0
+2025-07-13 23:35:28.989 [INF] NTFN: New block: height=4553233, sha=000000000537f960b1977e48d4df635094e2d73390baea31d95c42fab23d9ed8
+2025-07-13 23:35:28.989 [INF] UTXN: Attempting to graduate height=4553233: num_kids=0, num_babies=0
+2025-07-13 23:35:29.088 [INF] NTFN: New block: height=4553234, sha=0000000005975bb1bc4464165b47255c6393e4462a2a2c08d5986cdd172b357f
+2025-07-13 23:35:29.088 [INF] UTXN: Attempting to graduate height=4553234: num_kids=0, num_babies=0
+2025-07-13 23:35:31.094 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:33.203 [INF] BTCN: Processed 8 blocks in the last 10.16s (height 4553248, 2025-07-13 23:35:32 -0700 PDT)
+2025-07-13 23:35:36.151 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:38.377 [INF] BTCN: Verified 9 filter headers in the last 10s (height 4553235, 2025-07-13 23:35:17 -0700 PDT)
+2025-07-13 23:35:38.377 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553253, hash=00000000081b6184eb4476bb147dbce47f7b658ecbb9fc668585bb01a9b31f0b
+2025-07-13 23:35:38.632 [INF] NTFN: New block: height=4553235, sha=0000000000001ad93f5872e895e618f733ed56e6220da969298de6e8c7af62b8
+2025-07-13 23:35:38.632 [INF] UTXN: Attempting to graduate height=4553235: num_kids=0, num_babies=0
+2025-07-13 23:35:38.731 [INF] NTFN: New block: height=4553236, sha=0000000002b726ae223b37b7b9c0834e8aba9cd49a4ece628e898552de41a951
+2025-07-13 23:35:38.731 [INF] UTXN: Attempting to graduate height=4553236: num_kids=0, num_babies=0
+2025-07-13 23:35:38.763 [INF] NTFN: New block: height=4553237, sha=000000000c397918ff2403b76de314ba76a3a48e3d03be230b0d0566fa6a1ab4
+2025-07-13 23:35:38.763 [INF] UTXN: Attempting to graduate height=4553237: num_kids=0, num_babies=0
+2025-07-13 23:35:38.858 [INF] NTFN: New block: height=4553238, sha=000000000344235941c8c48911e9aabc1ac1bba70bf91d7f0fbba213c0b036fd
+2025-07-13 23:35:38.858 [INF] UTXN: Attempting to graduate height=4553238: num_kids=0, num_babies=0
+2025-07-13 23:35:38.884 [INF] NTFN: New block: height=4553239, sha=0000000008a1d3097d8c28b2ef019ec4a07e6cecf3b0c50164aeaed3b209f7f2
+2025-07-13 23:35:38.884 [INF] UTXN: Attempting to graduate height=4553239: num_kids=0, num_babies=0
+2025-07-13 23:35:38.911 [INF] NTFN: New block: height=4553240, sha=0000000002baaaa51b2f83cbde9582d1fd4d80badf626a2335376c5ab406a67d
+2025-07-13 23:35:38.911 [INF] UTXN: Attempting to graduate height=4553240: num_kids=0, num_babies=0
+2025-07-13 23:35:38.940 [INF] NTFN: New block: height=4553241, sha=0000000006bbd74606877a9222ad2f2c7a5dd59e36f2f8d0bf5615c8019c0338
+2025-07-13 23:35:38.940 [INF] UTXN: Attempting to graduate height=4553241: num_kids=0, num_babies=0
+2025-07-13 23:35:39.043 [INF] NTFN: New block: height=4553242, sha=00000000003d038fd454ca4d4ac9f4a3565a15414f204a4ef2e83d9c4d665273
+2025-07-13 23:35:39.043 [INF] UTXN: Attempting to graduate height=4553242: num_kids=0, num_babies=0
+2025-07-13 23:35:41.202 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:43.712 [INF] BTCN: Processed 11 blocks in the last 10.5s (height 4553259, 2025-07-13 23:35:42 -0700 PDT)
+2025-07-13 23:35:46.255 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:48.381 [INF] BTCN: Verified 8 filter headers in the last 10s (height 4553243, 2025-07-13 23:35:27 -0700 PDT)
+2025-07-13 23:35:48.381 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553262, hash=0000000007d1e5d220c4c61c4acac44173d90594060954af8799350181c586a8
+2025-07-13 23:35:48.453 [INF] NTFN: New block: height=4553243, sha=000000000e3bae8184d96da31c56b15575a3c6ceb55c1a2ce7a1f73b04f244a9
+2025-07-13 23:35:48.454 [INF] UTXN: Attempting to graduate height=4553243: num_kids=0, num_babies=0
+2025-07-13 23:35:48.634 [INF] NTFN: New block: height=4553244, sha=000000000d1439507584b44c2760140860e273e82be125e04cc244e50fffdefe
+2025-07-13 23:35:48.634 [INF] UTXN: Attempting to graduate height=4553244: num_kids=0, num_babies=0
+2025-07-13 23:35:48.743 [INF] NTFN: New block: height=4553245, sha=000000000d552d3a46c800a2c271ed5e603d3e9b4d2e6ea01f6245e7f38819ee
+2025-07-13 23:35:48.743 [INF] UTXN: Attempting to graduate height=4553245: num_kids=0, num_babies=0
+2025-07-13 23:35:48.781 [INF] NTFN: New block: height=4553246, sha=0000000001f657d2e05bd1ddcecf62470454ec3ac378fd0cfd163d54b2a1a8ca
+2025-07-13 23:35:48.781 [INF] UTXN: Attempting to graduate height=4553246: num_kids=0, num_babies=0
+2025-07-13 23:35:48.808 [INF] NTFN: New block: height=4553247, sha=0000000002bf1452b473086f5196df1663c1d62b8fae4c6f2630c081323c72e1
+2025-07-13 23:35:48.808 [INF] UTXN: Attempting to graduate height=4553247: num_kids=0, num_babies=0
+2025-07-13 23:35:48.836 [INF] NTFN: New block: height=4553248, sha=00000000044806c323c7a68b32d08c87e3bead5080782f9e04a5fb09e0464945
+2025-07-13 23:35:48.836 [INF] UTXN: Attempting to graduate height=4553248: num_kids=0, num_babies=0
+2025-07-13 23:35:48.864 [INF] NTFN: New block: height=4553249, sha=000000000ce073f4ec89682283af7aa75ffb466f2cd020099eff2631d424f4fc
+2025-07-13 23:35:48.864 [INF] UTXN: Attempting to graduate height=4553249: num_kids=0, num_babies=0
+2025-07-13 23:35:48.896 [INF] NTFN: New block: height=4553250, sha=000000000a414510daf1a43569657e1076532b47aacb7e3f61f58305b7f1facc
+2025-07-13 23:35:48.897 [INF] UTXN: Attempting to graduate height=4553250: num_kids=0, num_babies=0
+2025-07-13 23:35:48.923 [INF] NTFN: New block: height=4553251, sha=0000000004133beeb5036b95b97b001299b48a867dc80c02d67f6bab403b2120
+2025-07-13 23:35:48.923 [INF] UTXN: Attempting to graduate height=4553251: num_kids=0, num_babies=0
+2025-07-13 23:35:48.951 [INF] NTFN: New block: height=4553252, sha=0000000003216dfebb5f6de828e5d4b64aeba53b4b14e706a2f24b9c65e4bd35
+2025-07-13 23:35:48.951 [INF] UTXN: Attempting to graduate height=4553252: num_kids=0, num_babies=0
+2025-07-13 23:35:48.981 [INF] NTFN: New block: height=4553253, sha=00000000081b6184eb4476bb147dbce47f7b658ecbb9fc668585bb01a9b31f0b
+2025-07-13 23:35:48.982 [INF] UTXN: Attempting to graduate height=4553253: num_kids=0, num_babies=0
+2025-07-13 23:35:51.304 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:54.505 [INF] BTCN: Processed 8 blocks in the last 10.79s (height 4553267, 2025-07-13 23:35:51 -0700 PDT)
+2025-07-13 23:35:54.978 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:35:57.038 [INF] BTCN: Verified 11 filter headers in the last 10.02s (height 4553254, 2025-07-13 23:35:39 -0700 PDT)
+2025-07-13 23:35:57.038 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553270, hash=000000000b7649054ba0040499deb79644de776efe97e118d100481dbe022ec6
+2025-07-13 23:35:57.173 [INF] NTFN: New block: height=4553254, sha=000000000bc7ec24c1bdc0050a9dbfe44560d9a4a0adc242e58dbf7d0c092208
+2025-07-13 23:35:57.173 [INF] UTXN: Attempting to graduate height=4553254: num_kids=0, num_babies=0
+2025-07-13 23:35:57.273 [INF] NTFN: New block: height=4553255, sha=000000000c0c3cda22d454a6708a5829e457c466d479a91e66ea11f7acb04e85
+2025-07-13 23:35:57.273 [INF] UTXN: Attempting to graduate height=4553255: num_kids=0, num_babies=0
+2025-07-13 23:35:57.370 [INF] NTFN: New block: height=4553256, sha=00000000000009b2865c9b172a9a795b1e9e9de43d5b7558e2f5663a73841ded
+2025-07-13 23:35:57.370 [INF] UTXN: Attempting to graduate height=4553256: num_kids=0, num_babies=0
+2025-07-13 23:35:57.466 [INF] NTFN: New block: height=4553257, sha=0000000001414ba3910ce708c08b49f68d30804ae70f78eff1aeb3750209249f
+2025-07-13 23:35:57.466 [INF] UTXN: Attempting to graduate height=4553257: num_kids=0, num_babies=0
+2025-07-13 23:35:57.566 [INF] NTFN: New block: height=4553258, sha=000000000dd8157c75b776620a01a897cc0b8f57de4973ed3bad0388014ab6cf
+2025-07-13 23:35:57.566 [INF] UTXN: Attempting to graduate height=4553258: num_kids=0, num_babies=0
+2025-07-13 23:35:57.660 [INF] NTFN: New block: height=4553259, sha=000000000296be880a071c6572745e66c59be69df1f043c01706c82bcebfeaf9
+2025-07-13 23:35:57.660 [INF] UTXN: Attempting to graduate height=4553259: num_kids=0, num_babies=0
+2025-07-13 23:35:57.692 [INF] NTFN: New block: height=4553260, sha=000000000a9483d9043b3c8d5d8a49301a1dbc4e13f599dccfe83c4f01ff2afa
+2025-07-13 23:35:57.692 [INF] UTXN: Attempting to graduate height=4553260: num_kids=0, num_babies=0
+2025-07-13 23:35:57.717 [INF] NTFN: New block: height=4553261, sha=0000000007f540039a5834401489f51e0dd75fbc92066c1080d5332fd0c827e2
+2025-07-13 23:35:57.717 [INF] UTXN: Attempting to graduate height=4553261: num_kids=0, num_babies=0
+2025-07-13 23:35:57.813 [INF] NTFN: New block: height=4553262, sha=0000000007d1e5d220c4c61c4acac44173d90594060954af8799350181c586a8
+2025-07-13 23:35:57.813 [INF] UTXN: Attempting to graduate height=4553262: num_kids=0, num_babies=0
+2025-07-13 23:36:00.017 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:03.147 [INF] BTCN: Processed 7 blocks in the last 10.01s (height 4553274, 2025-07-13 23:36:02 -0700 PDT)
+2025-07-13 23:36:05.064 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:07.041 [INF] BTCN: Verified 9 filter headers in the last 10s (height 4553263, 2025-07-13 23:35:46 -0700 PDT)
+2025-07-13 23:36:07.041 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553277, hash=0000000004c96871f44bd183073dd30e18ed401e91a2d4c8b2d40e5e619d674b
+2025-07-13 23:36:07.191 [INF] NTFN: New block: height=4553263, sha=000000000c60b2bdd10bbd0ba1de1f636cb3773d8cbc74ce775fb8e69b23d30e
+2025-07-13 23:36:07.191 [INF] UTXN: Attempting to graduate height=4553263: num_kids=0, num_babies=0
+2025-07-13 23:36:07.291 [INF] NTFN: New block: height=4553264, sha=00000000069495d34492f9c5c4c63b8aa5dbcb184a5d38d34043b9b3c14f2aae
+2025-07-13 23:36:07.291 [INF] UTXN: Attempting to graduate height=4553264: num_kids=0, num_babies=0
+2025-07-13 23:36:07.390 [INF] NTFN: New block: height=4553265, sha=0000000002e4226c122028e1b3046c893a6f62a3402bb2e8e2c25edbe75da4a0
+2025-07-13 23:36:07.390 [INF] UTXN: Attempting to graduate height=4553265: num_kids=0, num_babies=0
+2025-07-13 23:36:07.426 [INF] NTFN: New block: height=4553266, sha=0000000006534e5f25ad019f04a43c2c85767f4e4778e52a58f39acff65587c8
+2025-07-13 23:36:07.426 [INF] UTXN: Attempting to graduate height=4553266: num_kids=0, num_babies=0
+2025-07-13 23:36:07.519 [INF] NTFN: New block: height=4553267, sha=0000000000000f15554ab41925b9c2b34c32845dae04388e1758cbc890e8064f
+2025-07-13 23:36:07.520 [INF] UTXN: Attempting to graduate height=4553267: num_kids=0, num_babies=0
+2025-07-13 23:36:07.547 [INF] NTFN: New block: height=4553268, sha=0000000007154847efa076e1bfada77ec6500f5baf46bc76d5568e5c002976b5
+2025-07-13 23:36:07.547 [INF] UTXN: Attempting to graduate height=4553268: num_kids=0, num_babies=0
+2025-07-13 23:36:07.645 [INF] NTFN: New block: height=4553269, sha=0000000000001e3f565300e9e70be8c0fc450a977b0e0e574b63ab4a08e4db23
+2025-07-13 23:36:07.645 [INF] UTXN: Attempting to graduate height=4553269: num_kids=0, num_babies=0
+2025-07-13 23:36:07.673 [INF] NTFN: New block: height=4553270, sha=000000000b7649054ba0040499deb79644de776efe97e118d100481dbe022ec6
+2025-07-13 23:36:07.673 [INF] UTXN: Attempting to graduate height=4553270: num_kids=0, num_babies=0
+2025-07-13 23:36:10.105 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:13.187 [INF] BTCN: Processed 11 blocks in the last 10.03s (height 4553285, 2025-07-13 23:36:11 -0700 PDT)
+2025-07-13 23:36:15.158 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:17.044 [INF] BTCN: Verified 8 filter headers in the last 10s (height 4553271, 2025-07-13 23:35:56 -0700 PDT)
+2025-07-13 23:36:17.045 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553291, hash=000000000e67e91708f7c7528817207438b65355c4be9e893d79711babd12ddf
+2025-07-13 23:36:17.238 [INF] NTFN: New block: height=4553271, sha=000000000192d8106479e07484ef545d32731ec1abcbb75a4db4caf96502084a
+2025-07-13 23:36:17.238 [INF] UTXN: Attempting to graduate height=4553271: num_kids=0, num_babies=0
+2025-07-13 23:36:17.340 [INF] NTFN: New block: height=4553272, sha=00000000000010f02db11a19b8dd875885bc0fba0bd6a6575235c314057c1f9d
+2025-07-13 23:36:17.340 [INF] UTXN: Attempting to graduate height=4553272: num_kids=0, num_babies=0
+2025-07-13 23:36:17.442 [INF] NTFN: New block: height=4553273, sha=0000000005ff11d24cf550b597c6d3a96f7cd1acd264c3c7900ac4e42cd319c1
+2025-07-13 23:36:17.442 [INF] UTXN: Attempting to graduate height=4553273: num_kids=0, num_babies=0
+2025-07-13 23:36:17.554 [INF] NTFN: New block: height=4553274, sha=000000000aa788a5e30a8feb9c4ddf40279c6916c899cb2a09e2dc2c07ffa0db
+2025-07-13 23:36:17.554 [INF] UTXN: Attempting to graduate height=4553274: num_kids=0, num_babies=0
+2025-07-13 23:36:17.585 [INF] NTFN: New block: height=4553275, sha=0000000000aabfdf0ab7bae858ddd216530cb33e1e3d66519c2fd877baedc54c
+2025-07-13 23:36:17.585 [INF] UTXN: Attempting to graduate height=4553275: num_kids=0, num_babies=0
+2025-07-13 23:36:17.692 [INF] NTFN: New block: height=4553276, sha=000000000e55cd36e0a5cca00d0026d17062800acf1d3ffa4bc92cbbea7ad6db
+2025-07-13 23:36:17.692 [INF] UTXN: Attempting to graduate height=4553276: num_kids=0, num_babies=0
+2025-07-13 23:36:17.792 [INF] NTFN: New block: height=4553277, sha=0000000004c96871f44bd183073dd30e18ed401e91a2d4c8b2d40e5e619d674b
+2025-07-13 23:36:17.792 [INF] UTXN: Attempting to graduate height=4553277: num_kids=0, num_babies=0
+2025-07-13 23:36:20.218 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:22.460 [INF] BTCN: Processed 11 blocks in the last 10.63s (height 4553296, 2025-07-13 23:36:20 -0700 PDT)
+2025-07-13 23:36:23.936 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:25.687 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553278, 2025-07-13 23:36:06 -0700 PDT)
+2025-07-13 23:36:25.687 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553298, hash=00000000042dcfb1fa998bf39315a32a3727448abdbd6411e12ef3e93f91f67d
+2025-07-13 23:36:25.890 [INF] NTFN: New block: height=4553278, sha=00000000071ef1f4272f305a3e63497e0fb654febc1291627a890e86cd636852
+2025-07-13 23:36:25.890 [INF] UTXN: Attempting to graduate height=4553278: num_kids=0, num_babies=0
+2025-07-13 23:36:25.985 [INF] NTFN: New block: height=4553279, sha=000000000b9b96091a58d7b30c3ef7348b6f80a3de144279a03e5a8cdcc6b829
+2025-07-13 23:36:25.985 [INF] UTXN: Attempting to graduate height=4553279: num_kids=0, num_babies=0
+2025-07-13 23:36:26.079 [INF] NTFN: New block: height=4553280, sha=000000000a4af9aaf4b7c7f49a8f930b58b8f093572a5042634cad0f5657b650
+2025-07-13 23:36:26.079 [INF] UTXN: Attempting to graduate height=4553280: num_kids=0, num_babies=0
+2025-07-13 23:36:26.179 [INF] NTFN: New block: height=4553281, sha=000000000180249917e2b7369d6c215b4fef224db2ecdade10696a8f1824309f
+2025-07-13 23:36:26.179 [INF] UTXN: Attempting to graduate height=4553281: num_kids=0, num_babies=0
+2025-07-13 23:36:26.279 [INF] NTFN: New block: height=4553282, sha=00000000022572b0f81080b1f88054132adf2fa1780c3fdf8e9a0d912570b74f
+2025-07-13 23:36:26.280 [INF] UTXN: Attempting to graduate height=4553282: num_kids=0, num_babies=0
+2025-07-13 23:36:26.315 [INF] NTFN: New block: height=4553283, sha=0000000005cfab4ee1edef59289f24809339a6bafcfd6d7b35dc5972bf76d886
+2025-07-13 23:36:26.315 [INF] UTXN: Attempting to graduate height=4553283: num_kids=0, num_babies=0
+2025-07-13 23:36:26.414 [INF] NTFN: New block: height=4553284, sha=0000000003dbff9300ce6ff3fd7f9a41c5077e4a186ee7ec42481701cee69ac4
+2025-07-13 23:36:26.415 [INF] UTXN: Attempting to graduate height=4553284: num_kids=0, num_babies=0
+2025-07-13 23:36:26.509 [INF] NTFN: New block: height=4553285, sha=0000000006266a111c8981e156712ea81667a7a28c649f3b3c217ff54ee36f2c
+2025-07-13 23:36:26.509 [INF] UTXN: Attempting to graduate height=4553285: num_kids=0, num_babies=0
+2025-07-13 23:36:26.603 [INF] NTFN: New block: height=4553286, sha=0000000008ad85853f56f2a5bd918809eec3ff9b8bd4e0357180d6a60cd16b0c
+2025-07-13 23:36:26.603 [INF] UTXN: Attempting to graduate height=4553286: num_kids=0, num_babies=0
+2025-07-13 23:36:26.700 [INF] NTFN: New block: height=4553287, sha=0000000009f7ed56bb0c4ca3caecfe05c460a18789ae744453eb1e1393884c92
+2025-07-13 23:36:26.700 [INF] UTXN: Attempting to graduate height=4553287: num_kids=0, num_babies=0
+2025-07-13 23:36:26.801 [INF] NTFN: New block: height=4553288, sha=00000000000019be7ec94f1192e643578f82d8bb1c8ccf8796ff9cb469e7418a
+2025-07-13 23:36:26.801 [INF] UTXN: Attempting to graduate height=4553288: num_kids=0, num_babies=0
+2025-07-13 23:36:26.826 [INF] NTFN: New block: height=4553289, sha=0000000002cedd913b027049ab253ba504dd58560b43d23c14697d83e5bf15a0
+2025-07-13 23:36:26.827 [INF] UTXN: Attempting to graduate height=4553289: num_kids=0, num_babies=0
+2025-07-13 23:36:26.860 [INF] NTFN: New block: height=4553290, sha=0000000000000aa7460f86231d7bc842efbd286d5967c50b49a88484bcb81573
+2025-07-13 23:36:26.860 [INF] UTXN: Attempting to graduate height=4553290: num_kids=0, num_babies=0
+2025-07-13 23:36:26.888 [INF] NTFN: New block: height=4553291, sha=000000000e67e91708f7c7528817207438b65355c4be9e893d79711babd12ddf
+2025-07-13 23:36:26.888 [INF] UTXN: Attempting to graduate height=4553291: num_kids=0, num_babies=0
+2025-07-13 23:36:28.990 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:34.037 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:35.690 [INF] BTCN: Verified 14 filter headers in the last 10s (height 4553292, 2025-07-13 23:36:15 -0700 PDT)
+2025-07-13 23:36:35.690 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553305, hash=000000000c742981ff7743c3979d33f6fbe4878053587088af1ed6897e4de2f2
+2025-07-13 23:36:35.826 [INF] NTFN: New block: height=4553292, sha=000000000d18e7b4ca1f370d12b9b7d6e6fb2a19aefcf9f1926618d0a60f2658
+2025-07-13 23:36:35.826 [INF] UTXN: Attempting to graduate height=4553292: num_kids=0, num_babies=0
+2025-07-13 23:36:35.927 [INF] NTFN: New block: height=4553293, sha=000000000232d8e386b4bcc62aa98809a2c92a7e2b6c4d691eb08f1b73e7fbe2
+2025-07-13 23:36:35.928 [INF] UTXN: Attempting to graduate height=4553293: num_kids=0, num_babies=0
+2025-07-13 23:36:35.939 [INF] BTCN: Processed 10 blocks in the last 13.47s (height 4553306, 2025-07-13 23:36:34 -0700 PDT)
+2025-07-13 23:36:36.049 [INF] NTFN: New block: height=4553294, sha=0000000004847d937b0d9958f314fd7dc155e094104aaea2879fc41ee4f5a239
+2025-07-13 23:36:36.049 [INF] UTXN: Attempting to graduate height=4553294: num_kids=0, num_babies=0
+2025-07-13 23:36:36.149 [INF] NTFN: New block: height=4553295, sha=000000000ba8e9ee6778bd8d4639c4ac6f568e963f6665b6ad8a72ad914ef532
+2025-07-13 23:36:36.149 [INF] UTXN: Attempting to graduate height=4553295: num_kids=0, num_babies=0
+2025-07-13 23:36:36.174 [INF] NTFN: New block: height=4553296, sha=000000000a9def551c099e62d0eb4bb90aee1cf83059ab68947664ec838bbe63
+2025-07-13 23:36:36.174 [INF] UTXN: Attempting to graduate height=4553296: num_kids=0, num_babies=0
+2025-07-13 23:36:36.283 [INF] NTFN: New block: height=4553297, sha=00000000000fcecb86f5493aef73f3dadd6d24c22576f9e161ae13ac0c696f13
+2025-07-13 23:36:36.284 [INF] UTXN: Attempting to graduate height=4553297: num_kids=0, num_babies=0
+2025-07-13 23:36:36.382 [INF] NTFN: New block: height=4553298, sha=00000000042dcfb1fa998bf39315a32a3727448abdbd6411e12ef3e93f91f67d
+2025-07-13 23:36:36.382 [INF] UTXN: Attempting to graduate height=4553298: num_kids=0, num_babies=0
+2025-07-13 23:36:39.076 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:44.129 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:45.693 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553299, 2025-07-13 23:36:24 -0700 PDT)
+2025-07-13 23:36:45.693 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553315, hash=0000000008d98c698ae6ff66e309fc7ebdc548e370b8c4abeba4d431e2c18ddb
+2025-07-13 23:36:45.764 [INF] NTFN: New block: height=4553299, sha=00000000084efe576be6b6b59dea42ac3c6eadd44554774f6a8b06c7e125fa2f
+2025-07-13 23:36:45.765 [INF] UTXN: Attempting to graduate height=4553299: num_kids=0, num_babies=0
+2025-07-13 23:36:45.937 [INF] NTFN: New block: height=4553300, sha=000000000bb0fbc1225d786f694c46439eb5245948cff4ba7d4d48dae4dcd9ec
+2025-07-13 23:36:45.937 [INF] UTXN: Attempting to graduate height=4553300: num_kids=0, num_babies=0
+2025-07-13 23:36:46.031 [INF] NTFN: New block: height=4553301, sha=000000000e0019175a0bd37975e5f69816f57aa65eaa7280d3aa3940df731494
+2025-07-13 23:36:46.031 [INF] UTXN: Attempting to graduate height=4553301: num_kids=0, num_babies=0
+2025-07-13 23:36:46.063 [INF] NTFN: New block: height=4553302, sha=00000000071de3dab040e4e6e0e4adb5faec75cee85fd69ffaea95124a88caf4
+2025-07-13 23:36:46.063 [INF] UTXN: Attempting to graduate height=4553302: num_kids=0, num_babies=0
+2025-07-13 23:36:46.160 [INF] NTFN: New block: height=4553303, sha=000000000809b4e180cfe97c4b7f0c175d0616defbb2a675ff8ee4fb9992783b
+2025-07-13 23:36:46.161 [INF] UTXN: Attempting to graduate height=4553303: num_kids=0, num_babies=0
+2025-07-13 23:36:46.216 [INF] NTFN: New block: height=4553304, sha=0000000004b8c70e3b15b2875971903bb3fb04bf88cf34059cb14495131f103c
+2025-07-13 23:36:46.216 [INF] UTXN: Attempting to graduate height=4553304: num_kids=0, num_babies=0
+2025-07-13 23:36:46.321 [INF] NTFN: New block: height=4553305, sha=000000000c742981ff7743c3979d33f6fbe4878053587088af1ed6897e4de2f2
+2025-07-13 23:36:46.321 [INF] UTXN: Attempting to graduate height=4553305: num_kids=0, num_babies=0
+2025-07-13 23:36:46.380 [INF] BTCN: Processed 10 blocks in the last 10.44s (height 4553316, 2025-07-13 23:36:44 -0700 PDT)
+2025-07-13 23:36:49.885 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:51.650 [INF] BTCN: New valid peer 44.241.182.5:18333 (outbound) (/btcwire:0.5.0/btcd:0.23.2/)
+2025-07-13 23:36:51.765 [INF] BTCN: New valid peer 141.98.219.142:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:36:53.605 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:36:54.334 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553306, 2025-07-13 23:36:34 -0700 PDT)
+2025-07-13 23:36:54.334 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553325, hash=00000000093cee05ce011d40869357a2e293c4817c762656693bb8d6b439da1c
+2025-07-13 23:36:54.481 [INF] NTFN: New block: height=4553306, sha=00000000097f73c5d4d78e9c9f01edafb5e6cfa81aca125db752491c8267c1d7
+2025-07-13 23:36:54.481 [INF] UTXN: Attempting to graduate height=4553306: num_kids=0, num_babies=0
+2025-07-13 23:36:54.595 [INF] NTFN: New block: height=4553307, sha=000000000353e7ee66cbd4b0184590f258e2a15ea25072e383579adcdae4473a
+2025-07-13 23:36:54.596 [INF] UTXN: Attempting to graduate height=4553307: num_kids=0, num_babies=0
+2025-07-13 23:36:54.741 [INF] NTFN: New block: height=4553308, sha=0000000005fc01b1c26cf931901c2032f471d4b1ef2a6af51d871489d244fc52
+2025-07-13 23:36:54.742 [INF] UTXN: Attempting to graduate height=4553308: num_kids=0, num_babies=0
+2025-07-13 23:36:54.850 [INF] NTFN: New block: height=4553309, sha=000000000000007e204589b138c3a5c69508d4ae3803ab2a3e4e5c9685b926c2
+2025-07-13 23:36:54.850 [INF] UTXN: Attempting to graduate height=4553309: num_kids=0, num_babies=0
+2025-07-13 23:36:54.897 [INF] NTFN: New block: height=4553310, sha=000000000e37e92a104bf287bce1d5b0d0ed7b9f33887643e30038d2ad5413e8
+2025-07-13 23:36:54.897 [INF] UTXN: Attempting to graduate height=4553310: num_kids=0, num_babies=0
+2025-07-13 23:36:54.933 [INF] NTFN: New block: height=4553311, sha=00000000027fda4a508779de0288eef64dccde89e35292095cf00079c9ff1a44
+2025-07-13 23:36:54.933 [INF] UTXN: Attempting to graduate height=4553311: num_kids=0, num_babies=0
+2025-07-13 23:36:55.147 [INF] NTFN: New block: height=4553312, sha=000000000a771d193d6dc020976aad7909b6958ce86078ea76bf73e651b485cd
+2025-07-13 23:36:55.147 [INF] UTXN: Attempting to graduate height=4553312: num_kids=0, num_babies=0
+2025-07-13 23:36:55.178 [INF] NTFN: New block: height=4553313, sha=0000000007a037da35541aa69a2150c6c98d90de4af4ff205daa11d809a2f136
+2025-07-13 23:36:55.178 [INF] UTXN: Attempting to graduate height=4553313: num_kids=0, num_babies=0
+2025-07-13 23:36:55.199 [INF] BTCN: Lost peer 141.98.219.142:18333 (outbound)
+2025-07-13 23:36:55.281 [INF] NTFN: New block: height=4553314, sha=000000000b40370f666eac4aac34ba3f59a6f2d5379a42186b66ece0c5deb5e3
+2025-07-13 23:36:55.282 [INF] UTXN: Attempting to graduate height=4553314: num_kids=0, num_babies=0
+2025-07-13 23:36:55.308 [INF] BTCN: Processed 10 blocks in the last 10.28s (height 4553326, 2025-07-13 23:36:54 -0700 PDT)
+2025-07-13 23:36:55.316 [INF] NTFN: New block: height=4553315, sha=0000000008d98c698ae6ff66e309fc7ebdc548e370b8c4abeba4d431e2c18ddb
+2025-07-13 23:36:55.316 [INF] UTXN: Attempting to graduate height=4553315: num_kids=0, num_babies=0
+2025-07-13 23:36:55.595 [INF] BTCN: New valid peer 74.118.143.20:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:36:58.661 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:03.933 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:04.338 [INF] BTCN: Verified 10 filter headers in the last 10s (height 4553316, 2025-07-13 23:36:44 -0700 PDT)
+2025-07-13 23:37:04.338 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553331, hash=0000000005523c7e0b24229b05138bbc3aee8918e7b4a66dcaf7e9602b97c153
+2025-07-13 23:37:05.406 [INF] NTFN: New block: height=4553316, sha=0000000009c387064fb3fdf4a9bc81f7d7fc448156bd95d55427c0cc8f4bb389
+2025-07-13 23:37:05.407 [INF] UTXN: Attempting to graduate height=4553316: num_kids=0, num_babies=0
+2025-07-13 23:37:05.408 [INF] BTCN: Processed 7 blocks in the last 10.1s (height 4553333, 2025-07-13 23:37:03 -0700 PDT)
+2025-07-13 23:37:05.455 [INF] NTFN: New block: height=4553317, sha=0000000003f4a9fb3d720e2239e93fec66302f7981cb5a2414fbad64a2a1da0f
+2025-07-13 23:37:05.458 [INF] UTXN: Attempting to graduate height=4553317: num_kids=0, num_babies=0
+2025-07-13 23:37:05.703 [INF] NTFN: New block: height=4553318, sha=00000000066901544d132527ed596a3ac094b3db108c63ddba14ac116f919024
+2025-07-13 23:37:05.703 [INF] UTXN: Attempting to graduate height=4553318: num_kids=0, num_babies=0
+2025-07-13 23:37:05.806 [INF] NTFN: New block: height=4553319, sha=00000000014bbfd6ceaf177f2a5504898d8fe5724626efa9e1215ff7c707387c
+2025-07-13 23:37:05.806 [INF] UTXN: Attempting to graduate height=4553319: num_kids=0, num_babies=0
+2025-07-13 23:37:05.917 [INF] NTFN: New block: height=4553320, sha=000000000076d5e7c275b4ae116323d23e2d11435b1e90707c702977b0868ec5
+2025-07-13 23:37:05.917 [INF] UTXN: Attempting to graduate height=4553320: num_kids=0, num_babies=0
+2025-07-13 23:37:06.020 [INF] NTFN: New block: height=4553321, sha=000000000cb01921668d9139eb1bfd949e9d20e82b94c99e3bff80f231c084a1
+2025-07-13 23:37:06.021 [INF] UTXN: Attempting to graduate height=4553321: num_kids=0, num_babies=0
+2025-07-13 23:37:06.123 [INF] NTFN: New block: height=4553322, sha=000000000fa5292fdca6fe221cbe1508fb3013ed3471b0db0c05dfe67e0e5977
+2025-07-13 23:37:06.123 [INF] UTXN: Attempting to graduate height=4553322: num_kids=0, num_babies=0
+2025-07-13 23:37:06.223 [INF] NTFN: New block: height=4553323, sha=0000000006d1e06f774186344b9a3dde16d9891733e1e5549700ab21a844e8e3
+2025-07-13 23:37:06.224 [INF] UTXN: Attempting to graduate height=4553323: num_kids=0, num_babies=0
+2025-07-13 23:37:06.263 [INF] NTFN: New block: height=4553324, sha=0000000000ae2844dd99670d8403e5562ec1aaa06ab075daa1b11dc5000ae619
+2025-07-13 23:37:06.263 [INF] UTXN: Attempting to graduate height=4553324: num_kids=0, num_babies=0
+2025-07-13 23:37:06.357 [INF] NTFN: New block: height=4553325, sha=00000000093cee05ce011d40869357a2e293c4817c762656693bb8d6b439da1c
+2025-07-13 23:37:06.358 [INF] UTXN: Attempting to graduate height=4553325: num_kids=0, num_babies=0
+2025-07-13 23:37:08.977 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:09.117 [INF] BTCN: New valid peer 52.10.161.34:18333 (outbound) (/btcwire:0.5.0/btcd:0.23.2/)
+2025-07-13 23:37:12.200 [INF] BTCN: Lost peer 74.118.143.20:18333 (outbound)
+2025-07-13 23:37:12.614 [INF] BTCN: New valid peer 65.109.24.172:18333 (outbound) (/Satoshi:28.1.0/)
+2025-07-13 23:37:14.028 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:14.340 [INF] BTCN: Verified 10 filter headers in the last 10s (height 4553326, 2025-07-13 23:36:54 -0700 PDT)
+2025-07-13 23:37:14.340 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553342, hash=000000000d17aa736ca86ef4b96f013aad70e23bfc5a4ec42bb08e84471efbb6
+2025-07-13 23:37:14.414 [INF] NTFN: New block: height=4553326, sha=000000000180f3adab5373408d5f1573c26b67c0473a385af88f9a641e3facd7
+2025-07-13 23:37:14.414 [INF] UTXN: Attempting to graduate height=4553326: num_kids=0, num_babies=0
+2025-07-13 23:37:14.506 [INF] NTFN: New block: height=4553327, sha=00000000088720f2c07b41fdab44aa433e4f50e4e3cad762b67b865f4aa0df18
+2025-07-13 23:37:14.506 [INF] UTXN: Attempting to graduate height=4553327: num_kids=0, num_babies=0
+2025-07-13 23:37:14.601 [INF] NTFN: New block: height=4553328, sha=000000000e17a325cd350d20ad1e3b3d1ea258a92eb8371027903556ad89908e
+2025-07-13 23:37:14.601 [INF] UTXN: Attempting to graduate height=4553328: num_kids=0, num_babies=0
+2025-07-13 23:37:14.693 [INF] NTFN: New block: height=4553329, sha=000000000486e11d807ee1a94bfd51df6e60e8e30935e6eaf7d27f4b153225b1
+2025-07-13 23:37:14.693 [INF] UTXN: Attempting to graduate height=4553329: num_kids=0, num_babies=0
+2025-07-13 23:37:14.794 [INF] NTFN: New block: height=4553330, sha=000000000e0674726a8fcb3858627ef37f5f8a2e61856623ca1ade4f751b525a
+2025-07-13 23:37:14.794 [INF] UTXN: Attempting to graduate height=4553330: num_kids=0, num_babies=0
+2025-07-13 23:37:14.962 [INF] NTFN: New block: height=4553331, sha=0000000005523c7e0b24229b05138bbc3aee8918e7b4a66dcaf7e9602b97c153
+2025-07-13 23:37:14.962 [INF] UTXN: Attempting to graduate height=4553331: num_kids=0, num_babies=0
+2025-07-13 23:37:16.858 [INF] BTCN: Processed 12 blocks in the last 11.44s (height 4553345, 2025-07-13 23:37:14 -0700 PDT)
+2025-07-13 23:37:19.062 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:22.741 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:22.960 [INF] BTCN: Verified 6 filter headers in the last 10s (height 4553332, 2025-07-13 23:37:02 -0700 PDT)
+2025-07-13 23:37:22.961 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553349, hash=000000000000185bcdb5003c0c763c75970de42f55c6460ede53216b32662f63
+2025-07-13 23:37:23.047 [INF] CRTR: Processed channels=4 updates=2 nodes=2 in last 4m9.863427138s
+2025-07-13 23:37:23.166 [INF] NTFN: New block: height=4553332, sha=000000000cccaa9362ecd4f72e4a58a0948007af6c4b5982169aefa93aff67a1
+2025-07-13 23:37:23.166 [INF] UTXN: Attempting to graduate height=4553332: num_kids=0, num_babies=0
+2025-07-13 23:37:23.263 [INF] NTFN: New block: height=4553333, sha=000000000504ef50f7cfebdd57ceb167a74af9ebe1b23b1c135963895cbb6a47
+2025-07-13 23:37:23.263 [INF] UTXN: Attempting to graduate height=4553333: num_kids=0, num_babies=0
+2025-07-13 23:37:23.360 [INF] NTFN: New block: height=4553334, sha=0000000005d9186a83de1a5822c6ffc95131974402cee3ddd1016cbb7b207648
+2025-07-13 23:37:23.360 [INF] UTXN: Attempting to graduate height=4553334: num_kids=0, num_babies=0
+2025-07-13 23:37:23.463 [INF] NTFN: New block: height=4553335, sha=0000000000371d3049a9724f11361bff35993e49ca9bc8dadfbfec33f3199092
+2025-07-13 23:37:23.463 [INF] UTXN: Attempting to graduate height=4553335: num_kids=0, num_babies=0
+2025-07-13 23:37:23.498 [INF] NTFN: New block: height=4553336, sha=000000000bc9b34b751d2348285f0c9f6eedd7151fc71d3acdd1fa7263ac909a
+2025-07-13 23:37:23.498 [INF] UTXN: Attempting to graduate height=4553336: num_kids=0, num_babies=0
+2025-07-13 23:37:23.530 [INF] NTFN: New block: height=4553337, sha=000000000191b284172807ea5080907d6321ae554fc64dbd0ad200edd2624fad
+2025-07-13 23:37:23.531 [INF] UTXN: Attempting to graduate height=4553337: num_kids=0, num_babies=0
+2025-07-13 23:37:23.561 [INF] NTFN: New block: height=4553338, sha=000000000c188f5a130e679310945e0137b44edecbf6cc459353de76ad57acdc
+2025-07-13 23:37:23.562 [INF] UTXN: Attempting to graduate height=4553338: num_kids=0, num_babies=0
+2025-07-13 23:37:23.589 [INF] NTFN: New block: height=4553339, sha=000000000067bc1ddb71bd8ca6f69a570f0b385ac6dcab04af2c76fc446cc47b
+2025-07-13 23:37:23.589 [INF] UTXN: Attempting to graduate height=4553339: num_kids=0, num_babies=0
+2025-07-13 23:37:23.688 [INF] NTFN: New block: height=4553340, sha=000000000bd3e1e51ce2b44a3f7317c31b7a4b8788f89a96c935ace0680e43ea
+2025-07-13 23:37:23.688 [INF] UTXN: Attempting to graduate height=4553340: num_kids=0, num_babies=0
+2025-07-13 23:37:23.786 [INF] NTFN: New block: height=4553341, sha=000000000d33e963277e3dc9ef65a1897370b302fc044580bd7c9f78f3538ae5
+2025-07-13 23:37:23.786 [INF] UTXN: Attempting to graduate height=4553341: num_kids=0, num_babies=0
+2025-07-13 23:37:23.885 [INF] NTFN: New block: height=4553342, sha=000000000d17aa736ca86ef4b96f013aad70e23bfc5a4ec42bb08e84471efbb6
+2025-07-13 23:37:23.885 [INF] UTXN: Attempting to graduate height=4553342: num_kids=0, num_babies=0
+2025-07-13 23:37:26.192 [INF] BTCN: Processed 7 blocks in the last 10.72s (height 4553352, 2025-07-13 23:37:24 -0700 PDT)
+2025-07-13 23:37:27.794 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:32.843 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:32.964 [INF] BTCN: Verified 11 filter headers in the last 10s (height 4553343, 2025-07-13 23:37:12 -0700 PDT)
+2025-07-13 23:37:32.964 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553355, hash=0000000002b301035650b6cfd4433dcbd90bd0e4aafd9ccbb97b318ae58fd7cf
+2025-07-13 23:37:33.108 [INF] NTFN: New block: height=4553343, sha=0000000005ab8d28943a858588f439ec98f62d00185c01ee4ca3a56827a9864b
+2025-07-13 23:37:33.108 [INF] UTXN: Attempting to graduate height=4553343: num_kids=0, num_babies=0
+2025-07-13 23:37:33.290 [INF] NTFN: New block: height=4553344, sha=000000000a82b7d46fa275ee426a95d284125f9f0ec9508927447a67c09ae71c
+2025-07-13 23:37:33.291 [INF] UTXN: Attempting to graduate height=4553344: num_kids=0, num_babies=0
+2025-07-13 23:37:33.386 [INF] NTFN: New block: height=4553345, sha=000000000a6dc5be9a24e736a2b63ee06a37442eae3585bf951a2cee312cb40d
+2025-07-13 23:37:33.386 [INF] UTXN: Attempting to graduate height=4553345: num_kids=0, num_babies=0
+2025-07-13 23:37:33.485 [INF] NTFN: New block: height=4553346, sha=0000000000943f2d826eb9f1cd8ef8deca1d95e271e98fbb4ad43b67343a47ed
+2025-07-13 23:37:33.486 [INF] UTXN: Attempting to graduate height=4553346: num_kids=0, num_babies=0
+2025-07-13 23:37:33.584 [INF] NTFN: New block: height=4553347, sha=000000000dd1035b930e47f43fafc1cba2eb41b152d3ac62e18825defc5c1609
+2025-07-13 23:37:33.584 [INF] UTXN: Attempting to graduate height=4553347: num_kids=0, num_babies=0
+2025-07-13 23:37:33.691 [INF] NTFN: New block: height=4553348, sha=0000000006fb3910b8fe6ddac8f651897666b13d372514e681fbae3309066905
+2025-07-13 23:37:33.691 [INF] UTXN: Attempting to graduate height=4553348: num_kids=0, num_babies=0
+2025-07-13 23:37:33.792 [INF] NTFN: New block: height=4553349, sha=000000000000185bcdb5003c0c763c75970de42f55c6460ede53216b32662f63
+2025-07-13 23:37:33.792 [INF] UTXN: Attempting to graduate height=4553349: num_kids=0, num_babies=0
+2025-07-13 23:37:37.056 [INF] BTCN: Processed 10 blocks in the last 10.86s (height 4553362, 2025-07-13 23:37:35 -0700 PDT)
+2025-07-13 23:37:37.898 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:42.956 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:42.967 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553350, 2025-07-13 23:37:20 -0700 PDT)
+2025-07-13 23:37:42.967 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553369, hash=0000000003c99c261547891c05db092394342110e9059d5b9902057fbbfe2b05
+2025-07-13 23:37:43.168 [INF] NTFN: New block: height=4553350, sha=0000000006db8c27797b8b81ab73ec6316e6f301402a6a6da09f10e0b4d66b88
+2025-07-13 23:37:43.168 [INF] UTXN: Attempting to graduate height=4553350: num_kids=0, num_babies=0
+2025-07-13 23:37:43.269 [INF] NTFN: New block: height=4553351, sha=000000000bf194270a5f8edd8ef1e6951e68cd5e6cfd3dffca112ae1dea03452
+2025-07-13 23:37:43.269 [INF] UTXN: Attempting to graduate height=4553351: num_kids=0, num_babies=0
+2025-07-13 23:37:43.368 [INF] NTFN: New block: height=4553352, sha=000000000240a4db3665663bf5f5ee7abb67834e1caea263b81636bc4ba181d7
+2025-07-13 23:37:43.368 [INF] UTXN: Attempting to graduate height=4553352: num_kids=0, num_babies=0
+2025-07-13 23:37:43.394 [INF] NTFN: New block: height=4553353, sha=000000000a47ef97ae1832509dd3cf20eb55766cde6b9b3e42b8c7a7b777dbe1
+2025-07-13 23:37:43.394 [INF] UTXN: Attempting to graduate height=4553353: num_kids=0, num_babies=0
+2025-07-13 23:37:43.494 [INF] NTFN: New block: height=4553354, sha=000000000253d2e9211cecb9633e1fe6b4b4e70abe85fb0625e99939a21872e3
+2025-07-13 23:37:43.494 [INF] UTXN: Attempting to graduate height=4553354: num_kids=0, num_babies=0
+2025-07-13 23:37:43.524 [INF] NTFN: New block: height=4553355, sha=0000000002b301035650b6cfd4433dcbd90bd0e4aafd9ccbb97b318ae58fd7cf
+2025-07-13 23:37:43.524 [INF] UTXN: Attempting to graduate height=4553355: num_kids=0, num_babies=0
+2025-07-13 23:37:47.915 [INF] BTCN: Processed 11 blocks in the last 10.85s (height 4553373, 2025-07-13 23:37:45 -0700 PDT)
+2025-07-13 23:37:48.012 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:51.570 [INF] BTCN: Verified 6 filter headers in the last 10s (height 4553356, 2025-07-13 23:37:31 -0700 PDT)
+2025-07-13 23:37:51.570 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553377, hash=00000000041b0b6e3dc4e33878c8072f53b36b85c3917a7508cac4728bac01bc
+2025-07-13 23:37:51.656 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:51.704 [INF] NTFN: New block: height=4553356, sha=0000000008f209cfb5066bed78418f11a4111adce65c1521ad24a786a58c9d9d
+2025-07-13 23:37:51.704 [INF] UTXN: Attempting to graduate height=4553356: num_kids=0, num_babies=0
+2025-07-13 23:37:51.867 [INF] NTFN: New block: height=4553357, sha=000000000017722964145425001aaa43c861edccf80ce21e1cd56c6bb7866f02
+2025-07-13 23:37:51.867 [INF] UTXN: Attempting to graduate height=4553357: num_kids=0, num_babies=0
+2025-07-13 23:37:51.965 [INF] NTFN: New block: height=4553358, sha=0000000000000693b5b218cd1e109a6ac952c595080e48363ebc9a77c95cf958
+2025-07-13 23:37:51.965 [INF] UTXN: Attempting to graduate height=4553358: num_kids=0, num_babies=0
+2025-07-13 23:37:52.075 [INF] NTFN: New block: height=4553359, sha=000000000a2c1876786e3c6d24f6c1f26f72132a11fc2cbbb1cf913cafea2f74
+2025-07-13 23:37:52.076 [INF] UTXN: Attempting to graduate height=4553359: num_kids=0, num_babies=0
+2025-07-13 23:37:52.174 [INF] NTFN: New block: height=4553360, sha=0000000009d44c3c1b2cbe2ee458ecdebcf39e4dcf378c2061d6d27f15a82f71
+2025-07-13 23:37:52.174 [INF] UTXN: Attempting to graduate height=4553360: num_kids=0, num_babies=0
+2025-07-13 23:37:52.277 [INF] NTFN: New block: height=4553361, sha=0000000007d1e3f5dace4e8c2b246dc51b59a6e7f5b654d3c86cbbeb955c1f97
+2025-07-13 23:37:52.277 [INF] UTXN: Attempting to graduate height=4553361: num_kids=0, num_babies=0
+2025-07-13 23:37:52.372 [INF] NTFN: New block: height=4553362, sha=0000000009456284dbe17df63816817bfd8d8d35d0af6a7e697b5698ddf82661
+2025-07-13 23:37:52.372 [INF] UTXN: Attempting to graduate height=4553362: num_kids=0, num_babies=0
+2025-07-13 23:37:52.398 [INF] NTFN: New block: height=4553363, sha=000000000c60b58931fc27fe9248157de70428442ba14be5f45e2da17e3747a3
+2025-07-13 23:37:52.398 [INF] UTXN: Attempting to graduate height=4553363: num_kids=0, num_babies=0
+2025-07-13 23:37:52.430 [INF] NTFN: New block: height=4553364, sha=000000000f900b5a5ddbcc8131a5838c2b3dcd1ee5ff52cfb038fe7823f5f463
+2025-07-13 23:37:52.430 [INF] UTXN: Attempting to graduate height=4553364: num_kids=0, num_babies=0
+2025-07-13 23:37:52.462 [INF] NTFN: New block: height=4553365, sha=0000000004a86ac8abada85cba2a0f6b688fb353aa3b7244d77e79256b8c975d
+2025-07-13 23:37:52.462 [INF] UTXN: Attempting to graduate height=4553365: num_kids=0, num_babies=0
+2025-07-13 23:37:52.557 [INF] NTFN: New block: height=4553366, sha=000000000c27929a8ad54cfe9f2cb00c08449b0afdb2c2a99193ce6130ed8abd
+2025-07-13 23:37:52.557 [INF] UTXN: Attempting to graduate height=4553366: num_kids=0, num_babies=0
+2025-07-13 23:37:52.659 [INF] NTFN: New block: height=4553367, sha=0000000007c167ea7994b49fcfbc511f229f145d160726b85bfb8da16c8f4591
+2025-07-13 23:37:52.659 [INF] UTXN: Attempting to graduate height=4553367: num_kids=0, num_babies=0
+2025-07-13 23:37:52.759 [INF] NTFN: New block: height=4553368, sha=0000000004ce1cd23ed0f7caa1da0bfaf1876edc552bf8e58169f22d8e860a0f
+2025-07-13 23:37:52.759 [INF] UTXN: Attempting to graduate height=4553368: num_kids=0, num_babies=0
+2025-07-13 23:37:52.791 [INF] NTFN: New block: height=4553369, sha=0000000003c99c261547891c05db092394342110e9059d5b9902057fbbfe2b05
+2025-07-13 23:37:52.792 [INF] UTXN: Attempting to graduate height=4553369: num_kids=0, num_babies=0
+2025-07-13 23:37:55.335 [INF] BTCN: Lost peer 54.236.59.55:18333 (outbound)
+2025-07-13 23:37:55.335 [WRN] BTCN: No sync peer candidates available
+2025-07-13 23:37:55.688 [INF] BTCN: New valid peer 74.118.136.46:18333 (outbound) (/Satoshi:29.0.0/)
+2025-07-13 23:37:55.688 [INF] BTCN: Syncing to block height 4553380 from peer 74.118.136.46:18333
+2025-07-13 23:37:55.688 [INF] BTCN: Fetching set of headers from tip (height=4553380) from peer 74.118.136.46:18333
+2025-07-13 23:37:56.708 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:37:57.361 [INF] BTCN: Processed 8 blocks in the last 10.84s (height 4553381, 2025-07-13 23:37:54 -0700 PDT)
+2025-07-13 23:38:01.573 [INF] BTCN: Verified 14 filter headers in the last 10s (height 4553370, 2025-07-13 23:37:41 -0700 PDT)
+2025-07-13 23:38:01.573 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553382, hash=000000000767fcc4efa2a1b4c4dfd014bcaddcd814b5d1a290cf70dd31b6ad1d
+2025-07-13 23:38:01.748 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:03.605 [WRN] LNWL: Query(531) from peer 44.237.38.26:18333 failed, rescheduling: did not get response before timeout
+2025-07-13 23:38:03.630 [INF] NTFN: New block: height=4553370, sha=0000000003016835bd958920496366b52db80dcff7470b9356bd25e1ac386d61
+2025-07-13 23:38:03.630 [INF] UTXN: Attempting to graduate height=4553370: num_kids=0, num_babies=0
+2025-07-13 23:38:03.668 [INF] NTFN: New block: height=4553371, sha=0000000000000ba9964c75225c71931dab44638e7114ac2b6789803872cf02fc
+2025-07-13 23:38:03.668 [INF] UTXN: Attempting to graduate height=4553371: num_kids=0, num_babies=0
+2025-07-13 23:38:03.700 [INF] NTFN: New block: height=4553372, sha=00000000009d32d2292806c48b9d714373dc72a3b30b400c309bae0742624ddc
+2025-07-13 23:38:03.700 [INF] UTXN: Attempting to graduate height=4553372: num_kids=0, num_babies=0
+2025-07-13 23:38:03.730 [INF] NTFN: New block: height=4553373, sha=000000000a3af8baad446ae9d2207b89587213e789ba05d8fb0dbd91dbf9b233
+2025-07-13 23:38:03.730 [INF] UTXN: Attempting to graduate height=4553373: num_kids=0, num_babies=0
+2025-07-13 23:38:03.761 [INF] NTFN: New block: height=4553374, sha=00000000072b9a15d2fff8e362820c792dec204c0007c170fbc6bc62bce38b4d
+2025-07-13 23:38:03.762 [INF] UTXN: Attempting to graduate height=4553374: num_kids=0, num_babies=0
+2025-07-13 23:38:03.796 [INF] NTFN: New block: height=4553375, sha=0000000008794591934ac1b170c7c16583d8edb0762a3e2a1369239c51650e64
+2025-07-13 23:38:03.796 [INF] UTXN: Attempting to graduate height=4553375: num_kids=0, num_babies=0
+2025-07-13 23:38:03.823 [INF] NTFN: New block: height=4553376, sha=00000000055f9d26fd92f6f9784451441e7f13353612dcfff8df283327c00404
+2025-07-13 23:38:03.823 [INF] UTXN: Attempting to graduate height=4553376: num_kids=0, num_babies=0
+2025-07-13 23:38:03.857 [INF] NTFN: New block: height=4553377, sha=00000000041b0b6e3dc4e33878c8072f53b36b85c3917a7508cac4728bac01bc
+2025-07-13 23:38:03.857 [INF] UTXN: Attempting to graduate height=4553377: num_kids=0, num_babies=0
+2025-07-13 23:38:06.802 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:07.676 [INF] BTCN: Processed 9 blocks in the last 10.31s (height 4553390, 2025-07-13 23:38:06 -0700 PDT)
+2025-07-13 23:38:11.576 [INF] BTCN: Verified 8 filter headers in the last 10s (height 4553378, 2025-07-13 23:37:51 -0700 PDT)
+2025-07-13 23:38:11.577 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553391, hash=00000000040c412ce4a83a0333811a4eea59796c989f264c277f282bd860a9af
+2025-07-13 23:38:11.857 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:13.616 [WRN] LNWL: Query(547) from peer 52.10.161.34:18333 failed, rescheduling: did not get response before timeout
+2025-07-13 23:38:13.650 [INF] NTFN: New block: height=4553378, sha=000000000000101449a5380895b0442c9a79811984267fd7489ca13e6cf912f4
+2025-07-13 23:38:13.650 [INF] UTXN: Attempting to graduate height=4553378: num_kids=0, num_babies=0
+2025-07-13 23:38:13.687 [INF] NTFN: New block: height=4553379, sha=00000000021cffd00baa6818e6a18cd0d3d08446b3c710206ed6a536950557c9
+2025-07-13 23:38:13.687 [INF] UTXN: Attempting to graduate height=4553379: num_kids=0, num_babies=0
+2025-07-13 23:38:13.718 [INF] NTFN: New block: height=4553380, sha=000000000ee7d6c40dd7c9e5978f46b1a7a48726db81ea34765d7776a05b9b15
+2025-07-13 23:38:13.718 [INF] UTXN: Attempting to graduate height=4553380: num_kids=0, num_babies=0
+2025-07-13 23:38:13.749 [INF] NTFN: New block: height=4553381, sha=00000000095026e81f553cbf8a3572233d6bd310c8ad862c5e7e8592606be4c5
+2025-07-13 23:38:13.749 [INF] UTXN: Attempting to graduate height=4553381: num_kids=0, num_babies=0
+2025-07-13 23:38:13.795 [INF] NTFN: New block: height=4553382, sha=000000000767fcc4efa2a1b4c4dfd014bcaddcd814b5d1a290cf70dd31b6ad1d
+2025-07-13 23:38:13.795 [INF] UTXN: Attempting to graduate height=4553382: num_kids=0, num_babies=0
+2025-07-13 23:38:16.908 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:17.772 [INF] BTCN: Processed 8 blocks in the last 10.09s (height 4553398, 2025-07-13 23:38:16 -0700 PDT)
+2025-07-13 23:38:20.212 [INF] BTCN: Verified 5 filter headers in the last 10s (height 4553383, 2025-07-13 23:38:00 -0700 PDT)
+2025-07-13 23:38:20.212 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553401, hash=0000000002f72c1990fa96eac132925be3bd3bc921bd09b869ad73b853017634
+2025-07-13 23:38:20.276 [INF] NTFN: New block: height=4553383, sha=000000000addffa40cdf96555400111609de1a5f299aa67f6fa0558f6c2527ec
+2025-07-13 23:38:20.276 [INF] UTXN: Attempting to graduate height=4553383: num_kids=0, num_babies=0
+2025-07-13 23:38:20.280 [INF] CRTR: Processed channels=0 updates=0 nodes=1 in last 1m0.000389012s
+2025-07-13 23:38:20.595 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:20.629 [INF] NTFN: New block: height=4553384, sha=000000000988b67cb58c120cccc8daea42698ba2253612a7247f9b41c54147fc
+2025-07-13 23:38:20.629 [INF] UTXN: Attempting to graduate height=4553384: num_kids=0, num_babies=0
+2025-07-13 23:38:20.655 [INF] NTFN: New block: height=4553385, sha=0000000007bd86edd1e5833c98ccca19be29ec367f45f03d11d805c447c3f7ba
+2025-07-13 23:38:20.655 [INF] UTXN: Attempting to graduate height=4553385: num_kids=0, num_babies=0
+2025-07-13 23:38:20.729 [INF] NTFN: New block: height=4553386, sha=0000000000000f0ce03214ef6b32aecb1873d2d0c1ad641316ca104a8ced809d
+2025-07-13 23:38:20.729 [INF] UTXN: Attempting to graduate height=4553386: num_kids=0, num_babies=0
+2025-07-13 23:38:20.761 [INF] NTFN: New block: height=4553387, sha=0000000002a5c43a794b6a7b9b9d877784c960cb32d1ba2cc7dfd9d680e1b8aa
+2025-07-13 23:38:20.761 [INF] UTXN: Attempting to graduate height=4553387: num_kids=0, num_babies=0
+2025-07-13 23:38:20.786 [INF] NTFN: New block: height=4553388, sha=0000000000000353d9b63cc5f6a0f03d3bc9d794f0de2cd39cc2a2a3713c1a3c
+2025-07-13 23:38:20.787 [INF] UTXN: Attempting to graduate height=4553388: num_kids=0, num_babies=0
+2025-07-13 23:38:20.812 [INF] NTFN: New block: height=4553389, sha=000000000a28c4887aea89826cdb4b4904e7dd3e17e5a0067d5dfb68db95feae
+2025-07-13 23:38:20.812 [INF] UTXN: Attempting to graduate height=4553389: num_kids=0, num_babies=0
+2025-07-13 23:38:20.874 [INF] NTFN: New block: height=4553390, sha=0000000003b978672fe2789afd74775bfe795a2d363f115630562582d0e0ced2
+2025-07-13 23:38:20.874 [INF] UTXN: Attempting to graduate height=4553390: num_kids=0, num_babies=0
+2025-07-13 23:38:20.908 [INF] NTFN: New block: height=4553391, sha=00000000040c412ce4a83a0333811a4eea59796c989f264c277f282bd860a9af
+2025-07-13 23:38:20.909 [INF] UTXN: Attempting to graduate height=4553391: num_kids=0, num_babies=0
+2025-07-13 23:38:25.639 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:26.717 [INF] BTCN: Processed 9 blocks in the last 10.31s (height 4553407, 2025-07-13 23:38:26 -0700 PDT)
+2025-07-13 23:38:30.215 [INF] BTCN: Verified 9 filter headers in the last 10s (height 4553392, 2025-07-13 23:38:09 -0700 PDT)
+2025-07-13 23:38:30.216 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553410, hash=0000000005606aee92deeb6e6a98549ba2928b1fec576d9eaecf7926dad99cdc
+2025-07-13 23:38:30.428 [INF] NTFN: New block: height=4553392, sha=000000000845c6ddd31867e74865f544d1c1a76867a09a3676772138257631e3
+2025-07-13 23:38:30.428 [INF] UTXN: Attempting to graduate height=4553392: num_kids=0, num_babies=0
+2025-07-13 23:38:30.600 [INF] NTFN: New block: height=4553393, sha=000000000d5a8c31276d099a05ffc0818ca16d905e9cc9fba1e664b31a568a63
+2025-07-13 23:38:30.600 [INF] UTXN: Attempting to graduate height=4553393: num_kids=0, num_babies=0
+2025-07-13 23:38:30.690 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:30.785 [INF] NTFN: New block: height=4553394, sha=00000000072874952565d4ff005ad75a5c70979f3d591140dbd5a27f1327241c
+2025-07-13 23:38:30.785 [INF] UTXN: Attempting to graduate height=4553394: num_kids=0, num_babies=0
+2025-07-13 23:38:30.826 [INF] NTFN: New block: height=4553395, sha=000000000e51ef778709e117236849afa042ff247e49da69cb9a76ef5d359fef
+2025-07-13 23:38:30.826 [INF] UTXN: Attempting to graduate height=4553395: num_kids=0, num_babies=0
+2025-07-13 23:38:30.859 [INF] NTFN: New block: height=4553396, sha=000000000967ee4aca0745d3ce5e5600fd0a2b0c7b284f964bdae02a594acd94
+2025-07-13 23:38:30.859 [INF] UTXN: Attempting to graduate height=4553396: num_kids=0, num_babies=0
+2025-07-13 23:38:31.032 [INF] NTFN: New block: height=4553397, sha=0000000000a703ae6fddada89b347b0962d45e4c28b4d8e0071e0ed16b3fa984
+2025-07-13 23:38:31.032 [INF] UTXN: Attempting to graduate height=4553397: num_kids=0, num_babies=0
+2025-07-13 23:38:31.064 [INF] NTFN: New block: height=4553398, sha=000000000ffb7e8199962740e86ebf609b5a6c901b265d70c56f1a963acabc62
+2025-07-13 23:38:31.064 [INF] UTXN: Attempting to graduate height=4553398: num_kids=0, num_babies=0
+2025-07-13 23:38:31.240 [INF] NTFN: New block: height=4553399, sha=00000000000036c5156e0513cc32335cc4f1f6b5e0dfa1685c304dd5c86dc4e1
+2025-07-13 23:38:31.240 [INF] UTXN: Attempting to graduate height=4553399: num_kids=0, num_babies=0
+2025-07-13 23:38:31.276 [INF] NTFN: New block: height=4553400, sha=000000000533847346a70c4357c92813b52fb266ca73ac7032ca3881a3645af5
+2025-07-13 23:38:31.276 [INF] UTXN: Attempting to graduate height=4553400: num_kids=0, num_babies=0
+2025-07-13 23:38:31.306 [INF] NTFN: New block: height=4553401, sha=0000000002f72c1990fa96eac132925be3bd3bc921bd09b869ad73b853017634
+2025-07-13 23:38:31.306 [INF] UTXN: Attempting to graduate height=4553401: num_kids=0, num_babies=0
+2025-07-13 23:38:35.746 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:36.958 [INF] BTCN: Processed 10 blocks in the last 10.24s (height 4553417, 2025-07-13 23:38:35 -0700 PDT)
+2025-07-13 23:38:40.219 [INF] BTCN: Verified 10 filter headers in the last 10s (height 4553402, 2025-07-13 23:38:19 -0700 PDT)
+2025-07-13 23:38:40.219 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553418, hash=000000000fe312a019bf17601f42f2599bee87bd8087b44575726096856e07ea
+2025-07-13 23:38:40.277 [INF] NTFN: New block: height=4553402, sha=000000000ec0e5819116959ccf9d687829d3ddabc4191cb4de16cea3e1287e6a
+2025-07-13 23:38:40.277 [INF] UTXN: Attempting to graduate height=4553402: num_kids=0, num_babies=0
+2025-07-13 23:38:40.595 [INF] NTFN: New block: height=4553403, sha=00000000000005598824259ffaf18cac569bf1c74490d4a5b200daecc2e71d3c
+2025-07-13 23:38:40.595 [INF] UTXN: Attempting to graduate height=4553403: num_kids=0, num_babies=0
+2025-07-13 23:38:40.770 [INF] NTFN: New block: height=4553404, sha=000000000a504e49aa341627c81bfefa07f82e58187240a7a8866a4e2d8cb26a
+2025-07-13 23:38:40.770 [INF] UTXN: Attempting to graduate height=4553404: num_kids=0, num_babies=0
+2025-07-13 23:38:40.810 [INF] NTFN: New block: height=4553405, sha=0000000008cb35b62341bb42d100f706801df0f1206e981e16b31dc217d80e9d
+2025-07-13 23:38:40.810 [INF] UTXN: Attempting to graduate height=4553405: num_kids=0, num_babies=0
+2025-07-13 23:38:40.811 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:40.839 [INF] NTFN: New block: height=4553406, sha=0000000000002ea27ff3a93b1e095cf6f93806e3f737490d67eb1b1caf7fe6fc
+2025-07-13 23:38:40.839 [INF] UTXN: Attempting to graduate height=4553406: num_kids=0, num_babies=0
+2025-07-13 23:38:41.020 [INF] NTFN: New block: height=4553407, sha=0000000002c62cb24c38e22b751f89ac90da98acab5832ddc14ca694243eb8d8
+2025-07-13 23:38:41.020 [INF] UTXN: Attempting to graduate height=4553407: num_kids=0, num_babies=0
+2025-07-13 23:38:41.054 [INF] NTFN: New block: height=4553408, sha=0000000003068525ed77678e8468a6fefa8309d771117b80d5ab68bb1197e55c
+2025-07-13 23:38:41.054 [INF] UTXN: Attempting to graduate height=4553408: num_kids=0, num_babies=0
+2025-07-13 23:38:41.083 [INF] NTFN: New block: height=4553409, sha=0000000006e1d5d771bddb583724c8bcbf2ccd6c4edc62ae3b40142dff423fd0
+2025-07-13 23:38:41.083 [INF] UTXN: Attempting to graduate height=4553409: num_kids=0, num_babies=0
+2025-07-13 23:38:41.110 [INF] NTFN: New block: height=4553410, sha=0000000005606aee92deeb6e6a98549ba2928b1fec576d9eaecf7926dad99cdc
+2025-07-13 23:38:41.110 [INF] UTXN: Attempting to graduate height=4553410: num_kids=0, num_babies=0
+2025-07-13 23:38:45.868 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:46.670 [INF] BTCN: Processed 11 blocks in the last 11.1s (height 4553428, 2025-07-13 23:38:45 -0700 PDT)
+2025-07-13 23:38:48.826 [INF] BTCN: Verified 9 filter headers in the last 10s (height 4553411, 2025-07-13 23:38:28 -0700 PDT)
+2025-07-13 23:38:48.827 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553428, hash=000000000d24b38ced85c83dd75f8285017a56a454901f8ed4c030ce45fe4ead
+2025-07-13 23:38:48.895 [INF] NTFN: New block: height=4553411, sha=0000000000000b62559de4c5e88bc0d6654ec610e02afbb9ed58074c1e620919
+2025-07-13 23:38:48.895 [INF] UTXN: Attempting to graduate height=4553411: num_kids=0, num_babies=0
+2025-07-13 23:38:49.064 [INF] NTFN: New block: height=4553412, sha=0000000002f8e72b1551c0d7c0bc146097d53d544cef51333a18322d6a03fb2d
+2025-07-13 23:38:49.064 [INF] UTXN: Attempting to graduate height=4553412: num_kids=0, num_babies=0
+2025-07-13 23:38:49.383 [INF] NTFN: New block: height=4553413, sha=000000000a1bff7e53d515a96a93d350a00973226c78837b5de678eb295cd79c
+2025-07-13 23:38:49.384 [INF] UTXN: Attempting to graduate height=4553413: num_kids=0, num_babies=0
+2025-07-13 23:38:49.426 [INF] NTFN: New block: height=4553414, sha=000000000a14ebe7c59ca86258352d6e0560daf8992aa566c719c6c604468cbd
+2025-07-13 23:38:49.427 [INF] UTXN: Attempting to graduate height=4553414: num_kids=0, num_babies=0
+2025-07-13 23:38:49.518 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:49.603 [INF] NTFN: New block: height=4553415, sha=000000000d638e647b0295045e5b79844d7a983cf4cc9fdf086f9f3b6a5ec121
+2025-07-13 23:38:49.603 [INF] UTXN: Attempting to graduate height=4553415: num_kids=0, num_babies=0
+2025-07-13 23:38:49.634 [INF] NTFN: New block: height=4553416, sha=0000000007df896e06990b58193d6be1ef0fd8352dc234c43d114327c32700d2
+2025-07-13 23:38:49.634 [INF] UTXN: Attempting to graduate height=4553416: num_kids=0, num_babies=0
+2025-07-13 23:38:49.669 [INF] NTFN: New block: height=4553417, sha=0000000006daeecec78b4723780ec60bce4daa5fe0b632bfb2d414e6e411c2b4
+2025-07-13 23:38:49.669 [INF] UTXN: Attempting to graduate height=4553417: num_kids=0, num_babies=0
+2025-07-13 23:38:49.699 [INF] NTFN: New block: height=4553418, sha=000000000fe312a019bf17601f42f2599bee87bd8087b44575726096856e07ea
+2025-07-13 23:38:49.699 [INF] UTXN: Attempting to graduate height=4553418: num_kids=0, num_babies=0
+2025-07-13 23:38:54.580 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:56.936 [INF] BTCN: Processed 7 blocks in the last 10.26s (height 4553435, 2025-07-13 23:38:55 -0700 PDT)
+2025-07-13 23:38:58.830 [INF] BTCN: Verified 8 filter headers in the last 10s (height 4553419, 2025-07-13 23:38:39 -0700 PDT)
+2025-07-13 23:38:58.831 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553437, hash=000000000a3768691446b77707aa1f8221eb2b4033f6eb507c4d03b1d83de399
+2025-07-13 23:38:58.927 [INF] NTFN: New block: height=4553419, sha=00000000091fadf80c59aeffa285a2113bb31efc64d8a35c5ff1264aab0d2023
+2025-07-13 23:38:58.928 [INF] UTXN: Attempting to graduate height=4553419: num_kids=0, num_babies=0
+2025-07-13 23:38:59.257 [INF] NTFN: New block: height=4553420, sha=00000000016361cda745181601f457db9ef143016e3a60df1e8459b105ae3066
+2025-07-13 23:38:59.257 [INF] UTXN: Attempting to graduate height=4553420: num_kids=0, num_babies=0
+2025-07-13 23:38:59.432 [INF] NTFN: New block: height=4553421, sha=0000000008d5f77693e81c92ff924034bce7165bb16f3bb81b8b7db2b225e29c
+2025-07-13 23:38:59.432 [INF] UTXN: Attempting to graduate height=4553421: num_kids=0, num_babies=0
+2025-07-13 23:38:59.464 [INF] NTFN: New block: height=4553422, sha=00000000000013063a2c895d2c720884a2b605a06ca5ac273d30a9d647867866
+2025-07-13 23:38:59.464 [INF] UTXN: Attempting to graduate height=4553422: num_kids=0, num_babies=0
+2025-07-13 23:38:59.496 [INF] NTFN: New block: height=4553423, sha=000000000caafbd2dca2f67b57bbfacc73c2d61a8fe9126e331620085db94379
+2025-07-13 23:38:59.496 [INF] UTXN: Attempting to graduate height=4553423: num_kids=0, num_babies=0
+2025-07-13 23:38:59.522 [INF] NTFN: New block: height=4553424, sha=0000000003d3d905871dd24afdb427c81c0ce56102a4753f73eb23ae5826256e
+2025-07-13 23:38:59.522 [INF] UTXN: Attempting to graduate height=4553424: num_kids=0, num_babies=0
+2025-07-13 23:38:59.561 [INF] NTFN: New block: height=4553425, sha=0000000001208167d8b0ed3c81b2edfad6fadc2ed91afda16dc65a284a6c9602
+2025-07-13 23:38:59.561 [INF] UTXN: Attempting to graduate height=4553425: num_kids=0, num_babies=0
+2025-07-13 23:38:59.594 [INF] NTFN: New block: height=4553426, sha=000000000355e72a38727e8130f28ceb37b3492bc48fa6a54aced91f1b238f34
+2025-07-13 23:38:59.594 [INF] UTXN: Attempting to graduate height=4553426: num_kids=0, num_babies=0
+2025-07-13 23:38:59.626 [INF] NTFN: New block: height=4553427, sha=0000000000a71deb91b9de2a6b8fb42e7c53f383933543e27330f7ec53b5b107
+2025-07-13 23:38:59.626 [INF] UTXN: Attempting to graduate height=4553427: num_kids=0, num_babies=0
+2025-07-13 23:38:59.630 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:38:59.810 [INF] NTFN: New block: height=4553428, sha=000000000d24b38ced85c83dd75f8285017a56a454901f8ed4c030ce45fe4ead
+2025-07-13 23:38:59.811 [INF] UTXN: Attempting to graduate height=4553428: num_kids=0, num_babies=0
+2025-07-13 23:39:04.711 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:08.833 [INF] BTCN: Verified 10 filter headers in the last 10s (height 4553429, 2025-07-13 23:38:46 -0700 PDT)
+2025-07-13 23:39:08.833 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553444, hash=000000000188f1b6f58e30e1fb658ea6216baa7a21c5f84952ea892b62486175
+2025-07-13 23:39:08.872 [INF] BTCN: Processed 10 blocks in the last 11.93s (height 4553445, 2025-07-13 23:39:06 -0700 PDT)
+2025-07-13 23:39:09.083 [INF] NTFN: New block: height=4553429, sha=000000000a3164ed93a322363d6c2b31cfecf99d8528fc4a64c24d3cf8668bee
+2025-07-13 23:39:09.083 [INF] UTXN: Attempting to graduate height=4553429: num_kids=0, num_babies=0
+2025-07-13 23:39:09.265 [INF] NTFN: New block: height=4553430, sha=000000000f9905fafced312c9292988e8f55e591eea75e2d98712394e6293926
+2025-07-13 23:39:09.265 [INF] UTXN: Attempting to graduate height=4553430: num_kids=0, num_babies=0
+2025-07-13 23:39:09.433 [INF] NTFN: New block: height=4553431, sha=0000000005fd77ebeb750cae792a2a03c36c17588506c64756cfe64a6a554586
+2025-07-13 23:39:09.433 [INF] UTXN: Attempting to graduate height=4553431: num_kids=0, num_babies=0
+2025-07-13 23:39:09.465 [INF] NTFN: New block: height=4553432, sha=0000000008f78506aec6cb4971e187e35bce545e1f85ff25c1bda7e3a41d8366
+2025-07-13 23:39:09.465 [INF] UTXN: Attempting to graduate height=4553432: num_kids=0, num_babies=0
+2025-07-13 23:39:09.491 [INF] NTFN: New block: height=4553433, sha=0000000000001d963c93cbfe4d15940b167068e5a81a75319c6f7537d5280ca3
+2025-07-13 23:39:09.491 [INF] UTXN: Attempting to graduate height=4553433: num_kids=0, num_babies=0
+2025-07-13 23:39:09.521 [INF] NTFN: New block: height=4553434, sha=00000000000019bd0c94fb7148e660f7ce1ea0f5cfa6a012f556f9fe110c1d0a
+2025-07-13 23:39:09.521 [INF] UTXN: Attempting to graduate height=4553434: num_kids=0, num_babies=0
+2025-07-13 23:39:09.564 [INF] NTFN: New block: height=4553435, sha=0000000002534eb22c6290e7e7e863ff487856bfe7bc24ff5cb0b49ad441ed37
+2025-07-13 23:39:09.564 [INF] UTXN: Attempting to graduate height=4553435: num_kids=0, num_babies=0
+2025-07-13 23:39:09.731 [INF] NTFN: New block: height=4553436, sha=000000000528f85df4556285c472fe4f3b7cd305d35e5484049f0883df6ad223
+2025-07-13 23:39:09.731 [INF] UTXN: Attempting to graduate height=4553436: num_kids=0, num_babies=0
+2025-07-13 23:39:09.757 [INF] NTFN: New block: height=4553437, sha=000000000a3768691446b77707aa1f8221eb2b4033f6eb507c4d03b1d83de399
+2025-07-13 23:39:09.757 [INF] UTXN: Attempting to graduate height=4553437: num_kids=0, num_babies=0
+2025-07-13 23:39:09.765 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:14.812 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:17.474 [INF] BTCN: Verified 9 filter headers in the last 10.01s (height 4553438, 2025-07-13 23:38:58 -0700 PDT)
+2025-07-13 23:39:17.475 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553453, hash=000000000073ab83c5d1dcba1f7c4a3a9bf92375684b22731546d77ac4e58ae8
+2025-07-13 23:39:17.840 [INF] NTFN: New block: height=4553438, sha=0000000000000becde0fe15e9e7615dee685e44ce9af29b9efffcb119b1c8e32
+2025-07-13 23:39:17.840 [INF] UTXN: Attempting to graduate height=4553438: num_kids=0, num_babies=0
+2025-07-13 23:39:18.014 [INF] NTFN: New block: height=4553439, sha=000000000309ca70d0cd89daed418102fc9322dc0d22563c1335aaa96af0991b
+2025-07-13 23:39:18.015 [INF] UTXN: Attempting to graduate height=4553439: num_kids=0, num_babies=0
+2025-07-13 23:39:18.047 [INF] NTFN: New block: height=4553440, sha=00000000082a5ae9fe78c19461e572382b544d449c03b218471244bbc51669f8
+2025-07-13 23:39:18.047 [INF] UTXN: Attempting to graduate height=4553440: num_kids=0, num_babies=0
+2025-07-13 23:39:18.078 [INF] NTFN: New block: height=4553441, sha=000000000d23d90d5ea40c2f51dbb2d641d4402be10ec656d6aa659fb8e0e47a
+2025-07-13 23:39:18.078 [INF] UTXN: Attempting to graduate height=4553441: num_kids=0, num_babies=0
+2025-07-13 23:39:18.212 [INF] BTCN: Processed 9 blocks in the last 10.7s (height 4553454, 2025-07-13 23:39:16 -0700 PDT)
+2025-07-13 23:39:18.248 [INF] NTFN: New block: height=4553442, sha=000000000d4080733284886fa8890bb1444c1a1f3b4d526ff67945826d847a02
+2025-07-13 23:39:18.248 [INF] UTXN: Attempting to graduate height=4553442: num_kids=0, num_babies=0
+2025-07-13 23:39:18.422 [INF] NTFN: New block: height=4553443, sha=000000000023db6cd4dd7ddf17435d99e215f77f9614ecc09d6c8cf2b1143b42
+2025-07-13 23:39:18.422 [INF] UTXN: Attempting to graduate height=4553443: num_kids=0, num_babies=0
+2025-07-13 23:39:18.451 [INF] NTFN: New block: height=4553444, sha=000000000188f1b6f58e30e1fb658ea6216baa7a21c5f84952ea892b62486175
+2025-07-13 23:39:18.452 [INF] UTXN: Attempting to graduate height=4553444: num_kids=0, num_babies=0
+2025-07-13 23:39:18.494 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:23.543 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:27.478 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553445, 2025-07-13 23:39:06 -0700 PDT)
+2025-07-13 23:39:27.479 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553460, hash=00000000082440d15d1f368d1abee1844562d79578e7e2235e8f4a91c03065af
+2025-07-13 23:39:27.820 [INF] NTFN: New block: height=4553445, sha=000000000b623ee58a816aaa1ddd035638c016cc5ccefcb8dcfda938533b2f6a
+2025-07-13 23:39:27.820 [INF] UTXN: Attempting to graduate height=4553445: num_kids=0, num_babies=0
+2025-07-13 23:39:28.006 [INF] NTFN: New block: height=4553446, sha=0000000007075b9f01a0e50ab11c1923c3d743165149b23382ff7cb52f909dd4
+2025-07-13 23:39:28.006 [INF] UTXN: Attempting to graduate height=4553446: num_kids=0, num_babies=0
+2025-07-13 23:39:28.182 [INF] NTFN: New block: height=4553447, sha=000000000bcadb36856b9bf0666d025e4fc2bac2c7a1ba31e06ec6e4f5f355ed
+2025-07-13 23:39:28.182 [INF] UTXN: Attempting to graduate height=4553447: num_kids=0, num_babies=0
+2025-07-13 23:39:28.214 [INF] NTFN: New block: height=4553448, sha=00000000057567f14563ffabad1a0d492da4ee4921c24deb7baac5b70821f732
+2025-07-13 23:39:28.214 [INF] UTXN: Attempting to graduate height=4553448: num_kids=0, num_babies=0
+2025-07-13 23:39:28.387 [INF] NTFN: New block: height=4553449, sha=00000000058b1c2d3d10b84ddc95ff4d402844daa27c61244150e9d531f804ca
+2025-07-13 23:39:28.387 [INF] UTXN: Attempting to graduate height=4553449: num_kids=0, num_babies=0
+2025-07-13 23:39:28.556 [INF] NTFN: New block: height=4553450, sha=000000000bc607011910fe87816204f705357f2d9bf7bf719d19c4117cac1702
+2025-07-13 23:39:28.557 [INF] UTXN: Attempting to graduate height=4553450: num_kids=0, num_babies=0
+2025-07-13 23:39:28.581 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:28.612 [INF] BTCN: Processed 9 blocks in the last 10.39s (height 4553463, 2025-07-13 23:39:27 -0700 PDT)
+2025-07-13 23:39:28.750 [INF] NTFN: New block: height=4553451, sha=00000000000006d09c3b5ce38eb8fc189b4cb9f7c3b77024ddee12dbd21ad9a1
+2025-07-13 23:39:28.750 [INF] UTXN: Attempting to graduate height=4553451: num_kids=0, num_babies=0
+2025-07-13 23:39:28.932 [INF] NTFN: New block: height=4553452, sha=0000000004dbedb0ad9b2538b7e0341427e83d53ddad164dc12cb962b1817c70
+2025-07-13 23:39:28.932 [INF] UTXN: Attempting to graduate height=4553452: num_kids=0, num_babies=0
+2025-07-13 23:39:28.961 [INF] NTFN: New block: height=4553453, sha=000000000073ab83c5d1dcba1f7c4a3a9bf92375684b22731546d77ac4e58ae8
+2025-07-13 23:39:28.961 [INF] UTXN: Attempting to graduate height=4553453: num_kids=0, num_babies=0
+2025-07-13 23:39:33.634 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:37.482 [INF] BTCN: Verified 9 filter headers in the last 10s (height 4553454, 2025-07-13 23:39:16 -0700 PDT)
+2025-07-13 23:39:37.482 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553472, hash=000000000000106848846456c998ba52df7fe0ecee26306d25f754420eacc8a0
+2025-07-13 23:39:37.557 [INF] NTFN: New block: height=4553454, sha=000000000e73990801602c4ff38e4618a1feb27e66d1960b373782f336dd631f
+2025-07-13 23:39:37.557 [INF] UTXN: Attempting to graduate height=4553454: num_kids=0, num_babies=0
+2025-07-13 23:39:37.889 [INF] NTFN: New block: height=4553455, sha=0000000007d96b7efce93cd7d739067f144cb5d438631baebf3f9923fd2fb5b1
+2025-07-13 23:39:37.889 [INF] UTXN: Attempting to graduate height=4553455: num_kids=0, num_babies=0
+2025-07-13 23:39:37.925 [INF] NTFN: New block: height=4553456, sha=00000000060eccd780b5aace7ae4a4da34351d7218b4a664a531d2b6d4ca65b5
+2025-07-13 23:39:37.925 [INF] UTXN: Attempting to graduate height=4553456: num_kids=0, num_babies=0
+2025-07-13 23:39:37.952 [INF] NTFN: New block: height=4553457, sha=0000000009ad22afedd7f237c278d9c34f6cb61d2045b12d6a96a4a50c9e5256
+2025-07-13 23:39:37.952 [INF] UTXN: Attempting to graduate height=4553457: num_kids=0, num_babies=0
+2025-07-13 23:39:38.127 [INF] NTFN: New block: height=4553458, sha=0000000002a220582bfec3d68c7e251ae60ca324cd87240528289ba74bd2dc2d
+2025-07-13 23:39:38.127 [INF] UTXN: Attempting to graduate height=4553458: num_kids=0, num_babies=0
+2025-07-13 23:39:38.317 [INF] NTFN: New block: height=4553459, sha=00000000016e867849a8aea6db6351f36cb64d843e50064fac756702a7469122
+2025-07-13 23:39:38.317 [INF] UTXN: Attempting to graduate height=4553459: num_kids=0, num_babies=0
+2025-07-13 23:39:38.346 [INF] NTFN: New block: height=4553460, sha=00000000082440d15d1f368d1abee1844562d79578e7e2235e8f4a91c03065af
+2025-07-13 23:39:38.346 [INF] UTXN: Attempting to graduate height=4553460: num_kids=0, num_babies=0
+2025-07-13 23:39:38.680 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:39.921 [INF] BTCN: Processed 10 blocks in the last 11.3s (height 4553473, 2025-07-13 23:39:36 -0700 PDT)
+2025-07-13 23:39:43.742 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:46.084 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553461, 2025-07-13 23:39:25 -0700 PDT)
+2025-07-13 23:39:46.085 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553479, hash=0000000002c52bfa6ee899fa3613f00e86b20ac07ff774c8da3abc508ee286ec
+2025-07-13 23:39:46.292 [INF] BTCN: Lost peer 74.118.136.46:18333 (outbound)
+2025-07-13 23:39:46.292 [WRN] BTCN: No sync peer candidates available
+2025-07-13 23:39:46.292 [WRN] LNWL: Query(712) from peer 74.118.136.46:18333 failed, rescheduling: peer disconnected
+2025-07-13 23:39:46.430 [INF] NTFN: New block: height=4553461, sha=0000000000ceb7cc81f609f1b81838d8edd2b873ee13ca78e3c7dc67bbda3afe
+2025-07-13 23:39:46.430 [INF] UTXN: Attempting to graduate height=4553461: num_kids=0, num_babies=0
+2025-07-13 23:39:46.559 [INF] NTFN: New block: height=4553462, sha=00000000024774fc5f8f34d5291d59cea16c3430b1365a626e128afd7993f72b
+2025-07-13 23:39:46.559 [INF] UTXN: Attempting to graduate height=4553462: num_kids=0, num_babies=0
+2025-07-13 23:39:46.617 [INF] NTFN: New block: height=4553463, sha=000000000b17eb2cffc1f59c7df5f2c80edc64163d30510b1b526e12c0004bca
+2025-07-13 23:39:46.617 [INF] UTXN: Attempting to graduate height=4553463: num_kids=0, num_babies=0
+2025-07-13 23:39:46.620 [INF] BTCN: New valid peer 139.144.22.237:18333 (outbound) (/Satoshi:28.0.0/)
+2025-07-13 23:39:46.686 [INF] NTFN: New block: height=4553464, sha=000000000cbd59116ec9f17c0a57a88572d1d0f879706d507ae436396cf26f5d
+2025-07-13 23:39:46.686 [INF] UTXN: Attempting to graduate height=4553464: num_kids=0, num_babies=0
+2025-07-13 23:39:46.723 [INF] NTFN: New block: height=4553465, sha=000000000cda38ee9e405f2ebdf610256e6b58b4df3c6631fe132e458a048c69
+2025-07-13 23:39:46.723 [INF] UTXN: Attempting to graduate height=4553465: num_kids=0, num_babies=0
+2025-07-13 23:39:46.754 [INF] NTFN: New block: height=4553466, sha=000000000f4693322a349319b5cc7e01d661b9f0bfd6577e97a060d0d43e2bb5
+2025-07-13 23:39:46.754 [INF] UTXN: Attempting to graduate height=4553466: num_kids=0, num_babies=0
+2025-07-13 23:39:46.796 [INF] NTFN: New block: height=4553467, sha=0000000002bd451838e2b7e1a220d2612eed50072d7dd78239f49a4284e0f1fe
+2025-07-13 23:39:46.796 [INF] UTXN: Attempting to graduate height=4553467: num_kids=0, num_babies=0
+2025-07-13 23:39:46.854 [INF] NTFN: New block: height=4553468, sha=0000000000002b5c86038c946851e497f8fc52b56fdeb9a021954e86e26758af
+2025-07-13 23:39:46.855 [INF] UTXN: Attempting to graduate height=4553468: num_kids=0, num_babies=0
+2025-07-13 23:39:46.888 [INF] NTFN: New block: height=4553469, sha=000000000444af689cdbf050514e6ae0bd2590386befef74005b6f9f68049ce5
+2025-07-13 23:39:46.888 [INF] UTXN: Attempting to graduate height=4553469: num_kids=0, num_babies=0
+2025-07-13 23:39:46.939 [INF] NTFN: New block: height=4553470, sha=00000000091854e16eaba85c0ecd7b1660fc75ae2f1bba875e9abf958918809d
+2025-07-13 23:39:46.939 [INF] UTXN: Attempting to graduate height=4553470: num_kids=0, num_babies=0
+2025-07-13 23:39:47.025 [INF] NTFN: New block: height=4553471, sha=00000000018f27441df5c01d70f0e3fbafb5a089ea2fa48198a39d70ac979f7b
+2025-07-13 23:39:47.025 [INF] UTXN: Attempting to graduate height=4553471: num_kids=0, num_babies=0
+2025-07-13 23:39:47.159 [INF] NTFN: New block: height=4553472, sha=000000000000106848846456c998ba52df7fe0ecee26306d25f754420eacc8a0
+2025-07-13 23:39:47.160 [INF] UTXN: Attempting to graduate height=4553472: num_kids=0, num_babies=0
+2025-07-13 23:39:47.393 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:48.634 [INF] BTCN: Processed 9 blocks in the last 10.11s (height 4553482, 2025-07-13 23:39:47 -0700 PDT)
+2025-07-13 23:39:52.451 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:56.087 [INF] BTCN: Verified 12 filter headers in the last 10s (height 4553473, 2025-07-13 23:39:36 -0700 PDT)
+2025-07-13 23:39:56.087 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553485, hash=000000000f6ecbe85bd6a661e5f517f750861c4bf77695d1900a81aabd97a0ef
+2025-07-13 23:39:56.208 [INF] NTFN: New block: height=4553473, sha=000000000f1a30c9ab067f4f7f74154b266b279a4d40c64d85c3451dccc3b150
+2025-07-13 23:39:56.208 [INF] UTXN: Attempting to graduate height=4553473: num_kids=0, num_babies=0
+2025-07-13 23:39:56.237 [INF] NTFN: New block: height=4553474, sha=0000000008d7be9a4746a3b0e2d483c00f9ca816ba0a689e9b8b39ce413cac46
+2025-07-13 23:39:56.237 [INF] UTXN: Attempting to graduate height=4553474: num_kids=0, num_babies=0
+2025-07-13 23:39:56.274 [INF] NTFN: New block: height=4553475, sha=00000000038015dfb029b88c24537d813f4b43f6e31192f235debc6b594bd6eb
+2025-07-13 23:39:56.274 [INF] UTXN: Attempting to graduate height=4553475: num_kids=0, num_babies=0
+2025-07-13 23:39:56.338 [INF] NTFN: New block: height=4553476, sha=0000000003afeb86127f7e837ac2bad1e24aacf85e48048e42813695a78d1882
+2025-07-13 23:39:56.338 [INF] UTXN: Attempting to graduate height=4553476: num_kids=0, num_babies=0
+2025-07-13 23:39:56.427 [INF] NTFN: New block: height=4553477, sha=000000000e1c15f5900879c7d0c6cea51a438c51d35d19dfae354ebfe529fc26
+2025-07-13 23:39:56.427 [INF] UTXN: Attempting to graduate height=4553477: num_kids=0, num_babies=0
+2025-07-13 23:39:56.500 [INF] NTFN: New block: height=4553478, sha=000000000a8940832f0f28260fe5e09f8fb43bc5ce5a67097a948765365a26d9
+2025-07-13 23:39:56.500 [INF] UTXN: Attempting to graduate height=4553478: num_kids=0, num_babies=0
+2025-07-13 23:39:56.528 [INF] NTFN: New block: height=4553479, sha=0000000002c52bfa6ee899fa3613f00e86b20ac07ff774c8da3abc508ee286ec
+2025-07-13 23:39:56.528 [INF] UTXN: Attempting to graduate height=4553479: num_kids=0, num_babies=0
+2025-07-13 23:39:57.511 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:39:59.021 [INF] BTCN: Processed 6 blocks in the last 10.38s (height 4553488, 2025-07-13 23:39:57 -0700 PDT)
+2025-07-13 23:40:02.565 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:40:06.090 [INF] BTCN: Verified 7 filter headers in the last 10s (height 4553480, 2025-07-13 23:39:45 -0700 PDT)
+2025-07-13 23:40:06.090 [INF] BTCN: Attempting to fetch set of un-checkpointed filters at height=4553496, hash=000000000702374f8ba1ea5d88f75628c4829b3d47a17bce6697c25a4f222901
+2025-07-13 23:40:06.178 [INF] NTFN: New block: height=4553480, sha=000000000463cdb5c00f2852059613dc9445620a86b9fb5e05350b1c5f5bb237
+2025-07-13 23:40:06.178 [INF] UTXN: Attempting to graduate height=4553480: num_kids=0, num_babies=0
+2025-07-13 23:40:06.246 [INF] NTFN: New block: height=4553481, sha=00000000077836c60174ffe3862691d6c4d609c80e43f7223a8bc697bd439312
+2025-07-13 23:40:06.246 [INF] UTXN: Attempting to graduate height=4553481: num_kids=0, num_babies=0
+2025-07-13 23:40:06.281 [INF] NTFN: New block: height=4553482, sha=000000000d898ed4bef400155839a933bb976e3f5e28d062b63fe782235e597d
+2025-07-13 23:40:06.282 [INF] UTXN: Attempting to graduate height=4553482: num_kids=0, num_babies=0
+2025-07-13 23:40:06.367 [INF] NTFN: New block: height=4553483, sha=0000000000293091441da7a0306f29b351d7838f625bd28e264fef6d93054621
+2025-07-13 23:40:06.368 [INF] UTXN: Attempting to graduate height=4553483: num_kids=0, num_babies=0
+2025-07-13 23:40:06.434 [INF] NTFN: New block: height=4553484, sha=000000000c7f4ab78041ac6567ccd9f535d9fdfd35e920f6a7651808da416324
+2025-07-13 23:40:06.434 [INF] UTXN: Attempting to graduate height=4553484: num_kids=0, num_babies=0
+2025-07-13 23:40:06.501 [INF] NTFN: New block: height=4553485, sha=000000000f6ecbe85bd6a661e5f517f750861c4bf77695d1900a81aabd97a0ef
+2025-07-13 23:40:06.501 [INF] UTXN: Attempting to graduate height=4553485: num_kids=0, num_babies=0
+2025-07-13 23:40:07.647 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host
+2025-07-13 23:40:10.789 [INF] BTCN: Processed 10 blocks in the last 11.76s (height 4553498, 2025-07-13 23:40:09 -0700 PDT)
+2025-07-13 23:40:11.313 [WRN] BTCN: unable to lookup IP for testnet-seed.lightning.community:18333: lookup testnet-seed.lightning.community on 10.255.255.254:53: no such host

@@ -20,7 +20,7 @@ def test_complete_domp_flow():
     try:
         # Step 1: Initialize user identity
         print("👤 Step 1: Initializing user identity...")
-        response = requests.get(f"{API_BASE}/api/identity")
+        response = requests.get(f"{API_BASE}/api/identity", timeout=10)
         if response.status_code != 200:
             print(f"❌ Failed to initialize identity: {response.status_code}")
             return False
@@ -31,7 +31,7 @@ def test_complete_domp_flow():
         
         # Step 2: Browse marketplace listings
         print(f"\n📦 Step 2: Browsing marketplace...")
-        response = requests.get(f"{API_BASE}/api/listings")
+        response = requests.get(f"{API_BASE}/api/listings", timeout=10)
         if response.status_code != 200:
             print(f"❌ Failed to get listings: {response.status_code}")
             return False
@@ -61,7 +61,8 @@ def test_complete_domp_flow():
         response = requests.post(
             f"{API_BASE}/api/bids",
             headers={"Content-Type": "application/json"},
-            data=json.dumps(bid_request)
+            data=json.dumps(bid_request),
+            timeout=15
         )
         
         if response.status_code != 200:
@@ -75,7 +76,7 @@ def test_complete_domp_flow():
         
         # Step 4: Check transaction and Lightning invoice
         print(f"\n⚡ Step 4: Checking Lightning invoice generation...")
-        response = requests.get(f"{API_BASE}/api/transactions")
+        response = requests.get(f"{API_BASE}/api/transactions", timeout=10)
         if response.status_code != 200:
             print(f"❌ Failed to get transactions: {response.status_code}")
             return False
@@ -113,7 +114,7 @@ def test_complete_domp_flow():
         
         # Step 5: Simulate Lightning payment
         print(f"\n💸 Step 5: Simulating Lightning payment...")
-        response = requests.post(f"{API_BASE}/api/transactions/{latest_tx['id']}/complete-payment")
+        response = requests.post(f"{API_BASE}/api/transactions/{latest_tx['id']}/complete-payment", timeout=10)
         
         if response.status_code != 200:
             print(f"❌ Payment simulation failed: {response.status_code} - {response.text}")
@@ -127,7 +128,7 @@ def test_complete_domp_flow():
         
         # Step 6: Verify transaction completion
         print(f"\n✅ Step 6: Verifying transaction completion...")
-        response = requests.get(f"{API_BASE}/api/transactions")
+        response = requests.get(f"{API_BASE}/api/transactions", timeout=10)
         if response.status_code == 200:
             updated_transactions = response.json().get("transactions", [])
             updated_tx = next((t for t in updated_transactions if t["id"] == latest_tx["id"]), None)

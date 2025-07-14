@@ -634,12 +634,14 @@ async def create_transaction_invoices(escrow, listing_content):
         else:
             # Real Lightning client
             if not hasattr(app_state.lightning_client, '_channel') or not app_state.lightning_client._channel:
-                await app_state.lightning_client.connect()
+                await asyncio.wait_for(app_state.lightning_client.connect(), timeout=5.0)
             
-            invoice_data = await app_state.lightning_client.create_invoice(
-                amount_sats=escrow.purchase_amount_sats,
-                description=purchase_description,
-                expiry_seconds=3600  # 1 hour to pay
+            invoice_data = await asyncio.wait_for(
+                app_state.lightning_client.create_invoice(
+                    amount_sats=escrow.purchase_amount_sats,
+                    description=purchase_description,
+                    expiry_seconds=3600  # 1 hour to pay
+                ), timeout=5.0
             )
             invoices["purchase"] = {
                 "payment_request": invoice_data["payment_request"],
@@ -666,11 +668,13 @@ async def create_transaction_invoices(escrow, listing_content):
                     "client_type": "mock"
                 }
             else:
-                # Real Lightning client
-                collateral_data = await app_state.lightning_client.create_invoice(
-                    amount_sats=escrow.buyer_collateral_sats,
-                    description=collateral_description,
-                    expiry_seconds=3600
+                # Real Lightning client  
+                collateral_data = await asyncio.wait_for(
+                    app_state.lightning_client.create_invoice(
+                        amount_sats=escrow.buyer_collateral_sats,
+                        description=collateral_description,
+                        expiry_seconds=3600
+                    ), timeout=5.0
                 )
                 invoices["buyer_collateral"] = {
                     "payment_request": collateral_data["payment_request"],
@@ -710,7 +714,21 @@ async def simulate_bid_acceptance(bid_id: str, listing_id: str):
         )
         
         # Create real Lightning invoices for this transaction
-        lightning_invoices = await create_transaction_invoices(escrow, listing_content)
+        try:
+            lightning_invoices = await asyncio.wait_for(
+                create_transaction_invoices(escrow, listing_content), 
+                timeout=10.0  # 10 second timeout
+            )
+        except asyncio.TimeoutError:
+            print("⚠️  Lightning invoice creation timed out, using mock invoices")
+            lightning_invoices = {
+                "purchase": {
+                    "payment_request": f"mock_invoice_{escrow.transaction_id}",
+                    "amount_sats": escrow.purchase_amount_sats,
+                    "description": f"DOMP: {listing_content['product_name']} - Purchase",
+                    "client_type": "mock_fallback"
+                }
+            }
         
         # Store transaction with Lightning invoice details
         app_state.transactions[escrow.transaction_id] = {

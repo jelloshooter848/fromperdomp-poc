@@ -1,0 +1,78 @@
+INFO:     Started server process [11174]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+✅ Using real Lightning client (LND)
+✅ Connected to LND at localhost:10009
+Failed to get wallet balance: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "wallet locked, unlock it to enable full RPC access"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
+>
+Real Lightning client failed: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "wallet locked, unlock it to enable full RPC access"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
+>
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:56108 - "GET /api/identity HTTP/1.1" 200 OK
+Failed to get wallet balance: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "wallet locked, unlock it to enable full RPC access"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
+>
+Real Lightning client failed: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "wallet locked, unlock it to enable full RPC access"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"wallet locked, unlock it to enable full RPC access", grpc_status:2}"
+>
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:56114 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:51814 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:44998 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:45006 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45018 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45032 - "POST /api/bids HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45046 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45062 - "POST /api/transactions/tx_a7ddb29f/complete-payment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45070 - "GET /api/transactions HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:45076 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45088 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45102 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45114 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:45120 - "POST /api/invoices HTTP/1.1" 200 OK
+Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "self-payments not allowed"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"self-payments not allowed", grpc_status:2}"
+>
+Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "self-payments not allowed"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_message:"self-payments not allowed", grpc_status:2}"
+>
+INFO:     127.0.0.1:45124 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:49600 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49616 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49632 - "POST /api/bids HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49646 - "GET /api/transactions HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:49652 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49656 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49666 - "POST /api/invoices HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:49676 - "GET /api/identity HTTP/1.1" 200 OK

@@ -44,7 +44,7 @@ def run_single_test(test_file: str) -> TestResult:
             [sys.executable, test_file],
             capture_output=True,
             text=True,
-            timeout=300  # 5 minute timeout per test
+            timeout=120  # 2 minute timeout per test (reduced from 5 minutes)
         )
         
         duration = time.time() - start_time
