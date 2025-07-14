@@ -16,6 +16,8 @@ The DOMP Service Launcher (`domp_launcher.py`) is a unified management tool for 
 ### Interactive Mode (Recommended)
 
 ```bash
+cd projects/fromperdomp-poc/implementations/reference/python
+source domp-env/bin/activate
 python domp_launcher.py
 ```
 

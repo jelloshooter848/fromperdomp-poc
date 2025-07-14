@@ -76,3 +76,72 @@ INFO:     127.0.0.1:49666 - "POST /api/invoices HTTP/1.1" 200 OK
 Lightning balance result: 0 (type: <class 'int'>)
 Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
 INFO:     127.0.0.1:49676 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:50796 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:47830 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:47838 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:36750 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:38578 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:59344 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:54012 - "GET /api/identity HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:54022 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54038 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54052 - "POST /api/bids HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54058 - "GET /api/transactions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54074 - "POST /api/transactions/tx_23f908f2/complete-payment HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54076 - "GET /api/transactions HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:54078 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54084 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54088 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54102 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54118 - "POST /api/invoices HTTP/1.1" 200 OK
+Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "self-payments not allowed"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:2, grpc_message:"self-payments not allowed"}"
+>
+Failed to pay Lightning invoice: <AioRpcError of RPC that terminated with:
+	status = StatusCode.UNKNOWN
+	details = "self-payments not allowed"
+	debug_error_string = "UNKNOWN:Error received from peer  {grpc_status:2, grpc_message:"self-payments not allowed"}"
+>
+INFO:     127.0.0.1:54130 - "POST /api/payments HTTP/1.1" 500 Internal Server Error
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:54138 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54140 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54152 - "POST /api/bids HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54164 - "GET /api/transactions HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:54172 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54188 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54194 - "POST /api/invoices HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47340 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47340 - "GET /static/app.js HTTP/1.1" 200 OK
+Lightning balance result: 0 (type: <class 'int'>)
+Identity result: {'pubkey': '3441a49fd873c5e547ec0c0409f74325ee42d7b2bc00c8996a85c66d170fa0e1', 'pubkey_short': '3441a49fd873c5e5...', 'lightning_balance': 0}
+INFO:     127.0.0.1:47340 - "GET /api/identity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47344 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:47340 - "GET /api/wallet/balance HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47340 - "GET /api/listings HTTP/1.1" 200 OK
+INFO:     127.0.0.1:47348 - "WebSocket /ws" [accepted]
+INFO:     connection open
+INFO:     connection closed
