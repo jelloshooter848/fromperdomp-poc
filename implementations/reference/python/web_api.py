@@ -24,6 +24,7 @@ from domp.events import ProductListing, BidSubmission, BidAcceptance, PaymentCon
 from domp.lightning import LightningEscrowManager, MockLightningNode, LightningClientFactory, EscrowState
 from domp.reputation import ReputationSystem, create_reputation_from_receipt_confirmation
 from domp.validation import validate_event
+from domp.client import DOMPClient
 
 
 # Pydantic models for API requests/responses
@@ -58,25 +59,34 @@ class DOMPWebState:
         # User identity
         self.keypair: Optional[KeyPair] = None
         self.lightning_client = None
+        self.nostr_client: Optional[DOMPClient] = None
         
         # Core DOMP components
         self.escrow_manager = LightningEscrowManager()
         self.reputation_system = ReputationSystem()
         
-        # Data storage
+        # Data storage (will be replaced with Nostr-sourced data)
         self.listings: Dict[str, Dict] = {}
         self.bids: Dict[str, Dict] = {}
         self.transactions: Dict[str, Dict] = {}
         self.my_transactions: List[str] = []
         
+        # Nostr event tracking
+        self.processed_events: set = set()  # Track processed event IDs
+        self.event_processing_task: Optional[asyncio.Task] = None
+        
         # WebSocket connections
         self.websocket_connections: List[WebSocket] = []
         
-        # Initialize sample data
+        # Initialize identity first (needed for Nostr client)
+        self.load_identity()
+        
+        # Initialize sample data (temporary - will be replaced by Nostr events)
         self.load_sample_data()
         
-        # Initialize Lightning client
+        # Initialize clients
         self.initialize_lightning_client()
+        self.initialize_nostr_client()
     
     def load_identity(self):
         """Load or create user identity."""
@@ -110,6 +120,31 @@ class DOMPWebState:
         except Exception as e:
             print(f"⚠️  Real Lightning client failed, using mock: {e}")
             self.lightning_client = LightningClientFactory.create_client(use_real=False)
+    
+    def initialize_nostr_client(self):
+        """Initialize Nostr client for real-time event processing."""
+        if not self.keypair:
+            print("⚠️  No keypair available for Nostr client")
+            return
+        
+        try:
+            # Use popular public relays for multi-computer communication
+            relays = [
+                "wss://relay.damus.io",
+                "wss://nos.lol", 
+                "wss://relay.nostr.band",
+                "wss://nostr.wine"
+            ]
+            
+            self.nostr_client = DOMPClient(self.keypair, relays)
+            print(f"✅ Nostr client initialized with {len(relays)} relays")
+            
+            # Add event handler for incoming events
+            self.nostr_client.add_event_handler(self.handle_nostr_event)
+            
+        except Exception as e:
+            print(f"❌ Failed to initialize Nostr client: {e}")
+            self.nostr_client = None
     
     def load_sample_data(self):
         """Load sample marketplace data."""
@@ -235,6 +270,172 @@ class DOMPWebState:
             # Remove disconnected clients
             for ws in disconnected:
                 self.websocket_connections.remove(ws)
+    
+    def handle_nostr_event(self, event):
+        """Handle incoming Nostr events for cross-computer synchronization."""
+        try:
+            event_id = event.id if hasattr(event, 'id') else event.get('id')
+            
+            # Skip if already processed
+            if event_id in self.processed_events:
+                return
+            
+            self.processed_events.add(event_id)
+            
+            # Convert to dict if needed
+            event_dict = event.to_dict() if hasattr(event, 'to_dict') else event
+            kind = event_dict.get('kind')
+            
+            print(f"📡 Received Nostr event: kind-{kind}, id: {event_id[:16]}...")
+            
+            # Process different event types
+            if kind == 300:  # Product Listing
+                self.process_listing_event(event_dict)
+            elif kind == 301:  # Bid Submission
+                self.process_bid_event(event_dict)
+            elif kind == 303:  # Bid Acceptance
+                self.process_bid_acceptance_event(event_dict)
+            elif kind == 313:  # Receipt Confirmation
+                self.process_receipt_event(event_dict)
+            elif kind == 321:  # Reputation Feedback
+                self.process_reputation_event(event_dict)
+            
+            # Broadcast update to connected WebSocket clients
+            asyncio.create_task(self.broadcast_update({
+                "type": "nostr_event",
+                "kind": kind,
+                "event_id": event_id,
+                "source": "external"
+            }))
+            
+        except Exception as e:
+            print(f"❌ Error processing Nostr event: {e}")
+    
+    def process_listing_event(self, event_dict):
+        """Process incoming product listing events."""
+        try:
+            listing_id = event_dict['id']
+            
+            # Skip our own events
+            if event_dict['pubkey'] == self.keypair.public_key_hex:
+                return
+            
+            # Store the listing
+            self.listings[listing_id] = {
+                "event": event_dict,
+                "seller_keypair": None,  # External listing
+                "source": "nostr"
+            }
+            
+            content = json.loads(event_dict['content'])
+            print(f"📦 New external listing: {content.get('product_name', 'Unknown')}")
+            
+        except Exception as e:
+            print(f"❌ Error processing listing event: {e}")
+    
+    def process_bid_event(self, event_dict):
+        """Process incoming bid submission events."""
+        try:
+            bid_id = event_dict['id']
+            content = json.loads(event_dict['content'])
+            
+            # Store the bid
+            self.bids[bid_id] = {
+                "event": event_dict,
+                "listing_id": content.get('product_ref'),
+                "status": "pending",
+                "source": "nostr"
+            }
+            
+            print(f"💰 New external bid: {content.get('bid_amount_satoshis', 0)} sats")
+            
+        except Exception as e:
+            print(f"❌ Error processing bid event: {e}")
+    
+    def process_bid_acceptance_event(self, event_dict):
+        """Process incoming bid acceptance events."""
+        try:
+            content = json.loads(event_dict['content'])
+            bid_ref = content.get('bid_ref')
+            
+            if bid_ref in self.bids:
+                self.bids[bid_ref]['status'] = 'accepted'
+                print(f"✅ Bid accepted: {bid_ref[:16]}...")
+            
+        except Exception as e:
+            print(f"❌ Error processing bid acceptance event: {e}")
+    
+    def process_receipt_event(self, event_dict):
+        """Process incoming receipt confirmation events."""
+        try:
+            content = json.loads(event_dict['content'])
+            payment_ref = content.get('payment_ref')
+            
+            # Update transaction status if we're tracking it
+            for tx_id, tx_data in self.transactions.items():
+                if tx_data.get('escrow') and hasattr(tx_data['escrow'], 'transaction_id'):
+                    if tx_data['escrow'].transaction_id == payment_ref:
+                        tx_data['status'] = 'completed'
+                        break
+            
+            print(f"✅ Receipt confirmed: {payment_ref[:16]}...")
+            
+        except Exception as e:
+            print(f"❌ Error processing receipt event: {e}")
+    
+    def process_reputation_event(self, event_dict):
+        """Process incoming reputation feedback events."""
+        try:
+            content = json.loads(event_dict['content'])
+            print(f"⭐ New reputation feedback: {content.get('rating', 0)} stars")
+            
+            # Add to reputation system
+            # TODO: Implement proper reputation event processing
+            
+        except Exception as e:
+            print(f"❌ Error processing reputation event: {e}")
+    
+    async def start_nostr_processing(self):
+        """Start background Nostr event processing."""
+        if not self.nostr_client:
+            print("⚠️  No Nostr client available for event processing")
+            return
+        
+        try:
+            print("🚀 Starting Nostr client and event processing...")
+            
+            # Connect to relays
+            await self.nostr_client.connect()
+            
+            # Subscribe to DOMP event types
+            filters = [
+                {"kinds": [300, 301, 303, 313, 321]},  # Core DOMP events
+                {"since": int(time.time()) - 3600}     # Last hour
+            ]
+            
+            await self.nostr_client.subscribe("domp_events", filters)
+            print("✅ Subscribed to DOMP events on Nostr relays")
+            
+            # Keep processing events
+            while True:
+                await asyncio.sleep(1)
+                # Event processing happens via callbacks
+                
+        except Exception as e:
+            print(f"❌ Error in Nostr processing: {e}")
+    
+    async def stop_nostr_processing(self):
+        """Stop Nostr event processing."""
+        if self.event_processing_task:
+            self.event_processing_task.cancel()
+            try:
+                await self.event_processing_task
+            except asyncio.CancelledError:
+                pass
+        
+        if self.nostr_client:
+            await self.nostr_client.disconnect()
+            print("✅ Nostr client disconnected")
 
 
 # Initialize global state
@@ -250,7 +451,22 @@ os.makedirs(static_dir, exist_ok=True)
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
-# Startup handled in main function to avoid deprecation warning
+# Startup and shutdown event handlers
+@app.on_event("startup")
+async def startup_event():
+    """Initialize Nostr client on application startup."""
+    if app_state.nostr_client:
+        # Start background Nostr processing
+        app_state.event_processing_task = asyncio.create_task(
+            app_state.start_nostr_processing()
+        )
+        print("🚀 Background Nostr processing started")
+
+@app.on_event("shutdown") 
+async def shutdown_event():
+    """Clean up Nostr client on application shutdown."""
+    await app_state.stop_nostr_processing()
+    print("🛑 Application shutdown complete")
 
 
 @app.get("/", response_class=HTMLResponse)
