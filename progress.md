@@ -231,64 +231,72 @@ Enhanced spam prevention mechanisms:
 
 ## 🚀 **Implementation Roadmap**
 
-### **Phase 1: Critical Features (MVP Requirements)**
+### **Phase 1: Multi-Computer Communication (PRIORITY)**
+**Timeline: 4 weeks**
+
+**🎯 Goal**: Enable real P2P marketplace between two computers using existing HTLC escrow system.
+
+1. **Nostr-Based State Synchronization**
+   - Integrate DOMPClient into Web API for real-time event processing
+   - Replace in-memory listings/bids/transactions with Nostr-sourced data
+   - Add background Nostr subscription to all DOMP event types
+
+2. **Cross-Computer Bid Flow**
+   - Remove simulate_bid_acceptance() automatic behavior
+   - Implement real kind-301 (Bid Submission) and kind-303 (Bid Acceptance) events
+   - Enable sellers to manually accept/reject bids from other computers
+
+3. **Lightning Escrow Coordination**
+   - Publish Lightning invoice details in bid acceptance events
+   - Sync HTLCEscrow states via Nostr events between computers
+   - Coordinate payment confirmations across instances
+
+4. **Real-time UI Updates**
+   - Enhanced WebSocket broadcasting for cross-computer changes
+   - Live bid notifications and transaction status updates
+
+### **Phase 2: Complete Event Type Coverage**
 **Timeline: 2-3 months**
 
-1. **Real Escrow Implementation**
-   - Implement HTLC-based escrow contracts
-   - Build collateral deposit system
-   - Create automatic fund release mechanisms
-   - Add escrow state management
-
-2. **Complete Core Event Types**
+5. **Core Event Types Implementation**
    - Implement kind-302 (Counter Bid)
-   - Implement kind-303 (Bid Acceptance)
    - Implement kind-310 (Collateral Deposit)
    - Implement kind-311 (Payment Confirmation)
    - Add proper event sequencing validation
 
-3. **Enhanced Transaction Workflow**
-   - Real escrow integration with web API
-   - Complete transaction lifecycle
-   - Proper collateral handling
+6. **Communication & Reputation Events**
+   - Implement kind-320 (Communication Messages)
+   - Enhanced kind-321 (User Reputation) with validation
+   - Event reference validation for ratings
+   - Prevent duplicate ratings per transaction
 
-### **Phase 2: Important Features (Beta Requirements)**
+### **Phase 3: Dispute Resolution & Advanced Features**
 **Timeline: 3-4 months**
 
-4. **Dispute & Arbitration System**
+7. **Arbitration System**
    - Implement kind-312 (Escrow Dispute)
    - Build arbitrator selection (kind-316)
    - Create resolution mechanisms (kind-317)
    - Add arbitrator reputation (kind-322)
 
-5. **Advanced Reputation System**
-   - Event reference validation for ratings
-   - Prevent duplicate ratings per transaction
-   - Sybil attack prevention mechanisms
-   - Relay reputation system (kind-323)
-
-6. **Communication System**
-   - Implement kind-320 (Communication Messages)
-   - Add encrypted messaging between parties
-   - Build notification system
-
-### **Phase 3: Enhancement Features (Production Scale)**
-**Timeline: 2-3 months**
-
-7. **Advanced Anti-Spam**
+8. **Advanced Anti-Spam & Security**
    - Lightning payment anti-spam requirements
-   - Dynamic policy adjustment
-   - Relay-specific configurations
-
-8. **Security Hardening**
-   - Attack vector mitigation
-   - Privacy enhancements
+   - Relay reputation system (kind-323)
+   - Sybil attack prevention mechanisms
    - Advanced cryptographic features
+
+### **Phase 4: Performance & Production Features**
+**Timeline: 2-3 months**
 
 9. **Performance & Scalability**
    - Database optimization
    - Caching mechanisms
    - Load balancing support
+
+10. **Production Hardening**
+    - Security enhancements
+    - Privacy improvements
+    - Attack vector mitigation
 
 ## 📈 **Progress Tracking**
 
@@ -300,10 +308,10 @@ Enhanced spam prevention mechanisms:
 - ✅ **July 2025**: Real Nostr relay compatibility
 
 ### **Current Development Status:**
-- **Active Work**: Documentation and progress tracking
-- **Next Priority**: Real escrow mechanism implementation
+- **Active Work**: Phase 1 - Multi-Computer Communication
+- **Next Priority**: Nostr-based state synchronization
 - **Test Coverage**: 11/11 tests passing (100%)
-- **System Status**: Fully functional for demo/testing
+- **System Status**: Single-computer fully functional, multi-computer partial
 
 ### **Key Metrics:**
 - **Lines of Code**: ~3,000+ (Python implementation)
