@@ -250,24 +250,24 @@ Enhanced spam prevention mechanisms:
    - ✅ Added GET /api/bids, POST /api/bids/{id}/accept, POST /api/bids/{id}/reject endpoints
    - ✅ Real Lightning invoice creation and publishing via bid acceptance events
 
-3. **Lightning Escrow Coordination** (IN PROGRESS - TASK 4/4)
+3. **✅ Lightning Escrow Coordination** (COMPLETED - TASK 4/4)
    - ✅ Publish Lightning invoice details in bid acceptance events
-   - Sync HTLCEscrow states via Nostr events between computers
-   - Coordinate payment confirmations across instances
-   
-   **Next Implementation Steps (Task 4):**
-   - Create kind-311 (Payment Confirmation) events when Lightning invoices are paid
-   - Publish payment confirmations to Nostr for cross-computer escrow state sync
-   - Update HTLCEscrow states across computers when payments are detected
-   - Implement escrow release coordination via Nostr events
-   - Add payment status tracking endpoints for buyers/sellers
-   - Handle payment timeouts and escrow expiration across computers
+   - ✅ Sync HTLCEscrow states via Nostr events between computers
+   - ✅ Coordinate payment confirmations across instances
+   - ✅ Create kind-311 (Payment Confirmation) events when Lightning invoices are paid
+   - ✅ Publish payment confirmations to Nostr for cross-computer escrow state sync
+   - ✅ Update HTLCEscrow states across computers when payments are detected
+   - ✅ Implement escrow release coordination via Nostr events
+   - ✅ Add payment status tracking endpoints for buyers/sellers
+   - ✅ Enhanced dependency management and new computer setup workflow
 
-4. **Real-time UI Updates**
-   - Enhanced WebSocket broadcasting for cross-computer changes
-   - Live bid notifications and transaction status updates
+4. **✅ Real-time UI Updates** (COMPLETED)
+   - ✅ Enhanced WebSocket broadcasting for cross-computer changes
+   - ✅ Live bid notifications and transaction status updates
+   - ✅ Real-time payment confirmation notifications
+   - ✅ Cross-computer escrow state synchronization updates
 
-#### **✅ Phase 1 Technical Achievements (75% Complete)**
+#### **🎉 Phase 1 Complete: Multi-Computer Communication (100% Complete)**
 
 **Multi-Computer Data Synchronization:**
 - Replaced in-memory data storage with Nostr-sourced state management
@@ -329,18 +329,46 @@ Enhanced spam prevention mechanisms:
    - Implement automatic wallet initialization and funding instructions
    - File: `implementations/reference/python/domp-launcher.py` (wallet setup section)
 
-**Key Files to Modify:**
-- `web_api.py`: Payment event publishing, event handlers, status endpoints
-- `domp/lightning.py`: Escrow state coordination methods
-- `domp/events.py`: PaymentConfirmation event class (if needed)
-- `domp-launcher.py`: Wallet detection and creation workflow
+## 📦 **New Computer Setup Requirements**
 
-**Testing Strategy:**
-- Test payment on Computer A triggers escrow update on Computer B
-- Verify HTLCEscrow state synchronization across multiple instances
-- Confirm payment timeouts handled consistently across computers
-- Test wallet creation workflow on fresh computer without existing Lightning setup
-- Verify new wallet integration with DOMP marketplace functionality
+### **What's Included in Repository:**
+- ✅ Complete DOMP marketplace implementation (~3,000+ lines)
+- ✅ All Python dependencies (via `pip install -r requirements.txt`)
+- ✅ Nostr client and protocol integration
+- ✅ Lightning Network integration code
+- ✅ Web interface and API server
+- ✅ Service launcher with dependency management
+- ✅ Comprehensive test suite (100% pass rate)
+- ✅ Complete documentation and setup guides
+
+### **External Dependencies (Need Separate Installation):**
+- **LND (Lightning Network Daemon)** - ~50MB separate download
+  - Provides actual Lightning Network functionality
+  - Platform-specific binaries available
+  - Automatic detection and install instructions provided
+- **Python 3.8+** - Programming language runtime
+- **Git** - Version control for cloning repository
+
+### **Automated Setup Process:**
+```bash
+# 1. Clone repository
+git clone <repo-url>
+cd fromperdomp-poc/implementations/reference/python
+
+# 2. Setup Python environment
+python -m venv domp-env
+source domp-env/bin/activate
+pip install -r requirements.txt
+
+# 3. Check what needs installation (automatic)
+python domp_launcher.py check-deps
+
+# 4. Install LND if needed (guided instructions provided)
+# 5. Complete setup (automatic wallet creation)
+python domp_launcher.py setup
+```
+
+**Result**: Fresh computer → Full P2P marketplace in ~10 minutes with clear dependency guidance.
 
 ### **Phase 2: Complete Event Type Coverage**
 **Timeline: 2-3 months**
@@ -395,14 +423,15 @@ Enhanced spam prevention mechanisms:
 - ✅ **July 2025**: Real Nostr relay compatibility
 - ✅ **July 2025**: Nostr-based state synchronization for multi-computer marketplace
 - ✅ **July 2025**: Real cross-computer bid acceptance flow with manual seller control
+- ✅ **July 2025**: Complete Phase 1 - Multi-computer P2P marketplace fully operational
 
 ### **Current Development Status:**
-- **Active Work**: Phase 1 - Multi-Computer Communication
-- **Current Priority**: Cross-computer Lightning escrow coordination (Task 4/4 - FINAL TASK)
+- **Active Work**: Phase 1 - Multi-Computer Communication ✅ **COMPLETE**
+- **Current Priority**: Ready for Phase 2 - Complete Event Type Coverage
 - **Test Coverage**: 11/11 tests passing (100%)
-- **System Status**: Cross-computer bid flow working, escrow coordination in progress
+- **System Status**: Full P2P marketplace operational between multiple computers
 - **Active Branch**: `feature/multi-computer-communication`
-- **Recent Commits**: Real bid acceptance flow implementation complete
+- **Recent Commits**: Complete cross-computer escrow coordination + dependency management
 
 ### **Key Metrics:**
 - **Lines of Code**: ~3,000+ (Python implementation)
